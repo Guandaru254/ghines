@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Projects from "../../api/projects";
-import PageTitle from '../../components/Pagetitle/PageTitle'
+import PageTitle from '../../components/PageTitle/PageTitle'
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import Image from 'next/image';
 

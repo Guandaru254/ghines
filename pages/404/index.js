@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import NewHeader from '../../components/NewHeader/newheader.js'; import PageTitle from '../../components/Pagetitle/PageTitle'
+import NewHeader from '../../components/NewHeader/newheader.js'; 
+import PageTitle from '../../components/PageTitle/PageTitle'
 import Error from '../../components/404/404'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import Footer from '../../components/footer/Footer';

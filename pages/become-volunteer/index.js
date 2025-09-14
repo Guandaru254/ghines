@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PageTitle from '../../components/Pagetitle/PageTitle'
+import PageTitle from '../../components/PageTitle/PageTitle'
 import BecomeVolunteerForm from '../../components/BecomeVolunteerForm/BecomeVolunteerForm'
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import Logo from '/public/images/logo-2.svg'

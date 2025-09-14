@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import Link from 'next/link';
-import PageTitle from '../../components/Pagetitle/PageTitle';
+import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import causes from '../../api/causes';
 import Image from 'next/image';

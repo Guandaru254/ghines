@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import Layout from '../components/Layout/Layout';
-import PageTitle from '../components/Pagetitle/PageTitle';
+import PageTitle from '../components/PageTitle/PageTitle';
 import GetInvolved from '../components/GetInvolved/GetInvolved';
 import Scrollbar from '../components/scrollbar/scrollbar';
 

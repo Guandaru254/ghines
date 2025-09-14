@@ -1,7 +1,7 @@
 // src/components/GetInvolved/GetInvolved.jsx
 
 import React, { Fragment } from 'react';
-import PageTitle from '../pagetitle/PageTitle';
+import PageTitle from '../PageTitle/PageTitle';
 import Layout from '../Layout/Layout';
 import Scrollbar from '../scrollbar/scrollbar';
 

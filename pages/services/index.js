@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import Image from 'next/image';
-import PageTitle from '../../components/Pagetitle/PageTitle';
+import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import causes from '../../api/causes'; // This is the data file you provided
 

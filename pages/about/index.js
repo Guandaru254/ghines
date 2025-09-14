@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PageTitle from '../../components/Pagetitle/PageTitle';
+import PageTitle from '../../components/PageTitle/PageTitle';
 import AboutS2 from '../../components/about2/about2';
 import AboutS3 from '../../components/about3/about3';
 import CtaSectionS2 from '../../components/CtaSectionS2/CtaSectionS2';

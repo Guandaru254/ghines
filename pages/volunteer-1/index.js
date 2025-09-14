@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import NewHeader from '../../components/NewHeader/newheader.js';
-import PageTitle from '../../components/Pagetitle/PageTitle'
+import PageTitle from '../../components/PageTitle/PageTitle'
 import Footer from '../../components/footer/Footer';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import Logo from '/public/images/logo-2.svg'
