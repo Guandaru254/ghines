@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import NewHeader from '../../components/NewHeader/newheader.js'; import PageTitle from '../../components/pagetitle/PageTitle'
+import NewHeader from '../../components/NewHeader/newheader.js'; import PageTitle from '../../components/Pagetitle/PageTitle'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import { useRouter } from 'next/router'
 import blogs from '../../api/blogs'

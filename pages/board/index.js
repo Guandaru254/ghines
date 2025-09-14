@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import PageTitle from '../../components/pagetitle/PageTitle';
+import PageTitle from '../../components/Pagetitle/PageTitle';
 import TeamSection from '../../components/TeamSection/TeamSection';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 

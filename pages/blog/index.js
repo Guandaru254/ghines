@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import PageTitle from '../../components/pagetitle/PageTitle'
+import PageTitle from '../../components/Pagetitle/PageTitle'
 import BlogList from '../../components/BlogList/BlogList'
 import NewHeader from '../../components/NewHeader/newheader.js'; 
 import Footer from '../../components/footer/Footer';

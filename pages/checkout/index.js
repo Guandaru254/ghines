@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import NewHeader from '../../components/NewHeader/newheader.js';
-import PageTitle from "../../components/pagetitle/PageTitle";
+import PageTitle from "../../components/Pagetitle/PageTitle";
 import CheckoutSection from '../../components/CheckoutSection'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import {connect} from "react-redux";

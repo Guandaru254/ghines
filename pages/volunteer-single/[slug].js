@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useRouter } from 'next/router'
 import Teams from '../../api/team';
 import NewHeader from '../../components/NewHeader/newheader.js';
-import PageTitle from '../../components/pagetitle/PageTitle'
+import PageTitle from '../../components/Pagetitle/PageTitle'
 import Footer from '../../components/footer/Footer';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import Contact from './contact';

@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import { useRouter } from 'next/router'
 import { connect } from "react-redux";
 import NewHeader from '../../components/NewHeader/newheader.js';
-import PageTitle from '../../components/pagetitle/PageTitle'
+import PageTitle from '../../components/Pagetitle/PageTitle'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import { addToCart } from "../../store/actions/action";
 import Product from './product'

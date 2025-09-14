@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from "react-redux";
-import PageTitle from '../../components/pagetitle/PageTitle'
+import PageTitle from '../../components/Pagetitle/PageTitle'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import { addToCart } from "../../store/actions/action";
 import ShopProduct from '../../components/ShopProduct';

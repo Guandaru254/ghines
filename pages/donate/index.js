@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useRef } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
 import NewHeader from '../../components/NewHeader/newheader.js';
-import PageTitle from '../../components/pagetitle/PageTitle';
+import PageTitle from '../../components/Pagetitle/PageTitle';
 import Footer from '../../components/footer/Footer';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import Logo from '/public/images/logo-2.svg';

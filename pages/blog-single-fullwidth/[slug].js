@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useRouter } from 'next/router'
 import blogs from '../../api/blogs'
 import NewHeader from '../../components/NewHeader/newheader.js'; 
-import PageTitle from '../../components/pagetitle/PageTitle'
+import PageTitle from '../../components/Pagetitle/PageTitle'
 import BlogSingle from '../../components/BlogDetails/BlogSingle'
 import Scrollbar from '../../components/scrollbar/scrollbar'
 import Footer from '../../components/footer/Footer';
