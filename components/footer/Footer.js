@@ -1,0 +1,92 @@
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
+import shape1 from '/public/images/f-shape1.svg';
+import shape2 from '/public/images/f-shape-2.svg';
+import shape3 from '/public/images/f-shape3.svg';
+import shape4 from '/public/images/f-shape4.svg';
+import Image from 'next/image';
+
+const ClickHandler = () => {
+    window.scrollTo(10, 0);
+}
+
+const Footer = (props) => {
+    const [email, setEmail] = useState('');
+
+    const handleReset = () => {
+        setEmail('');
+    };
+
+    return (
+        <footer className="wpo-site-footer">
+            <div className="wpo-upper-footer">
+                <div className="container">
+                    <div className="row">
+                        {/* Newsletter Column */}
+                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div className="widget newsletter-s2">
+                                <div className="widget-title">
+                                    <h3>Join Our Newsletter</h3>
+                                </div>
+                                <p>Stay informed about our impactful work and how <br/> your support makes a difference in South Sudan.</p>
+                                <form className="form-fild">
+                                    <input
+                                        className="fild"
+                                        type="email"
+                                        placeholder="Your email address"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <button type="submit" onClick={handleReset}>
+                                        <i className="flaticon-right-arrow"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        {/* Contact Details & Social Media Column */}
+                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div className="widget locations-widget">
+                                
+                                {/* Add social media icons here */}
+                                <div className="social-media-icons">
+                                    <a href="#"><FaFacebook /></a>
+                                    <a href="#"><FaInstagram /></a>
+                                    <a href="#"><FaLinkedinIn /></a>
+                                    <a href="#"><FaXTwitter /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {/* Lower Footer Section */}
+            <div className="wpo-lower-footer">
+                <div className="container">
+                    <div className="row">
+                        <div className="col col-xs-12">
+                            <div className="lower-footer-content">
+                                <p className="copyright">
+                                    &copy; {new Date().getFullYear()} Ghines Foundation. All rights reserved.
+                                </p>
+                                <ul className="footer-legal-links">
+                                    <li><Link href="#">PRIVACY POLICY</Link></li>
+                                    <li><Link href="#">TERMS OF USE</Link></li>
+                                    <li><Link href="#">CONTACT</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
+}
+
+export default Footer;

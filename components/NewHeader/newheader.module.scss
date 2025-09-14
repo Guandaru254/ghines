@@ -1,0 +1,172 @@
+/* newheader.module.scss */
+
+.newHeader {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 80px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* --- DESKTOP STYLES --- */
+.desktopHeader {
+    .logoContainer {
+        display: flex;
+        align-items: center;
+        img { 
+            height: 120px; 
+        }
+    }
+    .newNav {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        li a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+            font-size: 13.5px;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+            &:hover {
+                color: #4A9FDA;
+            }
+        }
+    }
+    .ctaButton .donateBtn {
+        background-color: #4A9FDA;
+        color: #fff;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+        font-weight: 600;
+        white-space: nowrap;
+        &:hover {
+            background-color: #d13c18;
+        }
+    }
+}
+
+/* --- MOBILE STYLES --- */
+.mobileHeader {
+    padding: 10px 20px;
+    .mobileLogoAndToggle {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logoMobileHeader img {
+        height: 60px;
+    }
+    .mobileMenuToggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+    .newNav {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #ffffff;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        transform: translateX(100%);
+    }
+    .newNav.mobileMenuActive {
+        transform: translateX(0);
+        display: flex;
+    }
+    .logoMobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+        img {
+            height: 40px;
+        }
+    }
+    .mobileMenuClose {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+    .newNav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        align-items: flex-start;
+        li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+            a { // Added this selector to specifically target links inside the mobile nav
+                color: #333333;
+                &:hover {
+                    color: #4A9FDA;
+                }
+            }
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+/* --- Hiding desktop elements on mobile and vice versa --- */
+@media (max-width: 768px) {
+    .desktopHeader {
+        display: none;
+    }
+    .mobileHeader {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .desktopHeader {
+        display: flex;
+    }
+    .mobileHeader {
+        display: none;
+    }
+}
+
+/* --- Tablet styles (1024px and below, but above 768px) --- */
+@media (max-width: 1024px) {
+    .newHeader {
+        padding: 15px 40px;
+    }
+    .logoContainer img {
+        height: 100px;
+    }
+    .newNav ul {
+        gap: 20px;
+    }
+}
