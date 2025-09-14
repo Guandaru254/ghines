@@ -1,19 +1,20 @@
-// src/pages/get-involved.js
-
 import React, { Fragment } from 'react';
-import Layout from '../components/Layout/Layout';
 import PageTitle from '../components/PageTitle/PageTitle';
 import GetInvolved from '../components/GetInvolved/GetInvolved';
 import Scrollbar from '../components/scrollbar/scrollbar';
+import NewHeader from '../components/NewHeader/newheader';
+import Footer from '../components/footer/Footer';
 
 const GetInvolvedPage = () => {
     return (
         <Fragment>
-            <Layout>
+            <NewHeader />
+            <main>
                 <PageTitle pageTitle={'Get Involved'} pagesub={'Join Our Mission'} />
                 <GetInvolved />
                 <Scrollbar />
-            </Layout>
+            </main>
+            <Footer />
         </Fragment>
     );
 };
