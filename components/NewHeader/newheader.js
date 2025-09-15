@@ -7,7 +7,7 @@ import styles from './newheader.module.scss';
 const NewHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isSearchOpen, setIsSearchOpen] = useState(false); // New state for search
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -20,6 +20,10 @@ const NewHeader = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        // Close search when opening the menu
+        if (isSearchOpen) {
+            setIsSearchOpen(false);
+        }
     };
 
     const closeMenu = () => {
@@ -28,10 +32,27 @@ const NewHeader = () => {
 
     const handleSearchClick = () => {
         setIsSearchOpen(!isSearchOpen);
-        // You would add your search input toggle logic here
-        // For now, this will simply change the state
-        console.log('Search button clicked!');
+        // Close mobile menu when opening search
+        if (isMenuOpen) {
+            setIsMenuOpen(false);
+        }
     };
+
+    // A reusable component for the search overlay
+    const SearchOverlay = () => (
+        <div className={styles.searchOverlay}>
+            <div className={styles.searchContent}>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className={styles.searchInput}
+                />
+                <button className={styles.closeSearchBtn} onClick={handleSearchClick}>
+                    <i className="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+    );
 
     const renderDesktopHeader = () => (
         <header className={`${styles.newHeader} ${styles.desktopHeader}`}>
@@ -60,6 +81,7 @@ const NewHeader = () => {
                     <i className="fa fa-search"></i>
                 </button>
             </div>
+            {isSearchOpen && <SearchOverlay />}
         </header>
     );
 
@@ -82,7 +104,6 @@ const NewHeader = () => {
                         <i className="fa fa-times"></i>
                     </button>
                 </div>
-                {/* Add search button inside mobile nav for better positioning */}
                 <ul className={styles.mobileNavLinks}>
                     <li className={styles.searchItem}>
                         <button className={styles.searchBtnMobile} onClick={handleSearchClick}>
@@ -101,6 +122,7 @@ const NewHeader = () => {
                     <li><Link href="/get-involved" onClick={closeMenu}>Get Involved</Link></li>
                 </ul>
             </nav>
+            {isSearchOpen && <SearchOverlay />}
         </header>
     );
 
