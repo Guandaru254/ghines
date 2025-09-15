@@ -7,6 +7,7 @@ import styles from './newheader.module.scss';
 const NewHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false); // New state for search
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,6 +24,13 @@ const NewHeader = () => {
 
     const closeMenu = () => {
         setIsMenuOpen(false);
+    };
+
+    const handleSearchClick = () => {
+        setIsSearchOpen(!isSearchOpen);
+        // You would add your search input toggle logic here
+        // For now, this will simply change the state
+        console.log('Search button clicked!');
     };
 
     const renderDesktopHeader = () => (
@@ -48,6 +56,9 @@ const NewHeader = () => {
                 <Link href="" className={styles.donateBtn}>
                     Get Involved
                 </Link>
+                <button className={styles.searchBtn} onClick={handleSearchClick}>
+                    <i className="fa fa-search"></i>
+                </button>
             </div>
         </header>
     );
@@ -71,7 +82,14 @@ const NewHeader = () => {
                         <i className="fa fa-times"></i>
                     </button>
                 </div>
-                <ul>
+                {/* Add search button inside mobile nav for better positioning */}
+                <ul className={styles.mobileNavLinks}>
+                    <li className={styles.searchItem}>
+                        <button className={styles.searchBtnMobile} onClick={handleSearchClick}>
+                            <i className="fa fa-search"></i>
+                            <span>Search</span>
+                        </button>
+                    </li>
                     <li><Link href="/" onClick={closeMenu}>Home</Link></li>
                     <li><Link href="/about" onClick={closeMenu}>Who We Are</Link></li>
                     <li><Link href="/services" onClick={closeMenu}>What We Do</Link></li>

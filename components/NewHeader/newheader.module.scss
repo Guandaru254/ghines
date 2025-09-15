@@ -45,6 +45,10 @@
             }
         }
     }
+    .ctaButton {
+        display: flex;
+        align-items: center;
+    }
     .ctaButton .donateBtn {
         background-color: #4A9FDA;
         color: #fff;
@@ -56,6 +60,22 @@
         white-space: nowrap;
         &:hover {
             background-color: #d13c18;
+        }
+    }
+    .searchBtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: #333333;
+        transition: color 0.3s ease;
+        margin-left: 15px;
+        &:hover {
+            // Updated to reflect the new hover color requirements
+            color: #d13c18;
+            background: linear-gradient(90deg, #4A9FDA 0%, #d13c18 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     }
 }
@@ -71,6 +91,10 @@
     }
     .logoMobileHeader img {
         height: 60px;
+    }
+    .searchBtnMobile {
+        // We will now place the button inside the mobile nav
+        display: none;
     }
     .mobileMenuToggle {
         display: block;
@@ -126,7 +150,7 @@
             padding: 15px 20px;
             border-bottom: 1px solid #ddd;
             width: 100%;
-            a { // Added this selector to specifically target links inside the mobile nav
+            a { 
                 color: #333333;
                 &:hover {
                     color: #4A9FDA;
@@ -135,6 +159,28 @@
         }
         li:last-child {
             border-bottom: none;
+        }
+    }
+    
+    // New styles for the mobile search button within the nav
+    .searchItem {
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+    }
+    .searchItem button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333333;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        &:hover {
+            color: #4A9FDA;
         }
     }
 }
