@@ -4796,29 +4796,20 @@ img {
     width: 100%;
     border-radius: 14px;
 }
-/* 3.7 causes */
-.causes-section {
-    position: relative;
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
 
-@media (max-width: 991px) {
-    .causes-section .section-title {
-        text-align: center;
-    }
-}
-
+/* Causes Card Styling */
 .causes-card {
-    border-radius: 13px;
-    background: #FFF;
+    border-radius: 12px;
+    background: #fff;
     box-shadow: 0px 6px 41px 0px rgba(0, 0, 0, 0.07);
-    margin-bottom: 30px; /* Add space between cards on smaller screens */
-    transition: transform 0.3s ease-in-out;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
 .causes-card:hover {
-    transform: translateY(-5px); /* Optional: add a subtle lift effect on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .causes-card .image {
@@ -4829,12 +4820,17 @@ img {
 .causes-card .image img {
     width: 100%;
     border-radius: 14px;
+    transition: transform 0.5s ease;
+}
+
+.causes-card:hover .image img {
+    transform: scale(1.05);
 }
 
 .causes-card .image span {
     border-radius: 14px;
     background: #4A9FDA;
-    color: #000;
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
     text-align: center;
@@ -4849,51 +4845,25 @@ img {
     padding-top: 10px;
 }
 
-/* --- Specific Styles for CausesPage Titles and Descriptions --- */
-/* Smaller and Bold Title for CausesPage Cards */
-.causes-card-title {
-    font-size: 1.5rem; /* Smaller font size for the card title */
-    font-weight: 1000; /* Bold font weight */
-    margin-bottom: 10px; /* Adjust spacing as needed */
-    color: #333333; /* Dark color for prominence */
+.text h2 .causes-card-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: #000;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Italic Quote Style for the description text */
 .causes-card-description {
-    font-style: italic; /* Makes the text italic */
-    color: #666666; /* Slightly darker than stats-text for better readability */
-    margin-bottom: 15px; /* Spacing below the description */
-    position: relative;
-    padding-left: 15px; /* Indent for the "quote" effect */
+    font-style: italic;
+    color: #666666;
+    margin-bottom: 10px;
 }
 
-.causes-card-description::before {
-    content: "“"; /* Opening quote character */
-    position: absolute;
-    left: 0;
-    top: -5px; /* Adjust vertical position */
-    font-size: 2em; /* Large quote character */
-    color: #cccccc; /* Light color for the quote */
-    font-family: serif; /* Ensure it looks like a proper quote */
-}
-
-.causes-card-description::after {
-    content: "”"; /* Closing quote character */
-    position: absolute;
-    right: 0;
-    bottom: -5px;
-    font-size: 2em;
-    color: #cccccc;
-    font-family: serif;
-}
-
-/* Existing lighter font for stats text */
 .causes-card .stats-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555555;
-    font-weight: 300;
-    margin-top: 10px;
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+    margin-top: 5px;
 }
 
 .causes-card .progress-wrap {
@@ -4920,7 +4890,7 @@ img {
     float: left;
     min-width: 1%;
     height: 7px;
-    background: #4A94DA;
+    background: #4A9FDA;
     z-index: 1;
     border-radius: 30px;
 }
@@ -4963,8 +4933,8 @@ img {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-    list-style: none; /* Remove list bullets */
-    padding: 0; /* Remove default padding */
+    list-style: none;
+    padding: 0;
 }
 
 .causes-card ul li {
@@ -4988,28 +4958,24 @@ img {
     font-weight: 700;
 }
 
-.causes-card ul li:nth-child(2)::before {
+.causes-card ul li:nth-child(2)::before,
+.causes-card ul li:nth-child(2)::after {
     position: absolute;
-    left: -35px;
     top: 50%;
     content: "";
     width: 1px;
     height: 28px;
-    background: #fff;
+    background: #ccc;
     transform: translateY(-50%);
+}
+
+.causes-card ul li:nth-child(2)::before {
+    left: -35px;
 }
 
 .causes-card ul li:nth-child(2)::after {
-    position: absolute;
     right: -35px;
-    top: 50%;
-    content: "";
-    width: 1px;
-    height: 28px;
-    background: #fff;
-    transform: translateY(-50%);
 }
-
 
 
 

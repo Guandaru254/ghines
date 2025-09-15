@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import Image from 'next/image';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
-import causes from '../../api/causes'; // This is the data file you provided
+import causes from '../../api/causes';
 
 const CausesPage = () => {
     return (
@@ -14,21 +14,25 @@ const CausesPage = () => {
                 <div className="container">
                     <div className="row">
                         {causes.slice(0, 3).map((causesData, item) => {
-                            const [mainTitle, statsText] = causesData.title.split(' - '); // Splits the title and stats
                             return (
                                 <div className="col-lg-4 col-md-6 col-12" key={item}>
                                     <div className="causes-card">
                                         <div className="image">
                                             <span>{causesData.tag}</span>
-                                            <Image src={causesData.Cimg} alt={mainTitle} width={400} height={300} />
+                                            <Image src={causesData.Cimg} alt={causesData.title} width={400} height={300} />
                                         </div>
                                         <div className="text">
-                                            <h2 className="causes-card-title"> {/* Added a new class here */}
-                                                <span>{mainTitle}</span> {/* Keeps the title unclickable */}
+                                            <h2 className="causes-card-title">
+                                                <span className="causes-card-main-title" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                                                    {causesData.title}
+                                                </span>
                                             </h2>
-                                            {/* Descriptive text formatted as an italic quote */}
-                                            <p className="causes-card-description">{causesData.docomunt}</p> {/* Original description */}
-                                            <p className="stats-text">{statsText}</p> {/* Stats text with lighter font */}
+                                            <p className="stats-text" style={{ color: '#4A9FDA', marginTop: '5px' }}>
+                                                {causesData.statsText}
+                                            </p>
+                                            <p className="causes-card-description" style={{ paddingTop: '15px' }}>
+                                                {causesData.docomunt}
+                                            </p>
                                         </div>
                                         <div className="progress-wrap">
                                             <div className="progress-item">
