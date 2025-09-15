@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Head from 'next/head'; // Import the Head component
 import styles from './newheader.module.scss';
 
 const NewHeader = () => {
@@ -125,7 +126,20 @@ const NewHeader = () => {
         </header>
     );
 
-    return isMobile ? renderMobileHeader() : renderDesktopHeader();
+    return (
+        <>
+            {/* Add the Head component with the RSS link here */}
+            <Head>
+                <link 
+                    rel="alternate" 
+                    type="application/rss+xml" 
+                    title="The Ghines Foundation Blog Feed" 
+                    href="/api/rss.xml" 
+                />
+            </Head>
+            {isMobile ? renderMobileHeader() : renderDesktopHeader()}
+        </>
+    );
 };
 
 export default NewHeader;

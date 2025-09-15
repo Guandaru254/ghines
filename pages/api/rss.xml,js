@@ -1,0 +1,49 @@
+// pages/api/rss.xml.js
+
+import blogs from '../../api/blogs';
+
+const generateRssFeed = () => {
+    // RSS Feed Header
+    const feedHeader = `<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <title>The Ghines Foundation Blog</title>
+        <link>https://yourwebsite.com</link>
+        <description>The latest news and updates from The Ghines Foundation.</description>
+        <language>en-us</language>
+        <atom:link href="https://yourwebsite.com/api/rss.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`;
+
+    // RSS Feed Items
+    const feedItems = blogs.map(post => {
+        // Construct the URL for each blog post
+        const postLink = `https://yourwebsite.com/blog/${post.slug}`;
+
+        // Ensure a valid date format for the RSS feed
+        const pubDate = new Date(post.date).toUTCString();
+
+        return `
+            <item>
+                <title>${post.title2}</title>
+                <link>${postLink}</link>
+                <guid isPermaLink="false">${post.id}</guid>
+                <description>${post.description}</description>
+                <pubDate>${pubDate}</pubDate>
+            </item>`;
+    }).join('');
+
+    // RSS Feed Footer
+    const feedFooter = `
+      </channel>
+    </rss>`;
+
+    return feedHeader + feedItems + feedFooter;
+};
+
+export default function Rss(req, res) {
+    const rssXml = generateRssFeed();
+
+    res.setHeader('Content-Type', 'application/xml');
+    res.write(rssXml);
+    res.end();
+}
