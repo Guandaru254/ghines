@@ -1747,186 +1747,237 @@
     }
 
 }
-/* 5.8 volunteer-section*/
-.team-board {
-    display: flex;
-    flex-wrap: wrap; /* CRITICAL: This is the fix for the layout issue */
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-}
-
-.team-board-title {
-    font-size: 20px !important;
-}
-
-.team-board-card img {
-    width: 100%;
-    border-radius: 8px; /* Added for a modern look */
-}
-
-.vol-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 0px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.vol-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-.vol-card .text {
-    background-color: #f9f9f9;
-}
-
-.board-intro {
-    line-height: 1.6;
-    color: #555;
-}
-
-@media only screen and (max-width: 991px) {
-    .team-board {
-        flex-direction: column;
-    }
-}
 
 
 
-
+/*--------------------------------------------------------------
+5.8 volunteer-section
+--------------------------------------------------------------*/
 .volunteer-section,
 .volunteer-section-s2 {
+    padding: 70px 0;
     .all-btn {
         margin-top: 20px;
         text-align: center;
     }
-
     &.volunteer-section-s3 {
         padding-bottom: 90px;
-
         @media (max-width:991px) {
             padding-bottom: 60px;
         }
-
         @media (max-width:767px) {
             padding-bottom: 50px;
         }
     }
 }
 
+/* Base card styling for all team members */
 .vol-card {
-    margin-bottom: 30px;
-
-    .image {
-        position: relative;
-        z-index: 1;
-
-        img {
-            width: 100%;
-            border-radius: 30px;
-        }
-
-        .hover-icon {
-            width: 68px;
-            height: 68px;
-            text-align: center;
-            line-height: 68px;
-            border-radius: 0px 8px 0px 0px;
-            background: $theme-primary-color;
-            display: block;
-            color: $white;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            transition: all .3s ease-in-out;
-            z-index: 1;
-
-            i {
-                text-align: center;
-                font-size: 25px;
-            }
-        }
-
-        ul {
-            position: absolute;
-            left: 40px;
-            bottom: 0;
-            max-width: 172px;
-            background: $white;
-            padding: 0 15px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all .3s ease-in-out;
-
-            li {
-                display: inline-block;
-
-                a {
-                    padding: 8px 8px;
-                    display: block;
-                    transition: all .3s ease-in-out;
-
-                    @media (max-width:1199px) {
-                        padding: 8px 5px;
-                    }
-
-                    &:hover {
-                        i {
-                            color: $theme-primary-color;
-                        }
-                    }
-                }
-
-                i {
-                    font-size: 15px;
-                    color: $text-color
-                }
-            }
-        }
-    }
-
-    &:hover {
-        .hover-icon {
-            background: #FFA400;
-        }
-
-        ul {
-            opacity: 1;
-            visibility: visible;
-            left: 65px;
-        }
-    }
-
-    .text {
-        text-align: center;
-        padding: 25px 0;
-        padding-bottom: 0px;
-
-        h3 {
-            a {
-                color: $heading-color;
-                font-family: $heading-font;
-                font-size: 22px;
-                font-weight: 700;
-                line-height: 30px;
-            }
-        }
-
-        span {
-            color: $theme-primary-color;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 24px;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-        }
-    }
-
-
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* A subtle, modern shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 20px;
+    display: flex; /* Makes the card a flex container */
+    flex-direction: column; /* Stacks children vertically */
+    height: 100%; /* Ensures cards in a row have equal height */
 }
+
+.vol-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.vol-card .text {
+    background-color: #fff; /* As per your note */
+    text-align: center;
+    padding: 15px 10px;
+    padding-bottom: 15px;
+    flex-grow: 1; /* Pushes content to fill available vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns content to the top */
+    
+    h3 {
+        a {
+            color: $heading-color;
+            font-family: $heading-font;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+    }
+
+    span {
+        color: $theme-primary-color;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        margin-bottom: 5px; /* Adds a little space below the subtitle */
+    }
+
+    .quote-text {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-top: 10px;
+        margin-bottom: 0;
+        padding: 0 5px;
+    }
+}
+
+.vol-card .image {
+    position: relative;
+    z-index: 1;
+
+    img {
+        width: 100%;
+        border-radius: 8px;
+        display: block; /* Removes any default spacing below the image */
+    }
+
+    .hover-icon {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 0px 8px 0px 0px;
+        background: $theme-primary-color;
+        display: block;
+        color: $white;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: all .3s ease-in-out;
+        z-index: 1;
+        i {
+            font-size: 22px;
+        }
+    }
+
+    ul {
+        position: absolute;
+        left: 40px;
+        bottom: 0;
+        max-width: 150px;
+        background: $white;
+        padding: 0 10px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s ease-in-out;
+        li {
+            display: inline-block;
+            a {
+                padding: 6px 6px;
+                display: block;
+                transition: all .3s ease-in-out;
+                @media (max-width:1199px) {
+                    padding: 6px 4px;
+                }
+                &:hover {
+                    i {
+                        color: $theme-primary-color;
+                    }
+                }
+            }
+            i {
+                font-size: 14px;
+                color: $text-color
+            }
+        }
+    }
+}
+
+.vol-card:hover {
+    .hover-icon {
+        background: #FFA400;
+    }
+    ul {
+        opacity: 1;
+        visibility: visible;
+        left: 55px;
+    }
+}
+
+/* Board Page Specific Styles & Spacing */
+.team-board {
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    margin: 0;
+}
+
+/* --- Intro Card Styling --- */
+.team-board-card.intro-card {
+    border: 1px solid #e0e0e0; /* Re-added border to make it feel like a unified section */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    background: #fff; /* White background for consistency */
+    border-radius: 8px;
+    padding: 20px; /* Adjusted padding for better internal spacing */
+}
+
+.team-board-title {
+    font-size: 1.8rem; /* Slightly smaller for better hierarchy */
+    font-weight: 600; /* Lighter font-weight */
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.board-intro {
+    font-size: 14px; /* A bit smaller for a cleaner look */
+    line-height: 1.6;
+    color: #555;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+/* --- Horizontal Spacing Fix --- */
+.team-board .row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.team-board .row > [class*="col-"] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* --- Sizing for different screens --- */
+.team-board-card {
+    max-width: 300px; /* Restored to a better-looking, balanced width */
+    width: 100%;
+    margin: 0 auto 20px auto;
+}
+
+@media (min-width: 992px) {
+    .col-lg-4 .vol-card {
+        max-width: 300px;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .team-board {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .team-board-card {
+        max-width: 90%;
+        margin: 0 auto 20px auto;
+    }
+    .wpo-upper-footer .col {
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .volunteer-section {
+        padding: 50px 0;
+    }
+    .team-board .row > [class*="col-"] {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 
 /* 5.9 project-section */
 .project-section-s2,

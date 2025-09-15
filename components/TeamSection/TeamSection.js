@@ -13,8 +13,8 @@ const TeamSection = (props) => {
         Teams[0],
         Teams[1],
         Teams[2],
-        {...Teams[0], slug: 'placeholder-1', title: 'Director 4', subtitle: 'Placeholder Role', timg: Teams[0].timg},
-        {...Teams[1], slug: 'placeholder-2', title: 'Director 5', subtitle: 'Placeholder Role', timg: Teams[1].timg},
+        {...Teams[0], slug: 'placeholder-1', title: '', subtitle: 'Placeholder Role', timg: Teams[0].timg},
+        {...Teams[1], slug: 'placeholder-2', title: '', subtitle: 'Placeholder Role', timg: Teams[1].timg},
         {...Teams[2], slug: 'placeholder-3', title: 'Director 6', subtitle: 'Placeholder Role', timg: Teams[2].timg},
     ];
 
@@ -23,8 +23,8 @@ const TeamSection = (props) => {
             <div className="container team-board">
                 {/* TOP ROW: Intro, Card 1, and Card 2 */}
                 <div className="row d-flex align-items-stretch mb-5">
-                    {/* Intro Card: Occupies half the row on large screens (col-lg-6) */}
-                    <div className="col-lg-6 col-md-12 col-12 d-flex">
+                    {/* Intro Card: Now occupies one-third of the row (col-lg-4) */}
+                    <div className="col-lg-4 col-md-12 col-12 d-flex">
                         <div className="vol-card team-board-card h-100 p-4 d-flex flex-column">
                             <div className="section-title text-left team-board-title">
                                 <span>Introduction</span>
@@ -33,10 +33,10 @@ const TeamSection = (props) => {
                         </div>
                     </div>
 
-                    {/* Team Members 1 and 2: Each occupies a quarter of the row on large screens (col-lg-3) */}
+                    {/* Team Members 1 and 2: Each now occupies one-third of the row (col-lg-4) */}
                     {boardMembers.slice(0, 2).map((team, index) => (
-                        <div className="col-lg-3 col-md-6 col-12 d-flex" key={index}>
-                            <div className="vol-card team-board-card h-100">
+                        <div className="col-lg-4 col-md-6 col-12 d-flex" key={index}>
+                            <div className="vol-card team-board-card card-sizing h-100">
                                 <div className="image">
                                     <Image src={team.timg} alt="" width={300} height={400} layout="responsive" />
                                     <ul className="social-icons-default">
@@ -59,7 +59,7 @@ const TeamSection = (props) => {
                 <div className="row d-flex align-items-stretch mt-4">
                     {boardMembers.slice(2, 5).map((team, index) => (
                         <div className="col-lg-4 col-md-6 col-12 d-flex" key={index}>
-                            <div className="vol-card team-board-card h-100">
+                            <div className="vol-card team-board-card card-sizing h-100">
                                 <div className="image">
                                     <Image src={team.timg} alt="" width={300} height={400} layout="responsive" />
                                     <ul className="social-icons-default">
@@ -78,7 +78,6 @@ const TeamSection = (props) => {
                     ))}
                 </div>
             </div>
-            
         </section>
     )
 }
