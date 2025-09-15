@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
+// Import the new CSS module
+import styles from '../../styles/sass/components/pillar-single.module.scss';
+
 const PillarSinglePage = () => {
     const router = useRouter();
     const { slug } = router.query;
@@ -25,17 +28,17 @@ const PillarSinglePage = () => {
             </Head>
 
             {/* Main Content Section with new design */}
-            <section className="pillar-details section-padding">
+            <section className={`${styles.pillarDetails} section-padding`}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
-                            <h1 className="pillar-title">{currentPillar.title}</h1>
+                            <h1 className={styles.pillarTitle}>{currentPillar.title}</h1>
                         </div>
                     </div>
                     <div className="row mt-4">
                         {/* Image Column */}
                         <div className="col-md-5 mb-4 mb-md-0">
-                            <div className="pillar-image-container">
+                            <div className={styles.pillarImageContainer}>
                                 <Image
                                     src={currentPillar.img}
                                     alt={currentPillar.title}
@@ -50,22 +53,22 @@ const PillarSinglePage = () => {
 
                         {/* Text Content Column */}
                         <div className="col-md-7">
-                            <div className="pillar-content-text">
+                            <div className={styles.pillarContentText}>
                                 <p>{currentPillar.description}</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Related Pillars Section */}
-                    <div className="row mt-5">
+                    <div className={`row mt-5 ${styles.relatedPillarsSection}`}>
                         <div className="col-12 text-center">
-                            <h2 className="related-pillars-title">Related Pillars</h2>
+                            <h2 className={styles.relatedPillarsTitle}>Related Pillars</h2>
                         </div>
                         {pillars.filter(p => p.slug !== currentPillar.slug).map(p => (
                             <div className="col-md-4 mb-4" key={p.slug}>
-                                <div className="related-pillar-card">
+                                <div className={styles.relatedPillarCard}>
                                     <Link href={`/pillars/${p.slug}`}>
-                                        <div className="related-pillar-img-container">
+                                        <div className={styles.relatedPillarImgContainer}>
                                             <Image
                                                 src={p.img}
                                                 alt={p.title}
@@ -73,9 +76,10 @@ const PillarSinglePage = () => {
                                                 height={200}
                                                 layout="responsive"
                                                 objectFit="cover"
+                                                quality={80}
                                             />
                                         </div>
-                                        <h4 className="related-pillar-card-title">{p.title}</h4>
+                                        <h4 className={styles.relatedPillarCardTitle}>{p.title}</h4>
                                     </Link>
                                 </div>
                             </div>
