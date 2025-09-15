@@ -6,14 +6,12 @@ import blogs from '../../api/blogs';
 import Image from 'next/image';
 
 const BlogPreview = () => {
-    // Slice the first 3 blogs for the homepage preview
     const blogData = blogs.slice(0, 3);
 
     return (
         <section className="blog-preview-section section-padding">
             <div className="container">
                 <div className="text-center mb-5">
-                    {/* Section title remains with its original styling */}
                     <h2 className="section-title">Latest News & Stories</h2>
                 </div>
                 <div className="row justify-content-center">
@@ -30,16 +28,10 @@ const BlogPreview = () => {
                                     </span>
                                 </div>
                                 <div className="entry-details p-4">
-                                    {/* Blog title updated with inline styles */}
                                     <h3 style={{ fontSize: '20px', color: 'rgb(0, 0, 0)', fontFamily: 'Nunito, sans-serif', fontWeight: '600' }}>
                                         {blog.title2}
                                     </h3>
-                                    <div className="entry-meta my-3">
-                                        <ul className="list-unstyled d-flex">
-                                            <li className="me-4"><i className="fi flaticon-user"></i> By <span>{blog.author}</span></li>
-                                            <li><i className="fi flaticon-clock"></i><span>3 min Read</span></li>
-                                        </ul>
-                                    </div>
+                                    {/* The entire entry-meta section has been removed. */}
                                     <Link href="#" className="read-more">READ MORE...</Link>
                                 </div>
                             </div>
@@ -47,7 +39,6 @@ const BlogPreview = () => {
                     ))}
                 </div>
                 <div className="text-center mt-5">
-                    {/* Button styling remains the same */}
                     <Link href="/blog-fullwidth" passHref>
                         <div className="theme-btn" style={{
                             backgroundColor: '#4A9FDA',
