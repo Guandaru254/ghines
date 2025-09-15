@@ -24,7 +24,7 @@ const HomePage = () => {
             {/* <PartnerSection hclass={'partners-section'} /> */}
             {/* <FunFact /> */}
             {/* <About hclass={'about-section section-padding'}/> */}
-            <CausesSectionS4  /> 
+            <EventSection  /> 
             {/* <CausesSection hclass={"causes-section section-padding pt-0"} /> */}
             {/* <ProjectSection hclass={'project-section section-padding'}/> */} 
             {/* <Testimonial tClass={'testimonial-section'} /> */}
