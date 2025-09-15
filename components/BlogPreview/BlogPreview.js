@@ -12,7 +12,7 @@ const BlogPreview = () => {
         <section className="blog-preview-section section-padding">
             <div className="container">
                 <div className="text-center mb-5">
-                    <h2 className="section-title">Latest News & Stories</h2>
+                    <h2 className="section-title"> News & Stories</h2>
                 </div>
                 <div className="row justify-content-center">
                     {blogData.map((blog, bitem) => (
