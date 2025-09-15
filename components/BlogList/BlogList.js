@@ -6,12 +6,11 @@ import blogs from '../../api/blogs';
 import Image from 'next/image';
 
 const BlogList = (props) => {
-    // The original logic for the full blog page, displaying 4 blogs with a specific layout.
     const blogData = [
-        blogs[0], // 1st blog
-        blogs[1], // 2nd blog
-        blogs[2], // 3rd blog
-        {...blogs[0], title2: "Placeholder Blog", day: "01", month: "OCT"} // 4th blog (copy of the first)
+        blogs[0],
+        blogs[1],
+        blogs[2],
+        {...blogs[0], title2: "Placeholder Blog", day: "01", month: "OCT"}
     ];
 
     return (
@@ -23,14 +22,13 @@ const BlogList = (props) => {
                             <div className="blog-item h-100 shadow-sm">
                                 <div className="entry-media position-relative">
                                     <Image src={blog.blogSingleImg} alt='' width={700} height={450} layout="responsive" />
-                                    <span className="date-overlay position-absolute top-0 start-0 text-center text-white bg-primary p-2">
+                                    {/* The updated line below removes the rounded corners */}
+                                    <span className="date-overlay position-absolute top-0 start-0 text-center text-white p-2" style={{ backgroundColor: '#4A94DA', borderRadius: '0' }}>
                                         {blog.day}<br />{blog.month}
                                     </span>
                                 </div>
                                 <div className="entry-details p-4">
-                                    <h3>
-                                            {blog.title2}
-                                    </h3>
+                                    <h3>{blog.title2}</h3>
                                     <div className="entry-meta my-3">
                                         <ul className="list-unstyled d-flex">
                                             <li className="me-4"><i className="fi flaticon-user"></i> By <span>{blog.author}</span></li>
@@ -43,7 +41,6 @@ const BlogList = (props) => {
                         </div>
                     ))}
                 </div>
-                {/* Pagination is always present on the full blog page */}
                 <div className="pagination-wrapper text-center mt-5">
                     <ul className="pg-pagination">
                         <li><a href="#" aria-label="Previous"><i className="fi ti-angle-left"></i></a></li>
