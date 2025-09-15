@@ -14,7 +14,7 @@ const CausesPage = () => {
 
     return (
         <Fragment>
-            <PageTitle pageTitle={'Our Work'} />
+            <PageTitle pageTitle={'What We Do'} />
             <section className="cause-pg-section section-padding">
                 <div className="container">
                     <div className="row">

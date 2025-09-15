@@ -27,7 +27,6 @@ const EventSection = () => {
                                 </div>
                                 <div className="icon">
                                     <Link onClick={ClickHandler} href={`/pillars/${pillaritem.slug}`}>
-                                        <i>+</i>
                                         <div className="shape">
                                             <svg viewBox="0 0 98 99" fill="none">
                                                 <path

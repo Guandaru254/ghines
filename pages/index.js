@@ -5,7 +5,7 @@ import FunFact from '../components/FunFact/FunFact';
 import About from '../components/about/about';
 import EventSection from '../components/EventSection/EventSection';
 import ServiceSection from '../components/ServiceSection/ServiceSection';
-import CausesSection from '../components/CausesSection/CausesSection';
+import CausesSectionS4 from '../components/CausesSectionS4/CausesSectionS4';
 import CtaSection from '../components/CtaSection/CtaSection';
 import ProjectSection from '../components/ProjectSection/ProjectSection';
 import TestimonialS3 from '../components/TestimonialS3/TestimonialS3';
@@ -24,7 +24,7 @@ const HomePage = () => {
             {/* <PartnerSection hclass={'partners-section'} /> */}
             {/* <FunFact /> */}
             {/* <About hclass={'about-section section-padding'}/> */}
-            <EventSection  /> 
+            <CausesSectionS4  /> 
             {/* <CausesSection hclass={"causes-section section-padding pt-0"} /> */}
             {/* <ProjectSection hclass={'project-section section-padding'}/> */} 
             {/* <Testimonial tClass={'testimonial-section'} /> */}
