@@ -28,9 +28,7 @@ const BlogPreview = () => {
                                 </div>
                                 <div className="entry-details p-4">
                                     <h3>
-                                        <Link href="#">
                                             {blog.title2}
-                                        </Link>
                                     </h3>
                                     <div className="entry-meta my-3">
                                         <ul className="list-unstyled d-flex">

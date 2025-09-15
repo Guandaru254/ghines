@@ -78,7 +78,7 @@ const BlogSingle = (props) => {
                                     </ul>
                                 </div>
                                 <div className="entry-details">
-                                    <h3>{BlogDetails?.title}</h3>
+                                    <h3>{Blog.title2}</h3>
                                     <p>he whimsically named Egg Canvas is the brainchild of Erica Choi, a design director
                                         and photo
                                         grapher based in York. Why the name “Egg Canvas Erica was inspired by her Korean

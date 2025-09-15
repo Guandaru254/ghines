@@ -13,9 +13,13 @@ const ProjectPage = () => {
                     <div className="project-wrap">
                         {Projects.map((project, pitem) => (
                             <div className="project-grid" key={pitem}>
-                                <div className="project-grid-inner">
-                                    <Image src={project.pimg1} alt={project.title} />
-                                </div>
+                                <Image
+                                    src={project.pimg1}
+                                    alt={project.title}
+                                    width={400} // Set a fixed width
+                                    height={400} // Set a fixed height
+                                    style={{ objectFit: 'cover' }} // CSS for the image
+                                />
                             </div>
                         ))}
                     </div>
