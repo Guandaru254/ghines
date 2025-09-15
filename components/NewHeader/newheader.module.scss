@@ -91,6 +91,7 @@
         height: 60px;
     }
     .searchBtnMobile {
+        // Hides the button from the top bar on mobile
         display: none;
     }
     .mobileMenuToggle {
@@ -158,25 +159,33 @@
             border-bottom: none;
         }
     }
+    
+    // Updated styles for the search button within the nav
     .searchItem {
         padding: 15px 20px;
-        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd; /* Adds a line to separate it from the last link */
         width: 100%;
-    }
-    .searchItem button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        color: #333333;
-        width: 100%;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        &:hover {
-            color: #4A9FDA;
+        
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333333;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            &:hover {
+                color: #4A9FDA;
+            }
         }
+    }
+    
+    // Hide the top-level search button for mobile
+    .searchBtnMobile {
+      display: none;
     }
 }
 

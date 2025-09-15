@@ -20,7 +20,6 @@ const NewHeader = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-        // Close search when opening the menu
         if (isSearchOpen) {
             setIsSearchOpen(false);
         }
@@ -32,13 +31,11 @@ const NewHeader = () => {
 
     const handleSearchClick = () => {
         setIsSearchOpen(!isSearchOpen);
-        // Close mobile menu when opening search
         if (isMenuOpen) {
             setIsMenuOpen(false);
         }
     };
 
-    // A reusable component for the search overlay
     const SearchOverlay = () => (
         <div className={styles.searchOverlay}>
             <div className={styles.searchContent}>
@@ -93,6 +90,7 @@ const NewHeader = () => {
                         <img src="/images/logo-2.svg" alt="Ghines Foundation Logo" />
                     </Link>
                 </div>
+                {/* Remove search button from here */}
                 <button className={styles.mobileMenuToggle} onClick={toggleMenu}>
                     <i className="fa fa-bars"></i>
                 </button>
@@ -105,12 +103,6 @@ const NewHeader = () => {
                     </button>
                 </div>
                 <ul className={styles.mobileNavLinks}>
-                    <li className={styles.searchItem}>
-                        <button className={styles.searchBtnMobile} onClick={handleSearchClick}>
-                            <i className="fa fa-search"></i>
-                            <span>Search</span>
-                        </button>
-                    </li>
                     <li><Link href="/" onClick={closeMenu}>Home</Link></li>
                     <li><Link href="/about" onClick={closeMenu}>Who We Are</Link></li>
                     <li><Link href="/services" onClick={closeMenu}>What We Do</Link></li>
@@ -120,6 +112,13 @@ const NewHeader = () => {
                     <li><Link href="/blog-fullwidth" onClick={closeMenu}>News & Stories</Link></li>
                     <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
                     <li><Link href="/get-involved" onClick={closeMenu}>Get Involved</Link></li>
+                    {/* Place search button at the bottom of the list */}
+                    <li className={styles.searchItem}>
+                        <button className={styles.searchBtnMobile} onClick={handleSearchClick}>
+                            <i className="fa fa-search"></i>
+                            <span>Search</span>
+                        </button>
+                    </li>
                 </ul>
             </nav>
             {isSearchOpen && <SearchOverlay />}
