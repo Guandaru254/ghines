@@ -10,22 +10,8 @@ const AboutS2 = (props) => {
         <section className={"" + props.hclass}>
             <div className="container">
                 <div className="row align-items-center">
-                    <div className="col-lg-6 col-12">
-                        {/* The fix is to use a semantic figure and figcaption */}
-                        <figure className="about-image-figure">
-                            <Image
-                                src={GhinesPhoto}
-                                alt="Ghines Foundation Introduction Image"
-                                width={500}
-                                height={350}
-                                style={{ borderRadius: '15px' }}
-                            />
-                            <figcaption className="about-image-caption">
-                                Mr. Nicholas Ghines
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div className="col-lg-6 col-12">
+                    {/* The text column will come first in the HTML */}
+                    <div className="col-lg-6 col-12 about-text-container">
                         <div className="right-content">
                             <h2>The Ghines Legacy</h2>
                             <p>
@@ -61,6 +47,21 @@ const AboutS2 = (props) => {
                                 and heritage thrive together.
                             </p>
                         </div>
+                    </div>
+                    {/* The image column will come second in the HTML */}
+                    <div className="col-lg-6 col-12 about-image-container">
+                        <figure className="about-image-figure">
+                            <Image
+                                src={GhinesPhoto}
+                                alt="Ghines Foundation Introduction Image"
+                                width={500}
+                                height={350}
+                                style={{ borderRadius: '15px' }}
+                            />
+                            <figcaption className="about-image-caption">
+                                Mr. Nicholas Ghines
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>

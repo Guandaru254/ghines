@@ -14,7 +14,7 @@ const CtaSectionS2 = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6 col-12">
                         <div className="content">
-                            <h3>Every Action Big or Small<span>Counts</span></h3>
+                            <h3>Every Action Big or Small  <span>  Counts</span></h3>
                         </div>
                     </div>
                     <div className="col-lg-6 col-12">

@@ -241,7 +241,34 @@
 }
 
 /*3.4 about */
-.about-section {
+
+/* Add this CSS to your stylesheet for desktop layout */
+@media (min-width: 992px) {
+  .about-content-mobile-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .about-content-mobile-order .right-content {
+    flex: 1;
+  }
+
+  @media (max-width: 991px) {
+    /* Target the row on small screens */
+    .row.align-items-center {
+        display: flex;
+        flex-direction: column-reverse; /* This reverses the order */
+    }
+
+    /* Ensure the containers have correct spacing */
+    .about-text-container {
+        margin-bottom: 20px; /* Add some space between text and image */
+    }
+}
+
+}.about-section {
     position: relative;
     z-index: 1;
     background: url('/images/about/about-bg.jpg') center center / cover no-repeat;
