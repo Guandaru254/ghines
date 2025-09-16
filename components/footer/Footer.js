@@ -33,7 +33,7 @@ const Footer = (props) => {
                         <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
                             <div className="widget newsletter-s2">
                                 <div className="widget-title">
-                                    <h3>Join Our Newsletter</h3>
+                                    <h3>JOIN OUR NEWSLETTER</h3>
                                 </div>
                                 <p>Stay informed about our impactful work and how <br/> your support makes a difference in South Sudan.</p>
                                 <form className="form-fild">
