@@ -1,3 +1,5 @@
+// Footer.jsx
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaFacebook } from "react-icons/fa";
@@ -49,11 +51,9 @@ const Footer = (props) => {
                             </div>
                         </div>
 
-                        {/* Contact Details & Social Media Column */}
+                        {/* Social Media Column */}
                         <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
                             <div className="widget locations-widget">
-                                
-                                {/* Add social media icons here */}
                                 <div className="social-media-icons">
                                     <a href="#"><FaFacebook /></a>
                                     <a href="#"><FaInstagram /></a>
@@ -63,12 +63,11 @@ const Footer = (props) => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            {/* Lower Footer Section */}
-            <div className="wpo-lower-footer">
-                <div className="container">
+
+                    {/* The new separator */}
+                    <div className="footer-separator"></div>
+
+                    {/* Lower Footer Content now inside upper footer */}
                     <div className="row">
                         <div className="col col-xs-12">
                             <div className="lower-footer-content">

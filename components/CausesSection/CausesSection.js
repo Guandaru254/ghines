@@ -79,28 +79,6 @@ const CausesSection = (props) => {
                                 <h2><Link onClick={ClickHandler} href={'/causes-single/[slug]'} as={`/causes-single/${causesData.slug}`}>{causesData.title}</Link></h2>
                                 <p>{causesData.docomunt}</p>
                             </div>
-                            <div className="progress-wrap">
-                                <div className="progress-item">
-                                    <div className="progress">
-                                        <div className="bar" style={{ width: `${causesData.progress}%` }}>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <span className="title">Goal:</span>
-                                        <span>${causesData.goal}</span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Raised:</span>
-                                        <span>${causesData.raised}</span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Goal:</span>
-                                        <span>${causesData.targetGoal}</span>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     ))}
                 </Slider>

@@ -64,9 +64,7 @@ const NewHeader = () => {
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/about">Who We Are</Link></li>
                     <li><Link href="/services">What We Do</Link></li>
-                    <li><Link href="/board">Our Leadership</Link></li>
                     <li><Link href="/resources">Resources</Link></li>
-                    <li><Link href="/gallery">Gallery</Link></li>
                     <li><Link href="/blog-fullwidth">News & Stories</Link></li>
                     <li><Link href="/contact">Contact</Link></li>
                 </ul>
@@ -107,9 +105,7 @@ const NewHeader = () => {
                     <li><Link href="/" onClick={closeMenu}>Home</Link></li>
                     <li><Link href="/about" onClick={closeMenu}>Who We Are</Link></li>
                     <li><Link href="/services" onClick={closeMenu}>What We Do</Link></li>
-                    <li><Link href="/board" onClick={closeMenu}>Our Leadership</Link></li>
                     <li><Link href="/resources" onClick={closeMenu}>Resources</Link></li>
-                    <li><Link href="/gallery" onClick={closeMenu}>Gallery</Link></li>
                     <li><Link href="/blog-fullwidth" onClick={closeMenu}>News & Stories</Link></li>
                     <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
                     <li><Link href="/" onClick={closeMenu}>Get Involved</Link></li>
