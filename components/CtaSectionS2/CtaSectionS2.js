@@ -9,12 +9,21 @@ const CtaSectionS2 = () => {
         window.scrollTo(10, 0);
     }
     return (
-        <section className="cta-section-s2">
+        <section 
+            className="cta-section-s2" 
+            style={{ 
+                backgroundColor: '#4A9FDA',
+                backgroundImage: 'none' 
+            }}
+        >
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-lg-6 col-12">
                         <div className="content">
-                            <h3>Every Action Big or Small  <span>  Counts</span></h3>
+                            <h3 style={{ color: '#fff' }}>
+                                Every Action Big or Small 
+                                <span style={{ color: '#FBAD17' }}> Counts</span>
+                            </h3>
                         </div>
                     </div>
                     <div className="col-lg-6 col-12">

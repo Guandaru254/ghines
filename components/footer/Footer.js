@@ -55,10 +55,8 @@ const Footer = (props) => {
                         <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
                             <div className="widget locations-widget">
                                 <div className="social-media-icons">
-                                    <a href="#"><FaFacebook /></a>
-                                    <a href="#"><FaInstagram /></a>
-                                    <a href="#"><FaLinkedinIn /></a>
-                                    <a href="#"><FaXTwitter /></a>
+                                    <a href="https://web.facebook.com/profile.php?id=61580686119461"><FaFacebook /></a>
+                                    <a href="https://www.linkedin.com/company/109105147"><FaLinkedinIn /></a>
                                 </div>
                             </div>
                         </div>

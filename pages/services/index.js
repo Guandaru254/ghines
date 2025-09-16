@@ -34,29 +34,6 @@ const CausesPage = () => {
                                                 {causesData.docomunt}
                                             </p>
                                         </div>
-                                        <div className="progress-wrap">
-                                            <div className="progress-item">
-                                                <div className="progress">
-                                                    <div className="bar" style={{ width: `0%` }}>
-                                                        <span className="cssProgress-label">0%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <ul>
-                                                <li>
-                                                    <span className="title">Start:</span>
-                                                    <span>$0</span>
-                                                </li>
-                                                <li>
-                                                    <span className="title">Raised:</span>
-                                                    <span>$0</span>
-                                                </li>
-                                                <li>
-                                                    <span className="title">Goal:</span>
-                                                    <span>$0</span>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             );

@@ -10,7 +10,22 @@ const AboutS2 = (props) => {
         <section className={"" + props.hclass}>
             <div className="container">
                 <div className="row align-items-center">
-                    {/* The text column will come first in the HTML */}
+                    {/* The image column will now come first in the HTML */}
+                    <div className="col-lg-6 col-12 about-image-container">
+                        <figure className="about-image-figure">
+                            <Image
+                                src={GhinesPhoto}
+                                alt="Ghines Foundation Introduction Image"
+                                width={500}
+                                height={350}
+                                style={{ borderRadius: '15px' }}
+                            />
+                            <figcaption className="about-image-caption">
+                                Mr. Nicholas Ghines
+                            </figcaption>
+                        </figure>
+                    </div>
+                    {/* The text column will come second in the HTML */}
                     <div className="col-lg-6 col-12 about-text-container">
                         <div className="right-content">
                             <h2>THE GHINES FOUNDATION LEGACY</h2>
@@ -47,21 +62,6 @@ const AboutS2 = (props) => {
                                 and heritage thrive together.
                             </p>
                         </div>
-                    </div>
-                    {/* The image column will come second in the HTML */}
-                    <div className="col-lg-6 col-12 about-image-container">
-                        <figure className="about-image-figure">
-                            <Image
-                                src={GhinesPhoto}
-                                alt="Ghines Foundation Introduction Image"
-                                width={500}
-                                height={350}
-                                style={{ borderRadius: '15px' }}
-                            />
-                            <figcaption className="about-image-caption">
-                                Mr. Nicholas Ghines
-                            </figcaption>
-                        </figure>
                     </div>
                 </div>
             </div>
