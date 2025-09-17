@@ -181,7 +181,17 @@
         .wpo-upper-footer {
             padding: 30px 0;
         }
-
+        .footer-main-content {
+            flex-direction: column;
+            .newsletter-column,
+            .social-media-column {
+                text-align: center;
+                .social-media-icons {
+                    justify-content: center;
+                }
+            }
+        }
+        
         .social-media-icons {
             justify-content: center;
             margin-bottom: 10px;

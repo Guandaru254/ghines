@@ -6,6 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { FaRssSquare } from "react-icons/fa"; // Import the RSS icon
 
 import shape1 from '/public/images/f-shape1.svg';
 import shape2 from '/public/images/f-shape-2.svg';
@@ -28,14 +29,14 @@ const Footer = (props) => {
         <footer className="wpo-site-footer">
             <div className="wpo-upper-footer">
                 <div className="container">
-                    <div className="row">
+                    <div className="row footer-main-content"> {/* Use a class for better targeting */}
                         {/* Newsletter Column */}
-                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12 newsletter-column">
                             <div className="widget newsletter-s2">
                                 <div className="widget-title">
                                     <h3>JOIN OUR NEWSLETTER</h3>
                                 </div>
-                                <p>Stay informed about our impactful work and how <br/> your support makes a difference in South Sudan.</p>
+                                <p>Stay informed about our impactful work and how <br /> your support makes a difference in South Sudan.</p>
                                 <form className="form-fild">
                                     <input
                                         className="fild"
@@ -51,12 +52,13 @@ const Footer = (props) => {
                             </div>
                         </div>
 
-                        {/* Social Media Column */}
-                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        {/* Social Media & RSS Column */}
+                        <div className="col col-lg-6 col-md-6 col-sm-12 col-12 social-media-column">
                             <div className="widget locations-widget">
                                 <div className="social-media-icons">
-                                    <a href="https://web.facebook.com/profile.php?id=61580686119461"><FaFacebook /></a>
-                                    <a href="https://www.linkedin.com/company/109105147"><FaLinkedinIn /></a>
+                                    <a href="https://web.facebook.com/profile.php?id=61580686119461" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+                                    <a href="https://www.linkedin.com/company/109105147" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /></a>
+                                    <a href="/api/rss.xml" target="_blank" rel="noopener noreferrer" className="rss-icon"><FaRssSquare /></a>
                                 </div>
                             </div>
                         </div>
