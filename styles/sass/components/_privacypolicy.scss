@@ -1,0 +1,64 @@
+/* Styling for the Legal Pages (Privacy Policy) */
+
+.legal-section {
+    padding: 100px 0;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+.legal-section p {
+    color: #000; /* Overriding the general blue 'p' color rule */
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+.legal-section .container {
+    max-width: 900px;
+    margin-top: -100px;
+}
+
+.legal-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.legal-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.legal-section p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.legal-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.legal-section li {
+    margin-bottom: 10px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .legal-section {
+        padding: 60px 0;
+    }
+    
+    .legal-section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .legal-section h3 {
+        font-size: 1.5rem;
+    }
+}

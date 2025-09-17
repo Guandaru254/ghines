@@ -1,0 +1,95 @@
+/* frontend/styles/sass/components/_causespage.scss */
+
+.cause-card {
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cause-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image Section with Overlays */
+.cause-card-image {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Orange Icon Overlay (Hidden by default) */
+.cause-icon-hover-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 98px;
+    height: 99px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Show the orange shape on hover over the image container ONLY */
+.cause-card-image:hover .cause-icon-hover-overlay {
+    opacity: 1;
+}
+
+/* Blue Title Container at the bottom of the image */
+.cause-title-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #4A9FDA;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* This line will center the title and icon */
+    padding: 15px 20px;
+    z-index: 5;
+    min-height: 70px;
+}
+
+.cause-title-container i {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-right: 15px;
+}
+
+.cause-card-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Text Content Section Below the Image */
+.cause-card-content {
+    background-color: #fff;
+    padding: 25px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.cause-stats-text {
+    font-size: 0.9rem;
+    color: #4A9FDA;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.cause-description-text {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.6;
+    margin-top: 0;
+}
