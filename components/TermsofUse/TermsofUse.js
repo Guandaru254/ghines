@@ -10,7 +10,6 @@ const TermsofUse = () => {
             <section className="legal-section section-padding">
                 <div className="container">
                     <div className="legal-content">
-                        <h2>Terms of Use</h2> {/* Added the h2 title */}
                         <p>
                             Welcome to the Ghines Foundation website. By accessing or using our site, you agree to be bound by these Terms of Use. Please read them carefully.
                         </p>

@@ -10,10 +10,6 @@ const PrivacyPolicy = () => {
             <section className="legal-section section-padding">
                 <div className="container">
                     <div className="legal-content">
-                        <h2>Privacy Policy</h2> {/* Added the h2 title */}
-                        <p>
-                            Last updated: August 2025
-                        </p>
                         <p>
                             The Ghines Foundation is dedicated to protecting the privacy and security of all visitors to our website and participants in our programs. The following policy outlines our approach to data management.
                         </p>
