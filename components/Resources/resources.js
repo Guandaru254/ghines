@@ -5,7 +5,6 @@ const Resources = () => {
         <section className="resources-section">
             <div className="container">
                 <div className="resources-content">
-                    <h1>Resources</h1>
                     <div className="resource-item">
                         <h2>Strategy & Impact</h2>
                         <h3>Foundational Strategy Brief (2025–2027)</h3>
