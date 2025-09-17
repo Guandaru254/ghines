@@ -7,7 +7,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* Favicon link */}
-          <link rel="icon" href="/images/favicon.png" type="image/png" />
+          <link rel="icon" href="/images/favicon3.png" type="image/png" />
 
           {/* Your existing Google Fonts */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
