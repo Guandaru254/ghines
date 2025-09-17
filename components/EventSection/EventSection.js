@@ -1,5 +1,3 @@
-// EventSection.jsx
-
 import React from 'react';
 import pillars from '../../api/pillars';
 import Link from 'next/link';
@@ -17,8 +15,9 @@ const EventSection = () => {
                     <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', fontFamily: 'Nunito, sans-serif', color: 'black' }}>Our Pillars</h2>
                 </div>
             </div>
-            <div className="container-fluid p-0">
-                <div className="row g-0">
+            <div className="container">
+                {/* g-4 adds a 1.5rem gap between the columns. This will create space between the cards. */}
+                <div className="row g-4"> 
                     {pillars.map((pillaritem, index) => (
                         <div className="col-xl-4 col-lg-6 col-md-6 col-12" key={index}>
                             <div className="card-mv">
@@ -31,7 +30,7 @@ const EventSection = () => {
                                             <svg viewBox="0 0 98 99" fill="none">
                                                 <path
                                                     d="M0 0H98V99C98 99 61.8947 91.6967 42.5526 55.9918C23.2105 20.2869 0 0 0 0Z"
-                                                    fill="#F74F22"
+                                                    fill="#f6951d" // Changed color to the new hex code
                                                 />
                                             </svg>
                                         </div>

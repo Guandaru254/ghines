@@ -607,7 +607,6 @@
         }
     }
 }
-
 /* 3.5 events */
 .MV-section {
     margin: 50px 0;
@@ -618,8 +617,6 @@
     overflow: hidden;
     z-index: 1;
     
-
-
     &::before {
         position: absolute;
         content: '';
@@ -727,14 +724,13 @@
             @media (max-width:767px) {
                 font-size: 20px;
             }
-
         }
 
         i {
             width: 50px;
             height: 50px;
             border-radius: 0px;
-            background: #fc6900;
+            background: #f6951d; /* Changed the background color here */
             font-size: 42px;
             line-height: 75px;
             text-align: center;
@@ -764,9 +760,7 @@
             visibility: visible;
         }
     }
-
 }
-
 /* 3.6 service */
 .service-section {
     position: relative;

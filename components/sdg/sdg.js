@@ -30,8 +30,8 @@ const SDG = () => {
                                 <Image
                                     src={goal.icon}
                                     alt={goal.title}
-                                    width={131}   // Reduced by 25% from 175px (175 * 0.75 = 131.25)
-                                    height={131}  // Reduced by 25% from 175px (175 * 0.75 = 131.25)
+                                    width={110}
+                                    height={110}
                                 />
                             </div>
                         </div>

@@ -73,9 +73,9 @@ const Footer = (props) => {
                                     &copy; {new Date().getFullYear()} Ghines Foundation. All rights reserved.
                                 </p>
                                 <ul className="footer-legal-links">
-                                    <li><Link href="#">PRIVACY POLICY</Link></li>
-                                    <li><Link href="#">TERMS OF USE</Link></li>
-                                    <li><Link href="#">CONTACT</Link></li>
+                                    <li><Link href="/privacypolicy/privacypolicy">PRIVACY POLICY</Link></li>
+                                    <li><Link href="/termsofuse/termsofuse">TERMS OF USE</Link></li>
+                                    <li><Link href="/contact">CONTACT</Link></li>
                                 </ul>
                             </div>
                         </div>

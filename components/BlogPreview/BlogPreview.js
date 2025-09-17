@@ -51,7 +51,7 @@ const BlogPreview = () => {
                             transition: 'background-color 0.3s ease',
                             textDecoration: 'none'
                         }}>
-                            View All Posts
+                            View All Stories
                         </div>
                     </Link>
                 </div>
