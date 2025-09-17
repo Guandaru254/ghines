@@ -28,7 +28,7 @@ const CtaSectionS2 = () => {
                     </div>
                     <div className="col-lg-6 col-12">
                         <div className="all-btn">
-                            <Link onClick={ClickHandler} href="" className="theme-btn">Get Involved </Link>
+                            <Link onClick={ClickHandler} href="/get-involved" className="theme-btn">Get Involved </Link>
                         </div>
                     </div>
                 </div>

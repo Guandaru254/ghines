@@ -10,7 +10,7 @@ const BlogList = (props) => {
         blogs[0],
         blogs[1],
         blogs[2],
-        {...blogs[0], title2: "Placeholder Blog", day: "01", month: "OCT"}
+        {...blogs[0], title2: "Placeholder Blog", day: "20", month: "JUN"}
     ];
 
     return (

@@ -70,7 +70,7 @@ const NewHeader = () => {
                 </ul>
             </nav>
             <div className={styles.ctaButton}>
-                <Link href="" className={styles.donateBtn}>
+                <Link href="/get-involved" className={styles.donateBtn}>
                     Get Involved
                 </Link>
                 <button className={styles.searchBtn} onClick={handleSearchClick}>
@@ -108,7 +108,7 @@ const NewHeader = () => {
                     <li><Link href="/resources" onClick={closeMenu}>Resources</Link></li>
                     <li><Link href="/blog-fullwidth" onClick={closeMenu}>News & Stories</Link></li>
                     <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
-                    <li><Link href="/" onClick={closeMenu}>Get Involved</Link></li>
+                    <li><Link href="/get-involved" onClick={closeMenu}>Get Involved</Link></li>
                     {/* Place search button at the bottom of the list */}
                     <li className={styles.searchItem}>
                         <button className={styles.searchBtnMobile} onClick={handleSearchClick}>
