@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './Hero.module.scss';
 
 // Import images from your public directory
-import heroImage from '/public/images/hero-pets.webp';
+import heroImage from '/public/images/ssd.jpg';
 
 const Hero = () => {
     return (
