@@ -28,7 +28,9 @@ const EventSectionS2 = () => {
                                     </Link>
                                 </div>
                                 <div className="text">
-                                    <h2><Link onClick={ClickHandler} href={'/event-single/[slug]'} as={`/event-single/${eventitem.slug}`}>{eventitem.title}</Link></h2>
+                                    <h2>
+                                        {eventitem.title}
+                                    </h2>
                                     <i className="flaticon-tap"></i>
                                 </div>
                             </div>

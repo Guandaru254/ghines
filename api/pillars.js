@@ -5,7 +5,7 @@ const pillars = [
         id: 1,
         slug: 'animal-welfare-conservation',
         title: 'Animal Welfare & Conservation',
-        img: '/images/pillars/1.jpg',
+        img: '/images/pillars/1.webp',
         description: 'We aim to establish mobile veterinary services, animal shelters, and a rescue centre to support rural livestock keepers and respond to the needs of injured, abandoned, or at-risk animals. Guided by One Health principles, our vision includes protecting biodiversity and building community-led research partnerships.'
     },
     {

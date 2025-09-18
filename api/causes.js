@@ -1,8 +1,8 @@
 // api/causes.js
 
-import Cimg1 from '/public/images/mission-vission/1.jpg';
-import Cimg2 from '/public/images/mission-vission/2.jpg';
-import Cimg3 from '/public/images/mission-vission/3.jpg';
+import Cimg1 from '/public/images/pillars/1.webp';
+import Cimg2 from '/public/images/pillars/2.jpg';
+import Cimg3 from '/public/images/pillars/3.jpg';
 
 const causes = [
     {
