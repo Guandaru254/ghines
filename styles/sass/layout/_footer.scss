@@ -51,53 +51,63 @@
         }
     }
     
-    .newsletter-s2 .form-fild {
-        display: flex;
-        position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 50px;
-        padding: 5px;
-        max-width: 250px;
-        .fild {
-            width: 100%;
-            height: 45px;
-            background: transparent;
-            border: none;
-            padding-left: 20px;
-            color: #fff;
-            &::placeholder {
-                color: rgba(255, 255, 255, 0.8);
-            }
-            &:focus {
-                outline: none;
-            }
+    .newsletter-s2 {
+        .newsletter-content {
+            display: flex; /* Use Flexbox to align content horizontally */
+            align-items: center;
+            justify-content: space-between; /* Space out the form and social icons */
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            gap: 20px; /* Adds space between the items */
         }
-        button {
-            background: #fff;
-            border: none;
-            border-radius: 50%;
-            color: #4A9FDA;
-            font-size: 16px;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: none;
-            &:hover {
+        .form-fild {
+            display: flex;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            padding: 5px;
+            max-width: 250px;
+            .fild {
+                width: 100%;
+                height: 45px;
+                background: transparent;
+                border: none;
+                padding-left: 20px;
+                color: #fff;
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.8);
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+            button {
                 background: #fff;
+                border: none;
+                border-radius: 50%;
                 color: #4A9FDA;
+                font-size: 16px;
+                width: 35px;
+                height: 35px;
+                cursor: pointer;
+                position: absolute;
+                right: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: none;
+                &:hover {
+                    background: #fff;
+                    color: #4A9FDA;
+                }
             }
         }
     }
     
     .social-media-icons {
-        margin-top: 50px;
         display: flex;
         justify-content: flex-end;
+        align-items: center; /* Vertically align icons */
         gap: 15px;
+        margin-top: 110px;
         a {
             color: #fff;
             font-size: 25px;
@@ -216,15 +226,4 @@
             padding-bottom: 0;
         }
     }
-}
-
-/* New classes for card height and alignment */
-.contact-card-address,
-.contact-card-phone,
-.contact-card-email {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
 }
