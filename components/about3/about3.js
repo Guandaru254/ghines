@@ -28,7 +28,7 @@ const AboutS2 = (props) => {
                     {/* The text column will come second in the HTML */}
                     <div className="col-lg-6 col-12 about-text-container">
                         <div className="right-content">
-                            <h2>THE GHINES FOUNDATION LEGACY</h2>
+                            <h2>THE LEGACY OF NICHOLAS GHINES</h2>
                             <p>
                                 The story of the Ghines family in South Sudan begins more than a century ago. 
                                 In 1896, members of the family left Ottoman-occupied Greece and made their way to Sudan,
