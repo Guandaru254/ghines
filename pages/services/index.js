@@ -50,8 +50,9 @@ const CausesPage = () => {
 
                                         {/* Text Content Below the Image */}
                                         <div className="cause-card-content">
-                                            <p className="cause-stats-text">{causesData.statsText}</p>
+                                            {/* Changed the order of the paragraphs */}
                                             <p className="cause-description-text">{causesData.docomunt}</p>
+                                            <p className="cause-stats-text">{causesData.statsText}</p>
                                         </div>
                                     </div>
                                 </div>
