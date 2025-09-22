@@ -16,8 +16,7 @@ const Hero = () => {
                     <h1 className={styles.mainHeading}>
                         Every Action<br />
                         Big or Small<br />
-                        <span className={styles.petCare}>Counts</span>
-                    </h1>
+                    <span style={{ color: '#f3ac57ff' }}> Counts</span>                    </h1>
                     <div className={styles.heroCtaButtons}>
                         <Link href="/about" className={styles.aboutUsBtn}>
                             Learn More
