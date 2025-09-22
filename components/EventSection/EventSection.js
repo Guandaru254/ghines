@@ -17,7 +17,7 @@ const EventSection = () => {
             </div>
             <div className="container">
                 {/* g-4 adds a 1.5rem gap between the columns. This will create space between the cards. */}
-                <div className="row g-4"> 
+                <div className="row g-4">
                     {pillars.map((pillaritem, index) => (
                         <div className="col-xl-4 col-lg-6 col-md-6 col-12" key={index}>
                             <div className="card-mv">
@@ -37,7 +37,8 @@ const EventSection = () => {
                                     </Link>
                                 </div>
                                 <div className="text">
-                                    <h2>
+                                    {/* Add the `whiteSpace: 'nowrap'` style to prevent the text from wrapping */}
+                                    <h2 style={{ whiteSpace: 'nowrap' }}>
                                         <Link onClick={ClickHandler} href={`/pillars/${pillaritem.slug}`}>
                                             {pillaritem.title}
                                         </Link>

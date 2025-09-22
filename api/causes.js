@@ -8,7 +8,7 @@ const causes = [
     {
         id: '1',
         title: 'Animal Welfare & Conservation',
-        statsText: '70% of animals lack veterinary care',
+        statsText: 'Over 30 million livestock compete with wildlife for resources (water, pasture)/More than 70% of livestock and domestic animals in rural areas lack veterinary attention ',
         docomunt: 'Expanding veterinary services, focusing on domestic and street animals, protecting wildlife, addressing human–wildlife conflict through community training, promoting conservation initiatives, and integrating climate change awareness into all programs.',
         slug: 'animal-welfare-conservation',
         Cimg: Cimg1,
