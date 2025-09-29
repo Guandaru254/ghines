@@ -4319,151 +4319,156 @@ img {
 
 /* 3.5 events */
 .card-mv {
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 .card-mv::before {
-  position: absolute;
-  content: "";
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(237deg, rgba(10, 26, 21, 0.8) 14.53%, rgba(4, 6, 6, 0.69) 42.31%, rgba(33, 229, 193, 0.43) 80.05%);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(237deg, rgba(10, 26, 21, 0.8) 14.53%, rgba(4, 6, 6, 0.69) 42.31%, rgba(33, 229, 193, 0.43) 80.05%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
 }
 .card-mv img {
-  width: 100%;
+    width: 100%;
 }
 .card-mv .icon {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 98px;
-  height: 99px;
-  z-index: 1;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 98px;
+    height: 99px;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
 }
 .card-mv .icon .shape {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 .card-mv .icon a i {
-  font-size: 35px;
-  color: #fff;
-  position: absolute;
-  left: 63%;
-  top: 14%;
-  font-weight: 700;
-  z-index: 11;
-  font-family: none;
+    font-size: 35px;
+    color: #fff;
+    position: absolute;
+    left: 63%;
+    top: 14%;
+    font-weight: 700;
+    z-index: 11;
+    font-family: none;
 }
 .card-mv .text {
-  max-width: 384px;
-  max-height: 90px;
-  border-radius: 7px;
-  background: #FFF;
-  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.07);
-  display: block;
-  position: absolute;
-  left: 50px;
-  bottom: 40px;
-  z-index: 1;
-  padding: 3px 40px;
-  padding-left: 85px;
-  text-align: center;
+    /* REMOVED: max-width, width, box-shadow, border-radius */
+    max-height: 90px;
+    /* REVERTED: Background is now the blue bar */
+    background: #4A9FDA; 
+    display: block;
+    position: absolute;
+    z-index: 1;
+    
+    /* ***** CRITICAL FULL-WIDTH FIXES ***** */
+    width: 100%; /* Ensure it spans the card width */
+    left: 0; /* Align flush left */
+    bottom: 0; /* Align flush bottom */
+    transform: none; /* Remove any centering translation */
+    /* ************************************** */
+    
+    /* Adjusted padding for a cleaner look when full-width */
+    padding: 20px 20px 20px 85px; 
+    text-align: left; /* Text alignment should be left for better readability in a full bar */
 }
 @media (max-width: 1399px) {
-  .card-mv .text {
-    left: 30px;
-    padding: 36px 30px;
-    padding-left: 80px;
-    bottom: 20px;
-  }
+    .card-mv .text {
+        /* Remove centering transforms from media query */
+        left: 0;
+        bottom: 0;
+        transform: none;
+        width: 100%;
+        
+        /* Adjusted padding for this breakpoint */
+        padding: 20px 20px 20px 80px;
+    }
 }
 @media (max-width: 767px) {
-  .card-mv .text {
-    left: 20px;
-    padding: 25px 10px;
-    padding-left: 70px;
-    bottom: 20px;
-  }
+    .card-mv .text {
+        /* Remove centering transforms from media query */
+        left: 0;
+        bottom: 0;
+        transform: none;
+        width: 100%;
+        
+        /* Adjusted padding for this breakpoint */
+        padding: 15px 15px 15px 70px;
+    }
 }
 .card-mv .text::before {
-  position: absolute;
-  width: 24px;
-  height: 20px;
-  content: "";
-  background: #fff;
-  left: 50px;
-  top: -20px;
-  -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
-          clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    /* This element (the small white triangle) is no longer needed/visible if the bar is full width */
+    content: none; 
 }
 .card-mv .text h2{
-  margin: 0;
-  color: #fff; /* Use black as the default color */
-  transition: color 0.3s ease-in-out; /* Add a transition for a smooth effect */
-  font-size: 10px;
+    margin: 0;
+    color: #fff; /* White text on blue background */
+    transition: color 0.3s ease-in-out; 
+    font-size: 10px;
 }
 .card-mv .text a {
-  color: #fff;
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  font-size: 10px;
-  line-height: 20px;
-  font-weight: 700;
-  text-transform: capitalize;
-  display: block;
+    color: #fff; /* White text on blue background */
+    text-align: left; /* Text alignment is left */
+    font-family: "Nunito", sans-serif;
+    font-size: 10px;
+    line-height: 20px;
+    font-weight: 700;
+    text-transform: capitalize;
+    display: block;
 }
 @media (max-width: 767px) {
-  .card-mv .text a {
-    font-size: 20px;
-  }
+    .card-mv .text a {
+        font-size: 20px;
+    }
 }
 .card-mv .text i {
-  width: 60px;
-  height: 60px;
-  border-radius: 4px;
-  background: #f6951d;
-  font-size: 42px;
-  line-height: 75px;
-  text-align: center;
-  display: block;
-  color: #fff;
-  position: absolute;
-  left: -10px;
-  bottom: 0;
-}
-@media (max-width: 767px) {
-  .card-mv .text i {
     width: 60px;
     height: 60px;
-    font-size: 35px;
-    line-height: 60px;
-  }
+    border-radius: 4px;
+    background: #f6951d; /* Orange Icon/Globe background */
+    font-size: 42px;
+    line-height: 60px; 
+    text-align: center;
+    display: block;
+    color: #fff;
+    position: absolute;
+    /* Adjusted icon position for flush left bar */
+    left: 10px; 
+    
+    /* ***** ICON VERTICAL CENTERING FIX RETAINED ***** */
+    top: 50%;
+    transform: translateY(-50%);
+}
+@media (max-width: 767px) {
+    .card-mv .text i {
+        width: 60px;
+        height: 60px;
+        font-size: 35px;
+        line-height: 60px;
+    }
 }
 .card-mv:hover::before {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 .card-mv:hover .icon {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
-
-
-
-
-
 
 
 
