@@ -30,14 +30,15 @@ const EventSection = () => {
                                             <svg viewBox="0 0 98 99" fill="none">
                                                 <path
                                                     d="M0 0H98V99C98 99 61.8947 91.6967 42.5526 55.9918C23.2105 20.2869 0 0 0 0Z"
-                                                    fill="#f6951d" // Changed color to the new hex code
+                                                    fill="#f6951d"
                                                 />
                                             </svg>
                                         </div>
                                     </Link>
                                 </div>
-                                <div className="text">
-                                    {/* Add the `whiteSpace: 'nowrap'` style to prevent the text from wrapping */}
+                                {/* Apply text-align: center to the container */}
+                                <div className="text" style={{ textAlign: 'center' }}>
+                                    {/* Keep whiteSpace: 'nowrap' on the h2 to prevent breaks */}
                                     <h2 style={{ whiteSpace: 'nowrap' }}>
                                         <Link onClick={ClickHandler} href={`/pillars/${pillaritem.slug}`}>
                                             {pillaritem.title}

@@ -52,8 +52,10 @@ const CausesPage = () => {
                                         <div className="cause-card-content">
                                             {/* Changed the order of the paragraphs */}
                                             <p className="cause-description-text">{causesData.docomunt}</p>
-                                            <p className="cause-stats-text">{causesData.statsText}</p>
-                                        </div>
+<p
+    className="cause-stats-text"
+    dangerouslySetInnerHTML={{ __html: causesData.statsText }}
+/>                                        </div>
                                     </div>
                                 </div>
                             );
