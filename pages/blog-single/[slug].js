@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import Scrollbar from '../../components/scrollbar/Scrollbar';
+// FIX: Correcting the case sensitivity issue on the file name (scrollbar.js)
+import Scrollbar from '../../components/scrollbar/scrollbar.js'; 
 import NewHeader from '../../components/NewHeader/newheader.js';
 import Footer from '../../components/footer/Footer';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
