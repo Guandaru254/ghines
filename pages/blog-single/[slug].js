@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import Scrollbar from '../../components/scrollbar/scrollbar';
+import Scrollbar from '../../components/scrollbar/Scrollbar';
 import NewHeader from '../../components/NewHeader/newheader.js';
 import Footer from '../../components/footer/Footer';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
@@ -34,6 +34,12 @@ const getFetchBaseUrl = (baseUrl) => {
         url = url.slice(0, -1);
     }
     
+    // Fix 3: Ensure consistency when the user provides the Strapi Admin URL (e.g., domain.com/admin)
+    // The API endpoint should be based on the root domain, not the admin path.
+    if (url.endsWith('/admin')) {
+        url = url.slice(0, -6); // Remove '/admin'
+    }
+
     return url;
 };
 
@@ -95,10 +101,12 @@ export async function getStaticPaths() {
 
         const posts = await res.json();
         
-        // Ensure posts.data exists before mapping
-        const paths = (posts.data || []).map((post) => ({
-            params: { slug: post.attributes.Slug }, 
-        }));
+        // Use filter to skip any post that is missing the required 'attributes' or 'Slug' field.
+        const paths = (posts.data || [])
+            .filter(post => post?.attributes?.Slug) // <-- Defensive coding to prevent crash
+            .map((post) => ({
+                params: { slug: post.attributes.Slug }, 
+            }));
 
         console.log(`[getStaticPaths] Found ${paths.length} paths.`);
 
@@ -154,4 +162,3 @@ export async function getStaticProps({ params }) {
         return { notFound: true };
     }
 }
-
