@@ -8,11 +8,33 @@ import BlogSingle from '../../components/BlogDetails/BlogSingle';
 // 1. CRITICAL: Reference the secure environment variable
 const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL; 
 
-// Utility function to ensure the URL has a protocol
+// NOTE: If you are using the IMAGE_HOSTNAME environment variable seen in the image, 
+// ensure this hostname is added to the `images.remotePatterns` or `images.domains` 
+// configuration in your `next.config.js` file for proper image optimization.
+const IMAGE_HOSTNAME = process.env.IMAGE_HOSTNAME; 
+
+// Utility function to ensure the URL has a protocol and no trailing slash for server-side fetching.
 const getFetchBaseUrl = (baseUrl) => {
     if (!baseUrl) return null;
-    // Prepend 'https:' if the URL starts with '//' (protocol-less)
-    return baseUrl.startsWith('//') ? `https:${baseUrl}` : baseUrl;
+    let url = baseUrl;
+
+    // Fix 1: Ensure the URL starts with a protocol (http:// or https://) for server-side fetch.
+    if (!url.includes('://')) {
+        // Handle protocol-less URL that starts with // (e.g., //domain.com)
+        if (url.startsWith('//')) {
+            url = `https:${url}`;
+        } else {
+            // Handle URL that has no protocol or leading slashes (e.g., domain.com)
+            url = `https://${url}`;
+        }
+    }
+
+    // Fix 2: Remove trailing slash to ensure clean path concatenation (e.g., /api)
+    if (url.endsWith('/')) {
+        url = url.slice(0, -1);
+    }
+    
+    return url;
 };
 
 // -----------------------------------------------------------
@@ -48,6 +70,7 @@ export default BlogDetails;
 // getStaticPaths: Defines all article URLs for Next.js to pre-build
 // -----------------------------------------------------------
 export async function getStaticPaths() {
+    // This now uses the more robust utility function
     const fetchBaseUrl = getFetchBaseUrl(STRAPI_BASE_URL);
 
     try {
@@ -84,7 +107,9 @@ export async function getStaticPaths() {
             fallback: 'blocking' // Use 'blocking' for robust ISR handling on dynamic pages
         };
     } catch (error) {
-        console.error("Critical error in getStaticPaths:", error.message);
+        // Logging the root cause from the error object
+        const rootCause = error.cause ? `: ${error.cause.message}` : '';
+        console.error(`Error fetching static paths${rootCause}:`, error.message);
         return { paths: [], fallback: 'blocking' }; 
     }
 }
@@ -94,6 +119,7 @@ export async function getStaticPaths() {
 // -----------------------------------------------------------
 export async function getStaticProps({ params }) {
     const { slug } = params;
+    // This now uses the more robust utility function
     const fetchBaseUrl = getFetchBaseUrl(STRAPI_BASE_URL);
     
     try {
@@ -128,3 +154,4 @@ export async function getStaticProps({ params }) {
         return { notFound: true };
     }
 }
+
