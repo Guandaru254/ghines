@@ -5,7 +5,7 @@ import NewHeader from '../../components/NewHeader/newheader.js';
 import Footer from '../../components/footer/Footer';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
 
-// 1. CRITICAL: Reference the secure environment variablea
+// 1. CRITICAL: Reference the secure environment variable
 const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL; 
 
 // -----------------------------------------------------------
@@ -42,20 +42,41 @@ export default BlogDetails;
 // -----------------------------------------------------------
 export async function getStaticPaths() {
     try {
-        // Fetch only the Slugs field for efficiency
-        const res = await fetch(`${STRAPI_BASE_URL}/api/news-stories?fields[0]=Slug`);
-        const posts = await res.json();
+        // --- FIX: Implement robust URL construction to prevent protocol errors ---
+        if (!STRAPI_BASE_URL) {
+            console.error("STRAPI_BASE_URL is missing in getStaticPaths.");
+            return { paths: [], fallback: 'blocking' }; 
+        }
+        
+        // This line ensures that even if Vercel strips 'https:', we add it back for a valid fetch
+        const fetchBaseUrl = STRAPI_BASE_URL.startsWith('//') ? `https:${STRAPI_BASE_URL}` : STRAPI_BASE_URL;
+        const fetchUrl = `${fetchBaseUrl}/api/news-stories?fields[0]=Slug`;
+        
+        console.log(`[getStaticPaths] Fetching slugs from: ${fetchUrl}`);
+        // --------------------------------------------------------------------------
 
-        const paths = posts.data.map((post) => ({
+        // Fetch only the Slugs field for efficiency
+        const res = await fetch(fetchUrl);
+        
+        if (!res.ok) {
+             const errorText = await res.text();
+             console.error(`[getStaticPaths ERROR] Status: ${res.status} (${res.statusText}). Response: ${errorText.substring(0, 100)}...`);
+             throw new Error(`API returned status: ${res.status}`);
+        }
+
+        const posts = await res.json();
+        const paths = (posts.data || []).map((post) => ({
             params: { slug: post.attributes.Slug }, 
         }));
 
+        console.log(`[getStaticPaths] Found ${paths.length} paths.`);
+
         return { 
             paths, 
-            fallback: true // Allows new posts to be generated via ISR
+            fallback: 'blocking' // Use 'blocking' for robust ISR handling on dynamic pages
         };
     } catch (error) {
-        console.error("Error fetching static paths:", error);
+        console.error("Critical error in getStaticPaths:", error.message);
         return { paths: [], fallback: 'blocking' }; 
     }
 }
@@ -67,15 +88,29 @@ export async function getStaticProps({ params }) {
     const { slug } = params;
     
     try {
+        // --- FIX: Implement robust URL construction here as well ---
+        if (!STRAPI_BASE_URL) {
+            console.error("STRAPI_BASE_URL is missing in getStaticProps.");
+            return { notFound: true };
+        }
+        const fetchBaseUrl = STRAPI_BASE_URL.startsWith('//') ? `https:${STRAPI_BASE_URL}` : STRAPI_BASE_URL;
+        // ------------------------------------------------------------
+        
         // Fetch the specific post, filtering by slug and populating the image
-        const res = await fetch(
-            `${STRAPI_BASE_URL}/api/news-stories?filters[Slug][$eq]=${slug}&populate=*`
-        );
+        const fetchUrl = `${fetchBaseUrl}/api/news-stories?filters[Slug][$eq]=${slug}&populate=*`;
+        
+        console.log(`[getStaticProps] Fetching post for slug ${slug} from: ${fetchUrl}`);
+
+        const res = await fetch(fetchUrl);
         const data = await res.json();
 
         if (!data.data || data.data.length === 0) {
+            console.warn(`Post not found for slug: ${slug}`);
             return { notFound: true };
         }
+
+        // We already fixed serialization errors by ensuring all fields in the data layer 
+        // that goes to the props are explicitly handled (nullish coalescing).
 
         return {
             props: {
@@ -85,7 +120,7 @@ export async function getStaticProps({ params }) {
         };
 
     } catch (error) {
-        console.error(`Error fetching post for slug ${slug}:`, error);
+        console.error(`Critical error fetching post for slug ${slug}:`, error.message);
         return { notFound: true };
     }
 }
