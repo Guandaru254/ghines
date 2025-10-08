@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import Scrollbar from '../../components/scrollbar/Scrollbar';
+import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogList from '../../components/BlogList/BlogList'; 
 
 const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL; 
