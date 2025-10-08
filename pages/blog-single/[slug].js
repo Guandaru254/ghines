@@ -8,6 +8,13 @@ import BlogSingle from '../../components/BlogDetails/BlogSingle';
 // 1. CRITICAL: Reference the secure environment variable
 const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL; 
 
+// Utility function to ensure the URL has a protocol
+const getFetchBaseUrl = (baseUrl) => {
+    if (!baseUrl) return null;
+    // Prepend 'https:' if the URL starts with '//' (protocol-less)
+    return baseUrl.startsWith('//') ? `https:${baseUrl}` : baseUrl;
+};
+
 // -----------------------------------------------------------
 // MAIN COMPONENT: Receives 'blog' data as a prop
 // -----------------------------------------------------------
@@ -41,21 +48,20 @@ export default BlogDetails;
 // getStaticPaths: Defines all article URLs for Next.js to pre-build
 // -----------------------------------------------------------
 export async function getStaticPaths() {
+    const fetchBaseUrl = getFetchBaseUrl(STRAPI_BASE_URL);
+
     try {
-        // --- FIX: Implement robust URL construction to prevent protocol errors ---
-        if (!STRAPI_BASE_URL) {
-            console.error("STRAPI_BASE_URL is missing in getStaticPaths.");
+        // Check for base URL validity
+        if (!fetchBaseUrl) {
+            console.error("STRAPI_BASE_URL is missing or invalid in getStaticPaths.");
             return { paths: [], fallback: 'blocking' }; 
         }
         
-        // This line ensures that even if Vercel strips 'https:', we add it back for a valid fetch
-        const fetchBaseUrl = STRAPI_BASE_URL.startsWith('//') ? `https:${STRAPI_BASE_URL}` : STRAPI_BASE_URL;
+        // Construct the full, correct URL
         const fetchUrl = `${fetchBaseUrl}/api/news-stories?fields[0]=Slug`;
         
         console.log(`[getStaticPaths] Fetching slugs from: ${fetchUrl}`);
-        // --------------------------------------------------------------------------
 
-        // Fetch only the Slugs field for efficiency
         const res = await fetch(fetchUrl);
         
         if (!res.ok) {
@@ -65,6 +71,8 @@ export async function getStaticPaths() {
         }
 
         const posts = await res.json();
+        
+        // Ensure posts.data exists before mapping
         const paths = (posts.data || []).map((post) => ({
             params: { slug: post.attributes.Slug }, 
         }));
@@ -86,17 +94,16 @@ export async function getStaticPaths() {
 // -----------------------------------------------------------
 export async function getStaticProps({ params }) {
     const { slug } = params;
+    const fetchBaseUrl = getFetchBaseUrl(STRAPI_BASE_URL);
     
     try {
-        // --- FIX: Implement robust URL construction here as well ---
-        if (!STRAPI_BASE_URL) {
-            console.error("STRAPI_BASE_URL is missing in getStaticProps.");
+        // Check for base URL validity
+        if (!fetchBaseUrl) {
+            console.error("STRAPI_BASE_URL is missing or invalid in getStaticProps.");
             return { notFound: true };
         }
-        const fetchBaseUrl = STRAPI_BASE_URL.startsWith('//') ? `https:${STRAPI_BASE_URL}` : STRAPI_BASE_URL;
-        // ------------------------------------------------------------
         
-        // Fetch the specific post, filtering by slug and populating the image
+        // Construct the full, correct URL
         const fetchUrl = `${fetchBaseUrl}/api/news-stories?filters[Slug][$eq]=${slug}&populate=*`;
         
         console.log(`[getStaticProps] Fetching post for slug ${slug} from: ${fetchUrl}`);
@@ -108,9 +115,6 @@ export async function getStaticProps({ params }) {
             console.warn(`Post not found for slug: ${slug}`);
             return { notFound: true };
         }
-
-        // We already fixed serialization errors by ensuring all fields in the data layer 
-        // that goes to the props are explicitly handled (nullish coalescing).
 
         return {
             props: {
