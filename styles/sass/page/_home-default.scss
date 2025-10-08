@@ -606,8 +606,7 @@
             font-size: 20px;
         }
     }
-}
-/* 3.5 events */
+}/* 3.5 events */
 .MV-section {
     margin: 50px 0;
 }
@@ -668,14 +667,19 @@
     }
 
     .text {
-        max-width: 384px;
+        /* FIX: Removed max-width: 384px; which caused the right-side layout issue. */
+        
+        /* CRITICAL FIX: Define both left and right for consistent spacing */
+        left: 50px;
+        right: 50px; /* NEW: Sets a 50px gap from the right edge */
+        width: auto; /* NEW: Allows width to be calculated by left/right */
+        
         max-height: 90px;
         border-radius: 7px;
         background: $theme-primary-color;
         
         display: block;
         position: absolute;
-        left: 50px;
         bottom: 40px;
         z-index: 1;
         padding: 36px 40px;
@@ -684,6 +688,7 @@
 
         @media (max-width:1399px) {
             left: 30px;
+            right: 30px; /* FIX: Maintain right gap on this size */
             padding: 36px 30px;
             padding-left: 80px;
             bottom: 20px;
@@ -691,6 +696,7 @@
 
         @media (max-width:767px) {
             left: 20px;
+            right: 20px; /* FIX: Maintain right gap on small screens */
             padding: 25px 10px;
             padding-left: 70px;
             bottom: 20px;
@@ -715,14 +721,14 @@
             color: #fff;
             text-align: center;
             font-family: $heading-font;
-            font-size: 17px;
+            font-size: 14px;
             line-height: 20px;
             font-weight: 700;
             text-transform: capitalize;
             display: block;
 
             @media (max-width:767px) {
-                font-size: 20px;
+                font-size: 14px;
             }
         }
 
@@ -761,6 +767,9 @@
         }
     }
 }
+
+
+
 /* 3.6 service */
 .service-section {
     position: relative;
