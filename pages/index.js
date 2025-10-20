@@ -12,7 +12,7 @@ import TestimonialS3 from '../components/TestimonialS3/TestimonialS3';
 import ProcessSection from '../components/ProcessSection/ProcessSection';
 import InstagamSection from '../components/InstagamSection/InstagamSection';
 import BlogSection from '../components/BlogSection/BlogSection';
-import Scrollbar from '../components/scrollbar/Scrollbar';
+import Scrollbar from '../components/scrollbar/scrollbar';
 import Logo from '/public/images/logo-2.svg';
 import Layout from '../components/Layout/Layout';
 import BlogPreview from '../components/BlogPreview/BlogPreview';

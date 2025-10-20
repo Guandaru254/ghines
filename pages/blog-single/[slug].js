@@ -1,7 +1,7 @@
 // pages/blog-single/[slug].js
 import React, { Fragment } from 'react';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import Scrollbar from '../../components/scrollbar/Scrollbar';
+import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
 import fetch from 'node-fetch';
 
