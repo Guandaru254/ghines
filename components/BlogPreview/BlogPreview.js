@@ -338,7 +338,7 @@ const BlogPreview = () => {
                 </div>
                 
                 <div className="text-center mt-5">
-                    <Link href="/news" className="btn btn-primary" style={{
+                    <Link href="/blog-fullwidth" className="btn btn-primary" style={{
                         padding: '12px 30px',
                         borderRadius: '5px',
                         textDecoration: 'none',

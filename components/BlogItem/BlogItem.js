@@ -23,7 +23,7 @@ const BlogItem = ({ post }) => {
         </div>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-800 hover:text-blue-600 transition">
-          <Link href={`/news/${slug}`}>{title}</Link>
+          <Link href={`/blog-single/${slug}`}>{title}</Link>
         </h3>
 
         {photoCredit && <p className="text-xs text-gray-400">📸 {photoCredit}</p>}
