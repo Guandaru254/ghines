@@ -276,19 +276,19 @@ const BlogPreview = () => {
                                         <span
                                             className="date-overlay position-absolute top-0 start-0 text-center text-white"
                                             style={{ 
-                                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                                                padding: '10px 15px',
-                                                borderRadius: '0 0 8px 0',
+                                                backgroundColor: '#4a9fda',
+                                                padding: '15px 20px',
+                                                borderRadius: '8px',
                                                 fontSize: '14px',
                                                 fontWeight: 'bold',
-                                                lineHeight: '1.2'
+                                                lineHeight: '1.2',
+                                                boxShadow: '0 4px 10px rgba(74, 159, 218, 0.4)'
                                             }}
                                         >
                                             <div style={{ fontSize: '24px' }}>{publishedDate.format('DD')}</div>
                                             <div style={{ fontSize: '12px', marginTop: '2px' }}>{publishedDate.format('MMM').toUpperCase()}</div>
                                         </span>
-                                    </div>
-                                    
+                                    </div>                          
                                     <div className="entry-details" style={{ padding: '20px' }}>
                                         <div className="entry-meta mb-2">
                                             <ul style={{ 
@@ -300,7 +300,7 @@ const BlogPreview = () => {
                                                 fontSize: '13px',
                                                 color: '#666'
                                             }}>
-                                                <li><i className="fi flaticon-user"></i> By {authorName}</li>
+                                                <li><i className="fi flaticon-user"></i> By <strong>{authorName}</strong></li>
                                                 <li><i className="fi flaticon-clock"></i> 3 Min Read</li>
                                             </ul>
                                         </div>
@@ -321,7 +321,7 @@ const BlogPreview = () => {
                                         
                                         <div className="read-more" style={{ marginTop: '15px' }}>
                                             <Link href={postLink} style={{ 
-                                                color: '#007bff',
+                                                color: '#4a9fda',
                                                 textDecoration: 'none',
                                                 fontSize: '14px',
                                                 fontWeight: '600',
@@ -338,12 +338,20 @@ const BlogPreview = () => {
                 </div>
                 
                 <div className="text-center mt-5">
-                    <Link href="/blog-fullwidth" className="btn btn-primary" style={{
+                    <Link href="/blog-fullwidth" className="btn" style={{
+                        backgroundColor: '#4a9fda',
+                        color: '#fff',
                         padding: '12px 30px',
                         borderRadius: '5px',
                         textDecoration: 'none',
-                        display: 'inline-block'
-                    }}>
+                        display: 'inline-block',
+                        border: 'none',
+                        fontWeight: '600',
+                        transition: 'background-color 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#357ab8'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4a9fda'}
+                    >
                         View All Stories
                     </Link>
                 </div>
