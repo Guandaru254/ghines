@@ -64,6 +64,7 @@ const NewHeader = () => {
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/about">Who We Are</Link></li>
                     <li><Link href="/services">What We Do</Link></li>
+                    <li><Link href="/board">Leadership</Link></li>
                     <li><Link href="/resources">Resources</Link></li>
                     <li><Link href="/blog-fullwidth">News & Stories</Link></li>
                     <li><Link href="/contact">Contact</Link></li>

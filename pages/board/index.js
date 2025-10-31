@@ -1,16 +1,24 @@
-import React, { Fragment } from 'react';
-import PageTitle from '../../components/PageTitle/PageTitle';
-import TeamSection from '../../components/TeamSection/TeamSection';
-import Scrollbar from '../../components/scrollbar/scrollbar';
+import React, { Fragment } from "react";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import TeamSection from "../../components/TeamSection/TeamSection";
+import Scrollbar from "../../components/scrollbar/scrollbar";
 
 const AboutPage = () => {
-    return (
-        <Fragment>
-            <PageTitle pageTitle={'The Ghines Foundation Board'} pagesub={'About'} />
-            <TeamSection hclass={'volunteer-section section-padding'} />
-            <Scrollbar />
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      {/* Page Header */}
+      <PageTitle
+        pageTitle="Board of Directors"
+        pagesub="About"
+      />
+
+      {/* Board Members Section */}
+      <TeamSection hclass="volunteer-section section-padding" />
+
+      {/* Scroll To Top */}
+      <Scrollbar />
+    </Fragment>
+  );
 };
 
 export default AboutPage;
