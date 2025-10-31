@@ -106,6 +106,7 @@ const NewHeader = () => {
                     <li><Link href="/" onClick={closeMenu}>Home</Link></li>
                     <li><Link href="/about" onClick={closeMenu}>Who We Are</Link></li>
                     <li><Link href="/services" onClick={closeMenu}>What We Do</Link></li>
+                    <li><Link href="/board" onClick={closeMenu}>Leadership</Link></li>
                     <li><Link href="/resources" onClick={closeMenu}>Resources</Link></li>
                     <li><Link href="/blog-fullwidth" onClick={closeMenu}>News & Stories</Link></li>
                     <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
