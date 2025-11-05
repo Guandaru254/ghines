@@ -10,6 +10,10 @@
 //   public/images/volunteer/1.png
 //   public/images/volunteer/2.png
 //   public/images/volunteer/3.png
+//   public/images/volunteer/4.png <-- NEW
+//   public/images/volunteer/5.png <-- NEW
+//   public/images/volunteer/6.png <-- NEW
+//   public/images/volunteer/7.png <-- NEW
 //
 // -----------------------------------------------------------------------------
 // 🧱 Data structure reference:
@@ -45,7 +49,12 @@ const Team = [
     subtitle: "Board Member",
     slug: "george-a-miriyannis",
     timg: "/images/volunteer/2.png",
-    bio: `George A. Miriyannis is a career diplomat with a long record of service in international affairs, media, and cultural relations. He has served as Ambassador-at-Large for the European Organisation of Public Law, Officer of the Order of St. Gabriel, and Minister Plenipotentiary of Bolivia during the country's entry into MERCOSUR. Over the years, Mr. Miriyannis has held several key positions, among them Director of the Bolivian Institute of Tourism in Greece, Honorary Consul of Bolivia in Greece, Foreign Press Correspondent for El Diario (La Paz), and Special Diplomatic Correspondent for CNN-Greece. He also co-founded Miriyannis-Fourierres Deluxe, a small corporate advisory firm that worked with clients on cross-border business and public affairs. Known for his calm leadership and sharp understanding of global affairs, Mr. Miriyannis brings to the Ghines Foundation a broad international outlook and decades of experience connecting people and ideas across continents. His insight and steady presence enrich the work of the Board and the Foundation as a whole.`,
+    // UPDATED BIO TEXT
+    bio: `George A. Miriyannis is an ambassador with a long and distinguished career in international affairs, media, and cultural relations. He is currently serving as Ambassador-at-Large for the European Organisation of Public Law. He has previously been honoured as Officer of the Order of St. Gabriel and Minister Plenipotentiary of Bolivia during the country's entry into MERCOSUR.
+
+Over the years, Mr Miriyannis has held several key positions, including Director of the Bolivian Institute of Tourism in Greece, Honorary Consul of Bolivia in Greece, Foreign Press Correspondent for El Diario (La Paz), and Special Diplomatic Correspondent for CNN-Greece. He also co-founded Miriyannis-Fourrieres Deluxe, a boutique corporate advisory firm that supported clients in cross-border business and public affairs.
+
+Respected for his calm leadership and sharp understanding of global affairs, Mr Miriyannis brings to the Ghines Foundation a broad international outlook and decades of experience connecting people and ideas across continents. His insight and steady presence continue to enrich the work of the Board and the Foundation as a whole.`,
     // Optional contact info
     // email: "george.miriyannis@ghinesfoundation.org",
     // linkedin: "https://www.linkedin.com/in/georgemiriyannis"
@@ -60,7 +69,43 @@ const Team = [
     // Optional contact info
     // email: "jawahir.adam@ghinesfoundation.org",
     // linkedin: "https://www.linkedin.com/in/jawahiryusuf"
-  }
+  },
+  // --- NEW TEAM MEMBERS ---
+  {
+    id: "4",
+    title: "Asma-Lucy Ilado",
+    subtitle: "Co-founder and Executive Director",
+    slug: "asma-lucy-ilado",
+    timg: "/images/volunteer/4.jpg", // NEW IMAGE PATH
+  },
+  {
+    id: "5",
+    title: "William Amoko",
+    subtitle: "Co-founder and Director of Operations",
+    slug: "william-amoko",
+    timg: "/images/volunteer/5.jpeg", // NEW IMAGE PATH
+  },
+  {
+    id: "6",
+    title: "Sarah Osman Ghandi",
+    subtitle: "Project Coordinator",
+    slug: "sarah-osman-ghandi",
+    timg: "/images/volunteer/6.jpg", // NEW IMAGE PATH
+  },
+    {
+    id: "7",
+    title: "Zakia Khemis",
+    subtitle: "People and Culture Officer",
+    slug: "zakia-khenis",
+    timg: "/images/volunteer/7.jpeg", // NEW IMAGE PATH
+  },
+  {
+    id: "8",
+    title: "Tihl Abdallah",
+    subtitle: "Digital & ICT Officer",
+    slug: "tihl-abdallah",
+    timg: "/images/volunteer/8.jpeg", // NEW IMAGE PATH
+  },
 ];
 
 // -----------------------------------------------------------------------------

@@ -60,17 +60,21 @@ const TeamSection = ({ hclass }) => {
         {/* Board Cards */}
         <div className="row team-board">
           {Team.map((member, i) => {
+            // Initialize snippet as empty.
             let snippet = "";
+
+            // Only set the snippet for the original three board members by checking their slug.
             if (member.slug === "george-n-ghines") {
               snippet =
                 "George N. Ghines, 58, is a South Sudan–born entrepreneur with more than three decades of leadership experience across Africa, the Middle East, and the Balkans. He began his career with multinational corporations, holding senior managerial positions at Heineken, Coca-Cola International, Sony Ericsson, and Reckitt Benckiser.";
             } else if (member.slug === "george-a-miriyannis") {
               snippet =
-                "George A. Miriyannis is a career diplomat with a long record of service in international affairs, media, and cultural relations. He has served as Ambassador-at-Large for the European Organisation of Public Law, Officer of the Order of St. Gabriel, and Minister Plenipotentiary of Bolivia during the country’s entry into MERCOSUR.";
+                "George A. Miriyannis is an ambassador with a long and distinguished career in international affairs, media, and cultural relations. He is currently serving as Ambassador-at-Large for the European Organisation of Public Law. He has previously been honoured as Officer of the Order of St. Gabriel and Minister Plenipotentiary of Bolivia during the country's entry into MERCOSUR.";
             } else if (member.slug === "jawahir-yusuf-haji-adam") {
               snippet =
                 "Jawahir Yusuf Haji Adam is a Somali diplomat and humanitarian with extensive experience in refugee affairs, international development, and human rights. She holds a Master’s in Forced Migration from the University of Oxford, a BA in Public Relations from George Mason University, and a Diploma in Events Management from George Washington University.";
             }
+            // For all new members (IDs 4 through 8), 'snippet' remains the default empty string ("").
 
             return (
               <motion.div
@@ -106,6 +110,7 @@ const TeamSection = ({ hclass }) => {
                       </Link>
                     </h3>
                     <span>{member.subtitle}</span>
+                    {/* The div below is where the snippet is displayed. It will be empty for new members. */}
                     <div className="quote-text">{snippet}</div>
                     <Link
                       href={`/board-single/${member.slug}`}
