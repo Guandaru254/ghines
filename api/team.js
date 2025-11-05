@@ -90,7 +90,7 @@ Respected for his calm leadership and sharp understanding of global affairs, Mr 
     title: "Sarah Osman Ghandi",
     subtitle: "Project Coordinator",
     slug: "sarah-osman-ghandi",
-    timg: "/images/volunteer/6.jpg", // NEW IMAGE PATH
+    timg: "/images/volunteer/6.JPG", // NEW IMAGE PATH
   },
     {
     id: "7",
