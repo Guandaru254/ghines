@@ -1,8 +1,10 @@
+// src/components/TeamSection.jsx
 "use client";
 
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+// 🎯 FIX: Ensure 'motion' is destructured and imported correctly.
 import { motion } from "framer-motion";
 import RawTeam from "../../api/team";
 
@@ -36,41 +38,28 @@ const TeamSection = ({ hclass }) => {
         );
     }
 
-    // --- CRITICAL CHANGE 1: Define the new member groups ---
-    // The Board now includes members with IDs 1, 2, 3, 4, 5 (Total 5 members)
+    // The Board includes members with IDs 1, 2, 3, 4, 5 (Total 5 members)
     const boardOfDirectors = Team.slice(0, 5);
     // The Operational Team includes members with IDs 6, 7, 8 (Total 3 members)
     const operationalTeam = Team.slice(5);
 
     // Split the Board of Directors for the 3 + 2 layout
     const boardRow1 = boardOfDirectors.slice(0, 3);
-    const boardRow2 = boardOfDirectors.slice(3, 5); // Lucy and William
+    const boardRow2 = boardOfDirectors.slice(3, 5); // Lucy (4) and William (5)
 
     // Function to render a group of team members
     const renderTeamGroup = (members, startIndex) => {
         return members.map((member, i) => {
-            // Initialize snippet as empty.
-            let snippet = "";
             
-            // Only set the snippet for the original three board members by checking their slug.
-            if (member.slug === "george-n-ghines") {
-                snippet = "Providing strategic leadership and direction for the organization's mission and growth..."; // Simplified snippet
-            } else if (member.slug === "george-a-miriyannis") {
-                snippet = "Ensuring efficient governance, compliance, and accurate record-keeping for all board proceedings..."; // Simplified snippet
-            } else if (member.slug === "jawahir-yusuf-haji-adam") {
-                snippet = "Overseeing financial health, budgeting, and accountability to safeguard organizational assets..."; // Simplified snippet
-            }
-            // Add snippets for Lucy and William
-            else if (member.slug === "asma-lucy-ilado") {
-                snippet = "Responsible for the daily operations and implementation of the board's strategic vision...";
-            }
-            else if (member.slug === "william-amoko") {
-                snippet = "Driving key initiatives and managing high-level organizational projects and partnerships...";
-            }
-            // For the rest of the team (IDs 6, 7, 8), 'snippet' remains the default empty string.
-
-            // Use the index offset by the start index for unique 'key' and 'custom' values
             const actualIndex = startIndex + i;
+            
+            // 1. Name Link: Active if member.slug is present (all 8 members)
+            const hasLink = member.slug && member.slug.trim() !== "";
+            
+            // 2. Snippet/View Profile Link: Active ONLY if member.snippet is non-empty (Cards 1-3 only).
+            const showSnippetAndLink = member.snippet && member.snippet.trim() !== "";
+            const snippet = showSnippetAndLink ? member.snippet : "";
+
 
             return (
                 <motion.div
@@ -97,24 +86,34 @@ const TeamSection = ({ hclass }) => {
                             />
                         </div>
                         <div className="text">
-                            <h3>
+                            <h3 className="member-name">
+                                {/* All 8 names are linked to ensure consistent styling */}
+                                {hasLink ? ( 
+                                    <Link
+                                        href={`/board-single/${member.slug}`}
+                                        onClick={ClickHandler}
+                                    >
+                                        {member.title}
+                                    </Link>
+                                ) : (
+                                    <span>{member.title}</span>
+                                )}
+                            </h3>
+                            <span className="member-role">{member.subtitle}</span>
+                            
+                            {/* Snippet display controlled by member.snippet (Cards 1-3 only) */}
+                            {snippet && <div className="quote-text">{snippet}</div>}
+                            
+                            {/* "View Full Profile" link controlled by member.snippet (Cards 1-3 only) */}
+                            {showSnippetAndLink && (
                                 <Link
                                     href={`/board-single/${member.slug}`}
                                     onClick={ClickHandler}
+                                    className="read-more-btn"
                                 >
-                                    {member.title}
+                                    View Full Profile <i className="fa fa-long-arrow-right"></i>
                                 </Link>
-                            </h3>
-                            <span>{member.subtitle}</span>
-                            {/* Display snippet if it exists, otherwise it's empty */}
-                            <div className="quote-text">{snippet}</div>
-                            <Link
-                                href={`/board-single/${member.slug}`}
-                                onClick={ClickHandler}
-                                className="read-more-btn"
-                            >
-                                View Full Profile <i className="fa fa-long-arrow-right"></i>
-                            </Link>
+                            )}
                         </div>
                     </div>
                 </motion.div>
@@ -128,7 +127,8 @@ const TeamSection = ({ hclass }) => {
             style={{ overflow: "hidden" }}
         >
             <div className="container">
-                {/* --- SECTION 1 TITLE: OUR BOARD OF DIRECTORS --- */}
+                {/* SECTION 1 TITLE: OUR BOARD OF DIRECTORS */}
+                {/* Error was here at motion.div */}
                 <motion.div
                     className="row mb-5"
                     initial="hidden"
@@ -143,18 +143,17 @@ const TeamSection = ({ hclass }) => {
                     </div>
                 </motion.div>
 
-                {/* --- Board Row 1: 3 Cards --- */}
+                {/* Board Row 1: 3 Cards */}
                 <div className="row team-board mb-4">
                     {renderTeamGroup(boardRow1, 0)}
                 </div>
 
-                {/* --- CRITICAL CHANGE 2: Board Row 2: 2 Cards, Centered --- */}
-                {/* Use Bootstrap utility `justify-content-center` on the row */}
+                {/* Board Row 2: 2 Cards, Centered */}
                 <div className="row team-board mb-5 pb-4 justify-content-center"> 
                     {renderTeamGroup(boardRow2, boardRow1.length)} 
                 </div>
 
-                {/* --- SECTION 2 TITLE: OUR TEAM --- */}
+                {/* SECTION 2 TITLE: OUR TEAM */}
                 <motion.div
                     className="row mb-5 mt-5 pt-4"
                     initial="hidden"
@@ -169,8 +168,7 @@ const TeamSection = ({ hclass }) => {
                     </div>
                 </motion.div>
 
-                {/* --- Team Row: 3 Cards, Centered --- */}
-                {/* Use Bootstrap utility `justify-content-center` on the row */}
+                {/* Team Row: 3 Cards, Centered */}
                 <div className="row team-board justify-content-center"> 
                     {renderTeamGroup(operationalTeam, boardOfDirectors.length)} 
                 </div>
