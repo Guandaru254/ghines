@@ -1771,9 +1771,11 @@
     }
 }
 
-/* =============================================================================
-   CRITICAL FIX #1: Base Card Structure with Proper Flex Layout
-   ============================================================================= */
+
+
+// =============================================================================
+// CRITICAL FIX #1: Base Card Structure with Proper Flex Layout
+// =============================================================================
 .vol-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -1784,8 +1786,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    
-    /* CRITICAL: Remove max-width restriction for proper grid flow */
+
+    // CRITICAL: Remove max-width restriction for proper grid flow
     max-width: none !important;
     width: 100%;
 }
@@ -1795,15 +1797,15 @@
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* =============================================================================
-   CRITICAL FIX #2: Image Container with Fixed Aspect Ratio
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #2: Image Container with Fixed Aspect Ratio
+// =============================================================================
 .vol-card .image {
     position: relative;
     z-index: 1;
     width: 100%;
-    /* Fixed aspect ratio container: 4:5 portrait ratio */
-    padding-bottom: 125%; /* (5/4) * 100 = 125% */
+    // Fixed aspect ratio container: 4:5 portrait ratio
+    padding-bottom: 125%; // (5/4) * 100 = 125%
     overflow: hidden;
     background-color: #f5f5f5;
 
@@ -1815,7 +1817,7 @@
         height: 100% !important;
         object-fit: cover !important;
         object-position: center top !important;
-        border-radius: 0 !important; /* Remove border radius on img itself */
+        border-radius: 0 !important; // Remove border radius on img itself
         display: block;
     }
 
@@ -1871,9 +1873,9 @@
     }
 }
 
-/* =============================================================================
-   CRITICAL FIX #3: Text Content Area with Vertical Alignment Control
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #3: Text Content Area with Vertical Alignment Control
+// =============================================================================
 .vol-card .text {
     background-color: #fff;
     text-align: center;
@@ -1882,34 +1884,34 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    
-    /* CRITICAL FIX #3A: Name Section with Fixed Height Zone */
+
+    // CRITICAL FIX #3A: Name Section with Fixed Height Zone
     h3 {
-        /* Fixed height zone prevents jitter - accommodates 2 lines */
+        // Fixed height zone prevents jitter - accommodates 2 lines
         min-height: 56px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 8px;
-        
+
         a {
             color: $heading-color;
             font-family: $heading-font;
             font-size: 20px;
             font-weight: 700;
             line-height: 28px;
-            
-            /* CRITICAL: Proper word wrapping control */
+
+            // CRITICAL: Proper word wrapping control
             word-wrap: break-word;
             overflow-wrap: break-word;
-            word-break: normal !important; /* Override any break-all */
+            word-break: normal !important; // Override any break-all
             hyphens: auto;
             display: block;
             width: 100%;
         }
     }
 
-    /* CRITICAL FIX #3B: Role/Subtitle with Fixed Height */
+    // CRITICAL FIX #3B: Role/Subtitle with Fixed Height
     span {
         color: $theme-primary-color;
         font-size: 11px;
@@ -1922,7 +1924,7 @@
         min-height: 20px;
     }
 
-    /* CRITICAL FIX #3C: Bio Text with Flex Grow */
+    // CRITICAL FIX #3C: Bio Text with Flex Grow
     .quote-text {
         font-size: 14px;
         line-height: 1.6;
@@ -1930,34 +1932,34 @@
         margin-bottom: 15px;
         padding: 0 5px;
         text-align: left;
-        flex-grow: 1; /* Pushes Read More button to bottom */
-        
-        /* Proper word wrapping for bio text */
+        flex-grow: 1; // Pushes Read More button to bottom
+
+        // Proper word wrapping for bio text
         word-wrap: break-word;
         overflow-wrap: break-word;
         word-break: normal !important;
     }
-    
-    /* CRITICAL FIX #3D: Read More Button Anchored to Bottom */
+
+    // CRITICAL FIX #3D: Read More Button Anchored to Bottom
     .read-more-btn {
-        margin-top: auto; /* Pushes to bottom of flex container */
+        margin-top: auto; // Pushes to bottom of flex container
         display: inline-block;
         color: $theme-primary-color;
         font-weight: 600;
         font-size: 14px;
         text-decoration: none;
         transition: all 0.3s ease;
-        
+
         &:hover {
             color: darken($theme-primary-color, 10%);
             text-decoration: none;
         }
-        
+
         i {
             margin-left: 5px;
             transition: margin-left 0.3s ease;
         }
-        
+
         &:hover i {
             margin-left: 8px;
         }
@@ -1975,17 +1977,17 @@
     }
 }
 
-/* =============================================================================
-   CRITICAL FIX #4: Board Page Layout with Proper Grid Control
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #4: Board Page Layout with Proper Grid Control
+// =============================================================================
 .team-board {
     width: 100%;
     margin: 0;
-    
-    /* Remove justify-content: center to prevent grid collapse */
+
+    // Remove justify-content: center to prevent grid collapse
 }
 
-/* CRITICAL FIX #4A: Introductory Statement Refinement */
+// CRITICAL FIX #4A: Introductory Statement Refinement
 .team-board-card.intro-card {
     border: 1px solid #e0e0e0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
@@ -1995,8 +1997,8 @@
 }
 
 .team-board-title {
-    font-size: 1.5rem; /* Reduced from 1.8rem */
-    font-weight: 500; /* Reduced from 600 */
+    font-size: 1.5rem; // Reduced from 1.8rem
+    font-weight: 500; // Reduced from 600
     margin-bottom: 10px;
     color: #333;
     line-height: 1.4;
@@ -2010,12 +2012,12 @@
     margin-bottom: 0;
 }
 
-/* =============================================================================
-   CRITICAL FIX #5: Grid System with Proper Gutters
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #5: Grid System with Proper Gutters
+// =============================================================================
 .team-board .row {
-    /* Reduce gutter but not too much - Bootstrap default is 1.5rem (24px) */
-    --bs-gutter-x: 1rem; /* 16px total (8px each side) */
+    // Reduce gutter but not too much - Bootstrap default is 1.5rem (24px)
+    --bs-gutter-x: 1rem; // 16px total (8px each side)
     margin-left: calc(var(--bs-gutter-x) * -0.5);
     margin-right: calc(var(--bs-gutter-x) * -0.5);
 }
@@ -2025,48 +2027,47 @@
     padding-right: calc(var(--bs-gutter-x) * 0.5);
 }
 
-/* =============================================================================
-   CRITICAL FIX #6: Remove Problematic Max-Width on Board Cards
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #6: Remove Problematic Max-Width on Board Cards
+// =============================================================================
 .team-board-card {
-    /* REMOVED: max-width: 300px - This was causing the 3-column failure */
     width: 100%;
     margin: 0 auto 20px auto;
 }
 
-/* Ensure cards fill their column width on desktop */
+// Ensure cards fill their column width on desktop
 @media (min-width: 992px) {
     .col-lg-4 .vol-card {
-        max-width: none !important; /* Override any restrictive max-width */
+        max-width: none !important; // Override any restrictive max-width
         width: 100%;
     }
-    
-    /* Optional: Set a reasonable max-width on the entire container if needed */
+
+    // Optional: Set a reasonable max-width on the entire container if needed
     .team-board .container {
         max-width: 1200px;
     }
 }
 
-/* =============================================================================
-   CRITICAL FIX #7: Mobile Responsive Adjustments
-   ============================================================================= */
+// =============================================================================
+// CRITICAL FIX #7: Mobile Responsive Adjustments
+// =============================================================================
 @media only screen and (max-width: 991px) {
     .team-board {
         flex-direction: column;
     }
-    
+
     .team-board-card {
-        max-width: 600px; /* Reasonable max-width for tablets */
+        max-width: 600px; // Reasonable max-width for tablets
         margin: 0 auto 20px auto;
     }
-    
+
     .wpo-upper-footer .col {
         margin-bottom: 20px;
     }
-    
-    /* Adjust name section height for tablets */
+
+    // Adjust name section height for tablets
     .vol-card .text h3 {
-        min-height: 48px; /* Slightly smaller for tablets */
+        min-height: 48px; // Slightly smaller for tablets
     }
 }
 
@@ -2074,62 +2075,68 @@
     .volunteer-section {
         padding: 50px 0;
     }
-    
+
     .team-board .row > [class*="col-"] {
         padding-left: 15px;
         padding-right: 15px;
     }
-    
+
     .team-board-card {
-        max-width: 100%; /* Full width on mobile */
+        max-width: 100%; // Full width on mobile
     }
-    
-    /* CRITICAL FIX #7A: Mobile Typography Adjustments */
+
+    // CRITICAL FIX #7A: Mobile Typography Adjustments
     .vol-card .text {
         padding: 15px 12px;
-        
+
         h3 {
-            min-height: auto; /* Remove fixed height on mobile */
+            min-height: auto; // Remove fixed height on mobile
             margin-bottom: 5px;
-            
+
             a {
                 font-size: 18px;
                 line-height: 24px;
-                /* Ensure proper word breaking on mobile */
+                // Ensure proper word breaking on mobile
                 word-break: normal !important;
                 overflow-wrap: break-word;
                 hyphens: auto;
             }
         }
-        
+
         span {
             font-size: 10px;
             margin-bottom: 8px;
         }
-        
+
         .quote-text {
             font-size: 13px;
             line-height: 1.5;
             margin-top: 8px;
             margin-bottom: 12px;
         }
-        
+
         .read-more-btn {
             font-size: 13px;
         }
     }
-    
-    /* Mobile image aspect ratio adjustment */
+
+    // Mobile image aspect ratio adjustment
     .vol-card .image {
-        padding-bottom: 120%; /* Slightly different ratio for mobile */
+        padding-bottom: 120%; // Slightly different ratio for mobile
     }
 }
 
 /* =============================================================================
-   CRITICAL FIX #8: Section Title Styling Refinement
-   ============================================================================= */
+   CRITICAL FIX #8: Section Title Styling Refinement
+   ============================================================================= */
 .volunteer-section .section-title {
     margin-bottom: 40px;
+    
+    // CRITICAL CHANGE 1: Desktop Left Indent/Push (Applies to screens > 991px)
+    @media (min-width: 992px) {
+        // Pushes the title 10px to the right to align with the first image
+        margin-left: 10px; 
+    }
     
     span {
         color: $theme-primary-color;
@@ -2142,12 +2149,12 @@
     }
     
     h2 {
-        font-size: 1.75rem; /* Reduced from default */
-        font-weight: 500; /* Lighter weight */
+        font-size: 1.75rem; // Reduced from default
+        font-weight: 500; // Lighter weight
         line-height: 1.5;
         color: #333;
         margin: 0;
-        max-width: 900px; /* Prevent overly long lines */
+        max-width: 900px; // Prevent overly long lines
         
         @media (max-width: 991px) {
             font-size: 1.5rem;
@@ -2159,9 +2166,22 @@
     }
 }
 
-/* =============================================================================
-   UTILITY: Ensure Bootstrap Grid Integrity
-   ============================================================================= */
+// CRITICAL CHANGE 2: Mobile Centering for Team Titles
+.volunteer-section .section-title-mobile-center {
+    // Ensure default desktop alignment is left
+    text-align: left;
+    
+    // Center text on mobile screens (max-width 767px)
+    @media (max-width: 767px) {
+        text-align: center;
+        // Remove desktop margin for centering on mobile
+        margin-left: 0 !important; 
+    }
+}
+
+// =============================================================================
+// UTILITY: Ensure Bootstrap Grid Integrity
+// =============================================================================
 .team-board .row {
     display: flex;
     flex-wrap: wrap;
@@ -2171,6 +2191,7 @@
     display: flex;
     flex-direction: column;
 }
+
 
 /* 5.9 project-section */
 .project-section-s2,

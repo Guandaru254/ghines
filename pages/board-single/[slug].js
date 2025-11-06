@@ -1,27 +1,15 @@
-"use client";
-
 import React from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Team from "../../api/team";
 
-const BoardSingle = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  // find member by slug
-  const member =
-    Array.isArray(Team) && slug
-      ? Team.find((m) => m.slug === slug)
-      : null;
-
+const BoardSingle = ({ member }) => {
   if (!member) {
     return (
       <section className="section-padding text-center">
         <div className="container py-5">
           <h3 className="text-danger mb-3">Profile not found</h3>
-          <Link href="/#team" className="btn btn-primary rounded-pill">
+          <Link href="/board" className="btn btn-primary rounded-pill">
             Back to Board
           </Link>
         </div>
@@ -47,6 +35,7 @@ const BoardSingle = () => {
                     objectFit: "cover",
                     objectPosition: "center top",
                   }}
+                  priority
                 />
               </div>
               <h3 className="fw-bold">{member.title}</h3>
@@ -93,7 +82,7 @@ const BoardSingle = () => {
               </p>
               <div className="mt-4">
                 <Link
-                  href="/#team"
+                  href="/board"
                   className="btn btn-outline-primary rounded-pill"
                 >
                   ← Back to Board
@@ -127,5 +116,38 @@ const BoardSingle = () => {
     </section>
   );
 };
+
+// This function runs at build time and generates all possible paths
+export async function getStaticPaths() {
+  // Generate paths for all team members
+  const paths = Team.map((member) => ({
+    params: { slug: member.slug },
+  }));
+
+  return {
+    paths,
+    fallback: false, // Show 404 for paths not returned by getStaticPaths
+  };
+}
+
+// This function runs at build time for each path
+export async function getStaticProps({ params }) {
+  // Find the team member by slug
+  const member = Team.find((m) => m.slug === params.slug);
+
+  // If no member found, return notFound
+  if (!member) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Return the member data as props
+  return {
+    props: {
+      member,
+    },
+  };
+}
 
 export default BoardSingle;
