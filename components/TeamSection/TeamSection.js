@@ -1,4 +1,3 @@
-// src/components/TeamSection.jsx
 "use client";
 
 import React from "react";
@@ -38,14 +37,15 @@ const TeamSection = ({ hclass }) => {
         );
     }
 
-    // The Board includes members with IDs 1, 2, 3, 4, 5 (Total 5 members)
-    const boardOfDirectors = Team.slice(0, 5);
-    // The Operational Team includes members with IDs 6, 7, 8 (Total 3 members)
-    const operationalTeam = Team.slice(5);
+    // 🚩 ADJUSTMENT: Board now includes members IDs 1, 2, 3 (The first 3 members)
+    const boardOfDirectors = Team.slice(0, 3);
+    
+    // 🚩 ADJUSTMENT: Operational Team now includes members IDs 4 (Lucy) through 8 (all remaining 5 members)
+    const operationalTeam = Team.slice(3); // Starts at index 3 (ID 4 is at index 3)
 
     // Split the Board of Directors for the 3 + 2 layout
-    const boardRow1 = boardOfDirectors.slice(0, 3);
-    const boardRow2 = boardOfDirectors.slice(3, 5); // Lucy (4) and William (5)
+    const boardRow1 = boardOfDirectors; // Only 3 members remain for the Board
+    // const boardRow2 is now redundant and removed from logic
 
     // Function to render a group of team members
     const renderTeamGroup = (members, startIndex) => {
@@ -57,6 +57,7 @@ const TeamSection = ({ hclass }) => {
             const hasLink = member.slug && member.slug.trim() !== "";
             
             // 2. Snippet/View Profile Link: Active ONLY if member.snippet is non-empty (Cards 1-3 only).
+            // NOTE: The Snippet logic only applies to the original cards 1-3 since members 4+ have empty snippets in the data.
             const showSnippetAndLink = member.snippet && member.snippet.trim() !== "";
             const snippet = showSnippetAndLink ? member.snippet : "";
 
@@ -87,7 +88,7 @@ const TeamSection = ({ hclass }) => {
                         </div>
                         <div className="text">
                             <h3 className="member-name">
-                                {/* All 8 names are linked to ensure consistent styling */}
+                                {/* All names are linked to ensure consistent styling */}
                                 {hasLink ? ( 
                                     <Link
                                         href={`/board-single/${member.slug}`}
@@ -127,8 +128,7 @@ const TeamSection = ({ hclass }) => {
             style={{ overflow: "hidden" }}
         >
             <div className="container">
-                {/* SECTION 1 TITLE: OUR BOARD OF DIRECTORS */}
-                {/* Error was here at motion.div */}
+                {/* SECTION 1 TITLE: OUR BOARD OF DIRECTORS (Now only 3 members) */}
                 <motion.div
                     className="row mb-5"
                     initial="hidden"
@@ -138,22 +138,21 @@ const TeamSection = ({ hclass }) => {
                 >
                     <div className="col-lg-12">
                         <div className="section-title section-title-mobile-center">
-                            <span>Our Board of Directors</span>
+                            <span>Board of Directors</span>
                         </div>
                     </div>
                 </motion.div>
 
-                {/* Board Row 1: 3 Cards */}
-                <div className="row team-board mb-4">
+                {/* Board Row 1: 3 Cards (IDs 1, 2, 3) - Centered */}
+                <div className="row team-board mb-5 pb-4 justify-content-center"> 
                     {renderTeamGroup(boardRow1, 0)}
                 </div>
 
-                {/* Board Row 2: 2 Cards, Centered */}
-                <div className="row team-board mb-5 pb-4 justify-content-center"> 
-                    {renderTeamGroup(boardRow2, boardRow1.length)} 
-                </div>
+                {/* * Board Row 2 (the original 2 cards for Lucy and William) has been removed 
+                  * by deleting the original <div> block, as they are now in the section below. 
+                  */}
 
-                {/* SECTION 2 TITLE: OUR TEAM */}
+                {/* SECTION 2 TITLE: OUR TEAM (Now 5 members: IDs 4, 5, 6, 7, 8) */}
                 <motion.div
                     className="row mb-5 mt-5 pt-4"
                     initial="hidden"
@@ -163,12 +162,12 @@ const TeamSection = ({ hclass }) => {
                 >
                     <div className="col-lg-12">
                         <div className="section-title section-title-mobile-center">
-                            <span>Our Team</span>
+                            <span>Team</span>
                         </div>
                     </div>
                 </motion.div>
 
-                {/* Team Row: 3 Cards, Centered */}
+                {/* Team Row: 5 Cards, Centered. This will automatically split into a 3-card row and a 2-card centered row based on col-lg-4. */}
                 <div className="row team-board justify-content-center"> 
                     {renderTeamGroup(operationalTeam, boardOfDirectors.length)} 
                 </div>

@@ -8,7 +8,7 @@ const AboutPage = () => {
     <Fragment>
       {/* Page Header */}
       <PageTitle
-        pageTitle="Board of Directors"
+        pageTitle="Our Leadership"
         pagesub="About"
       />
 
