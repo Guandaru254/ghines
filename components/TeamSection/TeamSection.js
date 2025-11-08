@@ -138,7 +138,7 @@ const TeamSection = ({ hclass }) => {
                 >
                     <div className="col-lg-12">
                         <div className="section-title section-title-mobile-center">
-                            <span>Board of Directors</span>
+                            <span>Our Board</span>
                         </div>
                     </div>
                 </motion.div>
@@ -162,7 +162,7 @@ const TeamSection = ({ hclass }) => {
                 >
                     <div className="col-lg-12">
                         <div className="section-title section-title-mobile-center">
-                            <span>Team</span>
+                            <span>Our Team</span>
                         </div>
                     </div>
                 </motion.div>
