@@ -7,9 +7,9 @@ const Team = [
     {
         id: "1",
         title: "George N. Ghines",
-        subtitle: "Co-Founder and Board Member",
+        subtitle: "Founder & Visionary",
         slug: "george-n-ghines",
-        timg: "/images/volunteer/1.png",
+        timg: "/images/volunteer/10.png",
         // SHORT SNIPPET (For display)
         snippet: "George N. Ghines, 58, is a South Sudan–born entrepreneur with more than three decades of leadership experience across Africa, the Middle East, and the Balkans. He began his career with multinational corporations, holding senior managerial positions at Heineken, Coca-Cola International, Sony Ericsson, and Reckitt Benckiser.",
         // FULL BIO (For single profile page only)
