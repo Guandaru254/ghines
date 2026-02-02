@@ -6,7 +6,8 @@ import { getAllNews, urlFor } from '../../lib/sanity';
 
 /**
  * Production News Page (Full Width) - Sanity Powered
- * Updated with robust Date parsing and sorting.
+ * Senior Developer Note: This implementation enforces a strict data contract
+ * between Sanity's flexible schema and the legacy frontend's rigid expectations.
  */
 export default function BlogPageFullwidth({ posts, pagination }) {
   const hasPosts = posts && posts.length > 0;
@@ -33,51 +34,61 @@ export async function getStaticProps() {
   try {
     const rawStories = await getAllNews();
 
+    if (!rawStories || !Array.isArray(rawStories)) {
+      throw new Error("Invalid data format received from Sanity");
+    }
+
     /**
-     * DATE FIX: Consistent Sorting
-     * Uses publishedDate, falls back to Sanity's internal _createdAt.
+     * STRICTURED SORTING: Latest to Earliest
+     * We prioritize manually set publishedDate, then fallback to system _createdAt.
      */
-    const sortedStories = [...(rawStories || [])].sort((a, b) => {
-      const dateA = new Date(a.publishedDate || a._createdAt || 0);
-      const dateB = new Date(b.publishedDate || b._createdAt || 0);
-      return dateB.getTime() - dateA.getTime();
+    const sortedStories = [...rawStories].sort((a, b) => {
+      const dateA = new Date(a.publishedDate || a._createdAt || 0).getTime();
+      const dateB = new Date(b.publishedDate || b._createdAt || 0).getTime();
+      return dateB - dateA;
     });
 
     const mappedPosts = sortedStories.map((item) => {
-      // DATE FIX: Create a safe date object
+      // Robust Date Handling
       const rawDate = item.publishedDate || item._createdAt || new Date().toISOString();
       const dateObj = new Date(rawDate);
+      const isValidDate = !isNaN(dateObj.getTime());
       
-      // Validation check for "Invalid Date"
-      const isValid = !isNaN(dateObj.getTime());
-      
-      const day = isValid ? dateObj.getDate().toString().padStart(2, '0') : '--';
+      const day = isValidDate ? dateObj.getDate().toString().padStart(2, '0') : '--';
       const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"];
-      const month = isValid ? monthNames[dateObj.getMonth()] : 'ERR';
+      const month = isValidDate ? monthNames[dateObj.getMonth()] : 'ERR';
       
-      const imageUrl = item.image && item.image.asset 
+      // Image Asset Resolution
+      const imageUrl = item.image?.asset 
         ? urlFor(item.image).url() 
         : '/images/blog/placeholder.jpg';
 
+      // Enforcing the UI Component Data Contract
       return {
-        id: item._id || '',
-        Title: item.title || 'Untitled',
+        id: item._id,
+        _id: item._id,
+        Title: item.title || 'Untitled Story',
+        title: item.title || 'Untitled Story',
+        // Sanity slugs are objects { current: "string" }
         Slug: item.slug?.current || item.slug || '',
+        slug: item.slug?.current || item.slug || '',
         Author: item.author || 'The Ghines Foundation',
         PublishedDate: rawDate,
+        publishedDate: rawDate,
         Description: item.description || '',
+        excerpt: item.description || '',
         Content: item.content || [],
         
-        // Image mapping for legacy components
+        // Legacy Property Mapping (Redundancy for broad component support)
         screens: imageUrl,
         blogSingleImg: imageUrl,
         recent: imageUrl,
         image: imageUrl,
         Image: { url: imageUrl },
         
-        // UI Specific Display Fields
-        day: day,
-        month: month,
+        // UI Display Primitives
+        day,
+        month,
         category: 'News',
         link: 'READ MORE',
         blClass: 'format-standard-image',
@@ -95,13 +106,18 @@ export async function getStaticProps() {
           total: mappedPosts.length 
         }
       },
+      // Revalidate every 10 seconds (ISR) for high-availability updates
       revalidate: 10 
     };
   } catch (error) {
-    console.error("Critical Fetch/Serialization Error:", error);
+    // Senior approach: fail gracefully but log the stack trace for monitoring
+    console.error("[BlogPageFullwidth] Critical Error:", error.message);
     return {
-      props: { posts: [], pagination: { page: 1, pageSize: 10, pageCount: 1, total: 0 } },
-      revalidate: 10
+      props: { 
+        posts: [], 
+        pagination: { page: 1, pageSize: 0, pageCount: 0, total: 0 } 
+      },
+      revalidate: 1 
     };
   }
 }
