@@ -1,0 +1,29 @@
+Dependency folders
+
+node_modules/
+frontend/node_modules/
+studio/node_modules/
+strapi/node_modules/
+
+Build folders
+
+frontend/.next/
+frontend/out/
+studio/dist/
+
+Local env files
+
+.env
+.env.local
+.env.development.local
+
+Logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+OS files
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,25 @@
+{
+  "name": "ghines-foundation-studio",
+  "version": "1.0.0",
+  "description": "Sanity Studio for Ghines Foundation",
+  "main": "package.json",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Kimathi",
+  "license": "ISC",
+  "dependencies": {
+    "lucide-react": "^0.563.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.0.0",
+    "styled-components": "^6.3.8"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  }
+}

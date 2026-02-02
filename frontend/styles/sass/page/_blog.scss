@@ -1,0 +1,114 @@
+/* ------------------------------------------------ */
+/* 1. Blog Grid Layout and Image Consistency Fix    */
+/* ------------------------------------------------ */
+
+.blog-pg-section {
+    padding-top: 100px;
+    padding-bottom: 70px;
+
+    // Outer container for each blog post in the grid
+    .blog-item {
+        display: block;
+        margin-bottom: 70px; // Space between posts in the grid
+        border: 1px solid #f0f0f0;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); // Subtle shadow for definition
+    }
+
+    // CRITICAL FIX: Forces all image containers to a consistent height
+    .entry-media {
+        position: relative;
+        margin-bottom: 0; // The content box will handle the padding
+        border-radius: 6px 6px 0 0; // Round corners only on top
+        overflow: hidden;
+        
+        // 🛑 CORE FIX: Fixed height for layout consistency
+        height: 250px; 
+        display: block; 
+        
+        .entry-link-wrapper {
+             display: block;
+             position: relative;
+             cursor: pointer;
+             height: 100%; // Make wrapper take full height
+        }
+
+        img {
+            // Ensure the image fills the fixed container and is cropped consistently
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block; 
+            transition: all 0.3s ease;
+        }
+
+        &:hover img { 
+            transform: scale(1.05);
+        }
+    }
+
+    // Date Overlay Styling (using saved information)
+    .date-overlay {
+        position: absolute;
+        bottom: 25px; 
+        left: 30px; 
+        
+        // Applying the user-requested custom style
+        background-color: #fff; 
+        text-align: center; 
+        padding: 15px 10px; 
+        
+        font-size: 14px;
+        line-height: 1.1;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    /* ------------------------------------------------ */
+    /* 2. Content (Title, Meta) Spacing Cleanup         */
+    /* ------------------------------------------------ */
+    .blog-content {
+        padding: 20px 30px; // Inner padding for the text area
+        
+        .entry-meta {
+            margin-bottom: 5px; 
+            ul li {
+                font-size: 13px;
+                color: #777;
+            }
+        }
+        
+        h3 {
+            font-size: 22px; 
+            line-height: 1.3;
+            margin-top: 0; 
+            margin-bottom: 10px; 
+
+            a {
+                color: #333; 
+                text-decoration: none;
+                &:hover {
+                    color: #1a73e8; // Example hover color
+                }
+            }
+        }
+
+        p {
+            margin-bottom: 15px; 
+            font-size: 15px;
+            color: #555;
+        }
+
+        .read-more {
+             padding-top: 10px;
+        }
+        
+        .read-more a {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #1a73e8; 
+            text-decoration: none;
+        }
+    }
+}

@@ -1,0 +1,71 @@
+/* frontend/styles/sass/pages/_get-involved.scss */
+
+.get-involved-section {
+    padding: 100px 0;
+    
+    .intro-text {
+        margin-bottom: 50px;
+        .section-title {
+            font-size: 2.5rem;
+            color: #4A9FDA; 
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+
+    .get-involved-options {
+        .option-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease-in-out;
+            
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                color: #4A9FDA;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #777;
+                line-height: 1.5;
+            }
+        }
+    }
+
+    .get-involved-cta {
+        margin-top: 50px;
+    }
+
+    .get-involved-btn {
+        display: inline-block;
+        background-color: #4A9FDA;
+        color: #fff;
+        padding: 15px 35px;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #3e81b6; /* A slightly darker blue for hover effect */
+        }
+    }
+}

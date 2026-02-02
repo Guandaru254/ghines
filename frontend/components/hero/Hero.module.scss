@@ -1,0 +1,122 @@
+/* Hero.module.scss */
+
+.heroSection {
+    position: relative;
+    padding: 50px 0;
+    background-color: #4A9FDA;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    
+    margin-top: -30px;
+
+    @media (max-width: 768px) {
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 50px;
+        flex-direction: column; 
+        text-align: center;
+        background-color: #4A9FDA; 
+    }
+}
+
+.heroContentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.heroTextContent {
+    flex: 1;
+    padding-right: 50px;
+    text-align: left;
+    
+    @media (max-width: 768px) {
+        padding-right: 0;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+}
+
+.mainHeading {
+    font-size: 40px;
+    font-weight: 650;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0 0 20px;
+
+    .petCare {
+        color: #fff; 
+    }
+
+    @media (max-width: 768px) {
+        font-size: 40px;
+        line-height: 1.2;
+        text-align: center; 
+    }
+}
+
+.heroCtaButtons {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+
+    @media (max-width: 768px) {
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.aboutUsBtn {
+    background-color: #fff;
+    color: #4A9FDA;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.heroImageContent {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin-left: 150px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    overflow: hidden;
+    margin-bottom: -100px;
+    margin-top: -100px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 1024px) {
+        margin-left: 0;
+        width: 100%;
+        max-width: 500px;
+        height: 400px;
+    }
+
+    @media (max-width: 768px) {
+        height: 350px;
+        aspect-ratio: 1 / 1;
+        margin: 30px auto 0;
+    }
+}

@@ -1,0 +1,279 @@
+/* newheader.module.scss */
+
+.newHeader {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 80px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* --- DESKTOP STYLES --- */
+.desktopHeader {
+    .logoContainer {
+        display: flex;
+        align-items: center;
+        img { 
+            height: 120px; 
+        }
+    }
+    .newNav {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        li a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+            font-size: 13.5px;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+            &:hover {
+                color: #4A9FDA;
+            }
+        }
+    }
+    .ctaButton {
+        display: flex;
+        align-items: center;
+    }
+    .ctaButton .donateBtn {
+        background-color: #4A9FDA;
+        color: #fff;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+        font-weight: 600;
+        white-space: nowrap;
+        &:hover {
+            background-color: #d13c18;
+        }
+    }
+    .searchBtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: #333333;
+        transition: color 0.3s ease;
+        margin-left: 15px;
+        &:hover {
+            background: linear-gradient(90deg, #4A9FDA 0%, #d13c18 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+
+/* --- MOBILE STYLES --- */
+.mobileHeader {
+    padding: 10px 20px;
+    .mobileLogoAndToggle {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logoMobileHeader img {
+        height: 60px;
+    }
+    .searchBtnMobile {
+        // Hides the button from the top bar on mobile
+        display: none;
+    }
+    .mobileMenuToggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+    .newNav {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #ffffff;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        transform: translateX(100%);
+    }
+    .newNav.mobileMenuActive {
+        transform: translateX(0);
+        display: flex;
+    }
+    .logoMobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+        img {
+            height: 40px;
+        }
+    }
+    .mobileMenuClose {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+    .newNav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        align-items: flex-start;
+        li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+            a { 
+                color: #333333;
+                &:hover {
+                    color: #4A9FDA;
+                }
+            }
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    }
+    
+    // Updated styles for the search button within the nav
+    .searchItem {
+        padding: 15px 20px;
+        border-top: 1px solid #ddd; /* Adds a line to separate it from the last link */
+        width: 100%;
+        
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333333;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            &:hover {
+                color: #4A9FDA;
+            }
+        }
+    }
+    
+    // Hide the top-level search button for mobile
+    .searchBtnMobile {
+      display: none;
+    }
+}
+
+/* --- Hiding desktop elements on mobile and vice versa --- */
+@media (max-width: 768px) {
+    .desktopHeader {
+        display: none;
+    }
+    .mobileHeader {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .desktopHeader {
+        display: flex;
+    }
+    .mobileHeader {
+        display: none;
+    }
+}
+
+/* --- Tablet styles (1024px and below, but above 768px) --- */
+@media (max-width: 1024px) {
+    .newHeader {
+        padding: 15px 40px;
+    }
+    .logoContainer img {
+        height: 100px;
+    }
+    .newNav ul {
+        gap: 20px;
+    }
+}
+
+/* --- Search Overlay Styles --- */
+.searchOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+
+    .searchContent {
+        display: flex;
+        width: 80%;
+        max-width: 600px;
+        position: relative;
+    }
+
+    .searchInput {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        outline: none;
+        transition: border-color 0.3s ease;
+        
+        &:focus {
+            border-color: #4A9FDA;
+        }
+    }
+
+    .closeSearchBtn {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #333;
+        transition: color 0.3s ease;
+        &:hover {
+            color: #d13c18;
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+}

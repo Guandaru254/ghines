@@ -1,0 +1,57 @@
+// src/styles/components/_get-involved.scss
+
+.get-involved-section {
+    padding: 80px 0; /* Adjust padding as needed for spacing */
+    text-align: center;
+}
+
+.get-involved-intro {
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 30px;
+    }
+}
+
+.get-involved-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    
+    li {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #000;
+            line-height: 1.5;
+        }
+    }
+
+    li:last-child {
+        border-bottom: none; /* No border for the last item */
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .get-involved-intro .section-title {
+        font-size: 1.5rem;
+    }
+
+    .get-involved-list li h3 {
+        font-size: 1.3rem;
+    }
+}

@@ -1,0 +1,64 @@
+/* styles/sass/components/pillar-single/pillar-single.module.scss */
+@import 'styles/sass/helpers/variables';
+
+.pillarDetails {
+    background-color: #f8f9fa; /* Light grey background for the section */
+    padding: 80px 0; /* Add top and bottom padding */
+    font-family: Nunito, sans-serif;
+}
+
+.pillarTitle {
+    color: #333;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.pillarImageContainer {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.pillarContentText {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.relatedPillarsSection {
+    margin-top: 80px;
+}
+
+.relatedPillarsTitle {
+    color: #4a9fda;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.relatedPillarCard {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: translateY(-5px); /* Lift card on hover */
+    }
+}
+
+.relatedPillarImgContainer {
+    border-bottom: 1px solid #eee;
+}
+
+.relatedPillarCardTitle {
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}

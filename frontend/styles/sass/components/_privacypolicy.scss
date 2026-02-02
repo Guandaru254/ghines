@@ -1,0 +1,89 @@
+/* frontend/styles/sass/pages/_legal.scss */
+
+.legal-section {
+    padding: 100px 0;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    background-color: #f7f9fc; // A subtle, professional background color
+}
+
+.legal-section .container {
+    max-width: 900px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05); // Adds depth and a professional feel
+    margin: 0 auto;
+}
+
+.legal-section p {
+    color: #444; // Dark gray for better readability
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.legal-section h2, 
+.legal-section h3 {
+    color: #1a1a1a; // A dark, authoritative color
+    font-weight: 700;
+}
+
+.legal-section h2 {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.legal-section h3 {
+    font-size: 1.8rem;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee; // Adds a subtle visual separator
+    padding-bottom: 5px;
+}
+
+.legal-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.legal-section li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+    
+    &:before {
+        content: "\2022"; // A custom bullet point
+        color: #4A9FDA; // Use the brand's blue
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+        position: absolute;
+        left: 0;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .legal-section {
+        padding: 50px 15px;
+    }
+    
+    .legal-section .container {
+        padding: 25px;
+    }
+
+    .legal-section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .legal-section h3 {
+        font-size: 1.5rem;
+    }
+    .legal-section p {
+        font-size: 1rem;
+    }
+}
