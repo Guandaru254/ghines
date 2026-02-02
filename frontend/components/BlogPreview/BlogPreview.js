@@ -40,23 +40,6 @@ const FALLBACK_POSTS = [
                 }
             }
         }
-    },
-    {
-        id: 'fallback-3',
-        attributes: {
-            Title: 'Sample Article 3',
-            Slug: 'sample-article-3',
-            Author: 'The Ghines Foundation',
-            PublishedDate: new Date().toISOString(),
-            Image: {
-                data: {
-                    attributes: {
-                        url: 'https://via.placeholder.com/400x300?text=Sample+Image+3',
-                        alternativeText: 'Sample Image 3'
-                    }
-                }
-            }
-        }
     }
 ];
 
@@ -68,7 +51,6 @@ const BlogPreview = () => {
     useEffect(() => {
         const fetchBlogPreviewData = async () => {
             if (!API_BASE_URL) {
-                console.warn("[BlogPreview] API_BASE_URL is not configured. Using fallback data.");
                 setBlogData(FALLBACK_POSTS);
                 setUseFallback(true);
                 setIsLoading(false);
@@ -80,36 +62,32 @@ const BlogPreview = () => {
             const queryPath = '/api/news-stories?populate=*&sort[0]=PublishedDate:desc&pagination[limit]=3';
             const url = `${cleanApiUrl}${queryPath}`;
 
-            console.log("[BlogPreview] Fetching from:", url);
-        
             try {
                 const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const result = await response.json();
-                console.log("[BlogPreview] Raw API Response:", result);
                 
                 if (result.data && Array.isArray(result.data) && result.data.length > 0) {
-                    // Handle Strapi v5 flat structure (no nested attributes)
-                    const formattedData = result.data.map(item => ({
-                        id: item.id,
-                        attributes: {
-                            Title: item.Title || item.attributes?.Title || 'Untitled Post',
-                            Slug: item.Slug || item.attributes?.Slug || '#',
-                            Author: item.Author || item.attributes?.Author || 'The Ghines Foundation',
-                            PublishedDate: item.PublishedDate || item.attributes?.PublishedDate || new Date().toISOString(),
-                            Image: extractImageData(item.Image || item.attributes?.Image)
-                        }
-                    }));
+                    const formattedData = result.data.map(item => {
+                        // Extracting top-level or nested attributes based on Strapi version
+                        const attr = item.attributes || item;
+                        return {
+                            id: item.id,
+                            attributes: {
+                                Title: attr.Title || 'Untitled Post',
+                                Slug: attr.Slug || '#',
+                                Author: attr.Author || 'The Ghines Foundation',
+                                // FIX: Use PublishedDate, fallback to createdAt, fallback to now
+                                PublishedDate: attr.PublishedDate || attr.createdAt || new Date().toISOString(),
+                                Image: extractImageData(attr.Image)
+                            }
+                        };
+                    });
                     
-                    console.log("[BlogPreview] Formatted data:", formattedData);
                     setBlogData(formattedData);
                     setUseFallback(false);
                 } else {
-                    console.warn("[BlogPreview] Invalid data structure or no posts, using fallback");
                     setBlogData(FALLBACK_POSTS);
                     setUseFallback(true);
                 }
@@ -125,235 +103,93 @@ const BlogPreview = () => {
         fetchBlogPreviewData();
     }, []);
 
-    // Helper function to extract image data from various Strapi formats
     const extractImageData = (imageData) => {
         if (!imageData) return null;
-
-        // Handle Strapi v5 format (flat structure)
         if (imageData.url) {
-            return {
-                data: {
-                    attributes: {
-                        url: imageData.url,
-                        alternativeText: imageData.alternativeText || ''
-                    }
-                }
-            };
+            return { data: { attributes: { url: imageData.url, alternativeText: imageData.alternativeText || '' } } };
         }
-
-        // Handle Strapi v4 format (nested attributes)
-        if (imageData.data?.attributes) {
-            return imageData;
-        }
-
+        if (imageData.data?.attributes) return imageData;
         return null;
     };
 
-    // Helper function to construct proper image URL
     const constructImageUrl = (imageData) => {
         if (!imageData) return null;
-
-        const imageAttributes = imageData.data?.attributes;
+        const imageAttributes = imageData.data?.attributes || imageData;
         let imageUrl = imageAttributes?.url;
-
         if (!imageUrl) return null;
-
-        // If URL is already absolute, return as-is
-        if (imageUrl.startsWith('http')) {
-            return imageUrl;
-        }
-
-        // Check for optimized formats first
-        const formats = imageAttributes?.formats;
-        if (formats) {
-            for (const size of ['large', 'medium', 'small', 'thumbnail']) {
-                const formatUrl = formats[size]?.url;
-                if (formatUrl) {
-                    return formatUrl.startsWith('http')
-                        ? formatUrl
-                        : `${STRAPI_MEDIA_URL}${formatUrl.startsWith('/') ? '' : '/'}${formatUrl}`;
-                }
-            }
-        }
-
-        // Construct full URL from relative path
-        return imageUrl.startsWith('/')
-            ? `${STRAPI_MEDIA_URL}${imageUrl}`
-            : `${STRAPI_MEDIA_URL}/${imageUrl}`;
+        if (imageUrl.startsWith('http')) return imageUrl;
+        return imageUrl.startsWith('/') ? `${STRAPI_MEDIA_URL}${imageUrl}` : `${STRAPI_MEDIA_URL}/${imageUrl}`;
     };
 
     if (isLoading) {
         return (
-            <section className="blog-preview-section section-padding">
-                <div className="container text-center">
-                    <div style={{ padding: '50px' }}>
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <p className="mt-3">Loading latest stories...</p>
-                    </div>
-                </div>
-            </section>
+            <div className="container py-5 text-center">
+                <div className="spinner-border text-primary" role="status"></div>
+                <p className="mt-3">Loading latest stories...</p>
+            </div>
         );
     }
 
     return (
-        <section className="blog-preview-section section-padding">
+        <section className="blog-preview-section section-padding py-5">
             <div className="container">
                 <div className="text-center mb-5">
-                    <h2 className="section-title">Latest News & Stories</h2>
-                    {useFallback && (
-                        <p className="text-muted">
-                            <small>⚠️ Showing sample data. Check console for API connection details.</small>
-                        </p>
-                    )}
+                    <h2 className="section-title" style={{ fontWeight: '700', color: '#222' }}>Latest News & Stories</h2>
+                    <div style={{ width: '60px', height: '3px', backgroundColor: '#4a9fda', margin: '15px auto' }}></div>
                 </div>
                 
-                <div className="row justify-content-center">
+                <div className="row">
                     {blogData.map((post) => {
-                        if (!post || !post.attributes) {
-                            console.warn("[BlogPreview] Invalid post structure:", post);
-                            return null;
-                        }
+                        const { Title, Slug, Author, PublishedDate, Image } = post.attributes;
                         
-                        const attributes = post.attributes;
-                        const title = attributes.Title || 'Untitled Post';
-                        const slug = attributes.Slug || '#';
-                        const authorName = attributes.Author || 'The Ghines Foundation';
-                        const publishedDate = moment(attributes.PublishedDate || new Date());
+                        // DATE FIX: Ensure valid moment object even if date string is slightly malformed
+                        const mDate = moment(PublishedDate);
+                        const displayDay = mDate.isValid() ? mDate.format('DD') : '--';
+                        const displayMonth = mDate.isValid() ? mDate.format('MMM').toUpperCase() : 'ERR';
                         
-                        const imageUrl = constructImageUrl(attributes.Image);
-                        const imageAlt = attributes.Image?.data?.attributes?.alternativeText || title;
-                        const postLink = `/blog-single/${slug}`;
-
-                        console.log(`[BlogPreview] Rendering post ${post.id}: ${title}, Image: ${imageUrl}`);
+                        const imageUrl = constructImageUrl(Image);
+                        const postLink = `/blog-single/${Slug}`;
 
                         return (
-                            <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={post.id}>
-                                <div className="blog-item h-100 shadow-sm" style={{ 
-                                    borderRadius: '8px', 
-                                    overflow: 'hidden',
-                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                                }}>
-                                    <div className="entry-media position-relative" style={{ 
-                                        height: '250px',
-                                        overflow: 'hidden',
-                                        backgroundColor: '#f5f5f5'
-                                    }}>
+                            <div className="col-lg-4 col-md-6 mb-4" key={post.id}>
+                                <div className="blog-card border-0 shadow-sm h-100 bg-white" style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                                    <div className="position-relative" style={{ height: '220px' }}>
                                         {imageUrl ? (
                                             <Link href={postLink}>
-                                                <img 
-                                                    src={imageUrl} 
-                                                    alt={imageAlt}
-                                                    style={{ 
-                                                        width: '100%', 
-                                                        height: '100%', 
-                                                        objectFit: 'cover',
-                                                        cursor: 'pointer',
-                                                        transition: 'transform 0.3s ease'
-                                                    }}
-                                                    onLoad={() => console.log('[BlogPreview IMG] ✅ Loaded:', imageUrl)}
-                                                    onError={(e) => {
-                                                        console.error('[BlogPreview IMG] ❌ Failed:', imageUrl);
-                                                        e.target.style.display = 'none';
-                                                        e.target.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;">Image unavailable</div>';
-                                                    }}
-                                                />
+                                                <img src={imageUrl} alt={Title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             </Link>
                                         ) : (
-                                            <div style={{ 
-                                                display: 'flex', 
-                                                alignItems: 'center', 
-                                                justifyContent: 'center', 
-                                                height: '100%',
-                                                color: '#999',
-                                                fontSize: '14px'
-                                            }}>
-                                                No Image Available
-                                            </div>
+                                            <div className="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">No Image</div>
                                         )}
-                                        
-                                        <span
-                                            className="date-overlay position-absolute top-0 start-0 text-center text-white"
-                                            style={{ 
-                                                backgroundColor: '#4a9fda',
-                                                padding: '15px 20px',
-                                                borderRadius: '8px',
-                                                fontSize: '14px',
-                                                fontWeight: 'bold',
-                                                lineHeight: '1.2',
-                                                boxShadow: '0 4px 10px rgba(74, 159, 218, 0.4)'
-                                            }}
-                                        >
-                                            <div style={{ fontSize: '24px' }}>{publishedDate.format('DD')}</div>
-                                            <div style={{ fontSize: '12px', marginTop: '2px' }}>{publishedDate.format('MMM').toUpperCase()}</div>
-                                        </span>
-                                    </div>                          
-                                    <div className="entry-details" style={{ padding: '20px' }}>
-                                        <div className="entry-meta mb-2">
-                                            <ul style={{ 
-                                                listStyle: 'none', 
-                                                padding: 0, 
-                                                margin: 0, 
-                                                display: 'flex', 
-                                                gap: '15px',
-                                                fontSize: '13px',
-                                                color: '#666'
-                                            }}>
-                                                <li><i className="fi flaticon-user"></i> By <strong>{authorName}</strong></li>
-                                                <li><i className="fi flaticon-clock"></i> 3 Min Read</li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <h3 style={{ 
-                                            fontSize: '18px', 
-                                            marginBottom: '15px',
-                                            lineHeight: '1.4'
+                                        {/* Date Badge */}
+                                        <div className="position-absolute top-0 start-0 m-3 text-white text-center" style={{ 
+                                            backgroundColor: '#4a9fda', 
+                                            padding: '10px', 
+                                            borderRadius: '8px', 
+                                            minWidth: '60px',
+                                            boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
                                         }}>
-                                            <Link href={postLink} style={{ 
-                                                color: '#333', 
-                                                textDecoration: 'none',
-                                                transition: 'color 0.3s ease'
-                                            }}>
-                                                {title}
-                                            </Link>
-                                        </h3>
-                                        
-                                        <div className="read-more" style={{ marginTop: '15px' }}>
-                                            <Link href={postLink} style={{ 
-                                                color: '#4a9fda',
-                                                textDecoration: 'none',
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                transition: 'color 0.3s ease'
-                                            }}>
-                                                READ MORE...
-                                            </Link>
+                                            <div style={{ fontSize: '20px', fontWeight: 'bold', lineHeight: '1' }}>{displayDay}</div>
+                                            <div style={{ fontSize: '11px', fontWeight: '600' }}>{displayMonth}</div>
                                         </div>
+                                    </div>
+                                    <div className="p-4">
+                                        <div className="mb-2 text-muted" style={{ fontSize: '13px' }}>
+                                            <span className="me-3"><i className="fa fa-user me-1"></i> {Author}</span>
+                                        </div>
+                                        <h5 className="mb-3">
+                                            <Link href={postLink} className="text-decoration-none" style={{ color: '#333', fontWeight: '600' }}>
+                                                {Title}
+                                            </Link>
+                                        </h5>
+                                        <Link href={postLink} className="text-decoration-none" style={{ color: '#4a9fda', fontWeight: '700', fontSize: '14px' }}>
+                                            READ MORE <i className="fa fa-long-arrow-right ms-1"></i>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
                         );
                     })}
-                </div>
-                
-                <div className="text-center mt-5">
-                    <Link href="/blog-fullwidth" className="btn" style={{
-                        backgroundColor: '#4a9fda',
-                        color: '#fff',
-                        padding: '12px 30px',
-                        borderRadius: '5px',
-                        textDecoration: 'none',
-                        display: 'inline-block',
-                        border: 'none',
-                        fontWeight: '600',
-                        transition: 'background-color 0.3s ease'
-                    }}
-                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#357ab8'}
-                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4a9fda'}
-                    >
-                        View All Stories
-                    </Link>
                 </div>
             </div>
         </section>

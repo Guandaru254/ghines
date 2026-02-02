@@ -6,8 +6,7 @@ import { getAllNews, urlFor } from '../../lib/sanity';
 
 /**
  * Production News Page (Full Width) - Sanity Powered
- * Path: /blog-fullwidth
- * This version replaces the legacy Strapi implementation.
+ * Updated with robust Date parsing and sorting.
  */
 export default function BlogPageFullwidth({ posts, pagination }) {
   const hasPosts = posts && posts.length > 0;
@@ -35,21 +34,26 @@ export async function getStaticProps() {
     const rawStories = await getAllNews();
 
     /**
-     * STRENGTHENED SORTING LOGIC: Latest to Earliest
-     * We use getTime() to ensure we are comparing numeric timestamps.
+     * DATE FIX: Consistent Sorting
+     * Uses publishedDate, falls back to Sanity's internal _createdAt.
      */
     const sortedStories = [...(rawStories || [])].sort((a, b) => {
-      const timeA = a.publishedDate ? new Date(a.publishedDate).getTime() : 0;
-      const timeB = b.publishedDate ? new Date(b.publishedDate).getTime() : 0;
-      return timeB - timeA; 
+      const dateA = new Date(a.publishedDate || a._createdAt || 0);
+      const dateB = new Date(b.publishedDate || b._createdAt || 0);
+      return dateB.getTime() - dateA.getTime();
     });
 
-    // Mapping and sanitizing data for the legacy UI components
     const mappedPosts = sortedStories.map((item) => {
-      const dateObj = item.publishedDate ? new Date(item.publishedDate) : new Date();
-      const day = dateObj.getDate().toString().padStart(2, '0');
+      // DATE FIX: Create a safe date object
+      const rawDate = item.publishedDate || item._createdAt || new Date().toISOString();
+      const dateObj = new Date(rawDate);
+      
+      // Validation check for "Invalid Date"
+      const isValid = !isNaN(dateObj.getTime());
+      
+      const day = isValid ? dateObj.getDate().toString().padStart(2, '0') : '--';
       const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"];
-      const month = monthNames[dateObj.getMonth()];
+      const month = isValid ? monthNames[dateObj.getMonth()] : 'ERR';
       
       const imageUrl = item.image && item.image.asset 
         ? urlFor(item.image).url() 
@@ -58,21 +62,20 @@ export async function getStaticProps() {
       return {
         id: item._id || '',
         Title: item.title || 'Untitled',
-        Slug: item.slug || '',
+        Slug: item.slug?.current || item.slug || '',
         Author: item.author || 'The Ghines Foundation',
-        PublishedDate: item.publishedDate || '',
+        PublishedDate: rawDate,
         Description: item.description || '',
         Content: item.content || [],
         
-        // Image mapping for UI components
+        // Image mapping for legacy components
         screens: imageUrl,
         blogSingleImg: imageUrl,
         recent: imageUrl,
         image: imageUrl,
-        Image: {
-          url: imageUrl
-        },
+        Image: { url: imageUrl },
         
+        // UI Specific Display Fields
         day: day,
         month: month,
         category: 'News',
@@ -82,20 +85,16 @@ export async function getStaticProps() {
       };
     });
 
-    // Final safety scrub for Next.js serialization
-    const posts = JSON.parse(JSON.stringify(mappedPosts));
-
     return {
       props: {
-        posts,
+        posts: JSON.parse(JSON.stringify(mappedPosts)),
         pagination: { 
           page: 1, 
-          pageSize: posts.length, 
+          pageSize: mappedPosts.length, 
           pageCount: 1, 
-          total: posts.length 
+          total: mappedPosts.length 
         }
       },
-      // ISR: Re-generate the page every 10 seconds to keep content fresh
       revalidate: 10 
     };
   } catch (error) {
