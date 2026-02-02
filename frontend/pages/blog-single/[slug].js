@@ -3,10 +3,7 @@ import React, { Fragment } from 'react';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
-import fetch from 'node-fetch';
-
-const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
-const STRAPI_MEDIA_URL = process.env.NEXT_PUBLIC_STRAPI_MEDIA_URL || 'https://light-light-5ba7f2d7f7.media.strapiapp.com';
+import { client, urlFor } from '../../lib/sanity';
 
 const BlogDetails = ({ post }) => {
   if (!post) {
@@ -33,133 +30,101 @@ const BlogDetails = ({ post }) => {
 
 export default BlogDetails;
 
+/**
+ * Generate static paths for all blog posts from Sanity
+ */
 export async function getStaticPaths() {
-  if (!STRAPI_BASE_URL || !/^https?:\/\//.test(STRAPI_BASE_URL)) {
-    console.error('[getStaticPaths] Invalid STRAPI_BASE_URL:', STRAPI_BASE_URL);
-    return { paths: [], fallback: 'blocking' };
-  }
-
   try {
-    const cleanedBaseUrl = STRAPI_BASE_URL.replace(/\/$/, '');
-    const fetchUrl = `${cleanedBaseUrl}/api/news-stories?fields[0]=Slug&fields[1]=publishedAt`;
-
-    console.log('[getStaticPaths] Fetching from:', fetchUrl);
-    const res = await fetch(fetchUrl);
+    const query = `*[_type == "newsStory" && defined(slug.current)] {
+      "slug": slug.current
+    }`;
     
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error(`[getStaticPaths] HTTP ${res.status}:`, errorText.substring(0, 200));
-      return { paths: [], fallback: 'blocking' };
-    }
-
-    const data = await res.json();
-    console.log('[getStaticPaths] Response:', JSON.stringify(data, null, 2));
+    const posts = await client.fetch(query);
     
-    const posts = data.data || [];
-
     const paths = posts
-      .filter(post => {
-        const hasSlug = post && post.Slug;
-        if (!hasSlug) console.warn('[getStaticPaths] Post missing Slug:', post);
-        return hasSlug;
-      })
+      .filter(post => post.slug)
       .map(post => ({
-        params: { slug: post.Slug }
+        params: { slug: post.slug }
       }));
 
-    console.log(`[getStaticPaths] Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
+    console.log(`✅ Generated ${paths.length} static paths for blog posts`);
 
     return {
       paths,
-      fallback: 'blocking'
+      fallback: 'blocking', // Generate missing pages on-demand
     };
-  } catch (err) {
-    console.error('[getStaticPaths] Critical error:', err.message, err.stack);
-    return { paths: [], fallback: 'blocking' };
+  } catch (error) {
+    console.error('❌ Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
   }
 }
 
+/**
+ * Fetch individual blog post data from Sanity
+ */
 export async function getStaticProps({ params }) {
   const { slug } = params;
 
-  if (!STRAPI_BASE_URL || !/^https?:\/\//.test(STRAPI_BASE_URL)) {
-    console.error('[getStaticProps] Invalid STRAPI_BASE_URL:', STRAPI_BASE_URL);
-    return { notFound: true };
-  }
-
   try {
-    const cleanedBaseUrl = STRAPI_BASE_URL.replace(/\/$/, '');
-    const fetchUrl = `${cleanedBaseUrl}/api/news-stories?filters[Slug][$eq]=${slug}&populate=*`;
+    const query = `*[_type == "newsStory" && slug.current == $slug][0] {
+      _id,
+      _createdAt,
+      title,
+      "slug": slug.current,
+      "publishedDate": coalesce(publishedDate, _createdAt),
+      description,
+      author,
+      image,
+      content
+    }`;
 
-    console.log(`[getStaticProps] Fetching slug "${slug}" from:`, fetchUrl);
-    const res = await fetch(fetchUrl);
+    const post = await client.fetch(query, { slug });
 
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error(`[getStaticProps] HTTP ${res.status}:`, errorText.substring(0, 200));
+    if (!post) {
+      console.warn(`⚠️ No post found for slug: ${slug}`);
       return { notFound: true };
     }
 
-    const data = await res.json();
-    console.log('[getStaticProps] Response:', JSON.stringify(data, null, 2));
+    // Format the post data to match BlogSingle component expectations
+    const dateString = post.publishedDate || post._createdAt || new Date().toISOString();
+    const dateObj = new Date(dateString);
+    const isValid = !isNaN(dateObj.getTime());
+    const finalDate = isValid ? dateObj : new Date();
 
-    const items = data.data || [];
+    const day = finalDate.getDate().toString().padStart(2, '0');
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"];
+    const month = monthNames[finalDate.getMonth()];
+    const year = finalDate.getFullYear();
 
-    if (items.length === 0) {
-      console.warn(`[getStaticProps] No post found for slug: ${slug}`);
-      return { notFound: true };
-    }
+    const imageUrl = post.image?.asset 
+      ? urlFor(post.image).url() 
+      : '/images/blog/placeholder.jpg';
 
-    const item = items[0];
-    const imageUrl = extractImageUrl(item.Image);
-
-    const post = {
-      id: item.id,
-      Title: item.Title ?? 'Untitled',
-      Slug: item.Slug ?? slug,
-      Author: item.Author ?? 'The Ghines Foundation',
-      PublishedDate: item.PublishedDate ?? '',
-      Content: item.Content ?? [],
-      Description: item.Description ?? '',
-      PhotoCredit: item.PhotoCredit ?? '',
+    const formattedPost = {
+      id: post._id,
+      Title: post.title || 'Untitled',
+      Slug: post.slug || slug,
+      Author: post.author || 'The Ghines Foundation',
+      PublishedDate: `${year}-${String(finalDate.getMonth() + 1).padStart(2, '0')}-${day}`,
+      day: day,
+      month: month,
+      year: year,
+      Content: post.content || [],
+      Description: post.description || '',
       Image: { url: imageUrl },
     };
 
-    console.log(`[getStaticProps] Successfully fetched: "${post.Title}"`);
-    console.log(`[getStaticProps] Image URL: ${post.Image.url}`);
+    console.log(`✅ Successfully fetched post: "${formattedPost.Title}"`);
 
     return {
-      props: { post },
-      revalidate: 60,
+      props: { post: formattedPost },
+      revalidate: 60, // Revalidate every 60 seconds
     };
-  } catch (err) {
-    console.error(`[getStaticProps] Critical error for slug "${slug}":`, err.message, err.stack);
+  } catch (error) {
+    console.error(`❌ Error fetching post with slug "${slug}":`, error);
     return { notFound: true };
   }
-}
-
-function extractImageUrl(image) {
-  if (!image) return null;
-
-  if (image.url && image.url.startsWith('http')) return image.url;
-
-  const formats = image.formats;
-  if (formats) {
-    for (const size of ['large', 'medium', 'small', 'thumbnail']) {
-      const url = formats[size]?.url;
-      if (url) {
-        return url.startsWith('http')
-          ? url
-          : `${STRAPI_MEDIA_URL}${url.startsWith('/') ? '' : '/'}${url}`;
-      }
-    }
-  }
-
-  if (image.url) {
-    return image.url.startsWith('/')
-      ? `${STRAPI_MEDIA_URL}${image.url}`
-      : `${STRAPI_MEDIA_URL}/${image.url}`;
-  }
-
-  return null;
 }
