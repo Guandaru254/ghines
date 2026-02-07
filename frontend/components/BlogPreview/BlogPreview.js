@@ -1,220 +1,154 @@
 import React from 'react';
 import Link from 'next/link';
 
-const BlogPreview = ({ posts = [] }) => {
-    if (!posts || posts.length === 0) {
-        return null;
-    }
+const BlogPreview = ({ posts }) => {
+    if (!posts || posts.length === 0) return null;
 
     return (
-        <section className="blog-preview-section py-5 bg-white">
+        <section className="blog-section section-padding" style={{ background: '#fff', padding: '100px 0' }}>
             <div className="container">
-                <div className="text-center mb-5">
-                    <span 
-                        className="text-uppercase" 
-                        style={{ 
-                            color: '#4a9fda', 
-                            letterSpacing: '2px', 
-                            fontWeight: '700', 
-                            fontSize: '14px' 
-                        }}
-                    >
-                        NEWS FEED
-                    </span>
-                    <h2 
-                        className="mt-2" 
-                        style={{ 
-                            fontWeight: '800', 
-                            color: '#1a1a1a', 
-                            fontSize: '36px' 
-                        }}
-                    >
-                        Latest News & Stories
-                    </h2>
-                    <div 
-                        style={{ 
-                            width: '70px', 
-                            height: '4px', 
-                            backgroundColor: '#4a9fda', 
-                            margin: '20px auto', 
-                            borderRadius: '2px' 
-                        }}
-                    ></div>
+                <div className="row justify-content-center">
+                    <div className="col-12 text-center mb-5">
+                        <h2 style={{ fontSize: '36px', fontWeight: '800', color: '#000' }}>Latest News & Stories</h2>
+                    </div>
                 </div>
-                
+
                 <div className="row">
-                    {posts.map((post) => {
-                        // Ensure we have day and month
-                        const day = post.day || '01';
-                        const month = post.month || 'JAN';
-                        
-                        return (
-                            <div className="col-lg-4 col-md-6 mb-4" key={post.id}>
-                                <div 
-                                    className="blog-card h-100" 
-                                    style={{ 
-                                        borderRadius: '12px', 
-                                        overflow: 'hidden',
-                                        transition: 'all 0.3s ease',
-                                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                                        position: 'relative',
-                                        backgroundColor: '#fff'
-                                    }}
-                                >
-                                    {/* Image Section */}
-                                    <div 
-                                        style={{ 
-                                            position: 'relative',
-                                            height: '250px', 
-                                            overflow: 'hidden' 
-                                        }}
-                                    >
-                                        <Link href={`/blog-single/${post.slug}`}>
-                                            <img 
-                                                src={post.image} 
-                                                alt={post.title} 
-                                                style={{ 
-                                                    width: '100%', 
-                                                    height: '100%', 
-                                                    objectFit: 'cover',
-                                                    cursor: 'pointer',
-                                                    transition: 'transform 0.3s ease',
-                                                    display: 'block'
-                                                }}
-                                                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                                onError={(e) => {
-                                                    e.currentTarget.src = '/images/blog/placeholder.jpg';
-                                                }}
-                                            />
-                                        </Link>
-                                        
-                                        {/* Date Badge - Absolute positioning */}
-                                        <div 
-                                            style={{ 
-                                                position: 'absolute',
-                                                top: '20px',
-                                                left: '20px',
-                                                backgroundColor: '#4a9fda', 
-                                                color: '#fff',
-                                                padding: '12px 15px', 
-                                                borderRadius: '8px', 
-                                                textAlign: 'center',
-                                                minWidth: '70px',
-                                                boxShadow: '0 4px 12px rgba(74, 159, 218, 0.5)',
-                                                zIndex: 10,
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                alignItems: 'center',
-                                                justifyContent: 'center'
-                                            }}
-                                        >
-                                            <div style={{ 
-                                                fontSize: '28px', 
-                                                fontWeight: 'bold', 
-                                                lineHeight: '1',
-                                                marginBottom: '5px'
-                                            }}>
-                                                {day}
-                                            </div>
-                                            <div style={{ 
-                                                fontSize: '12px', 
-                                                fontWeight: '600',
-                                                letterSpacing: '1px'
-                                            }}>
-                                                {month}
-                                            </div>
-                                        </div>
+                    {posts.map((post) => (
+                        <div className="col col-lg-4 col-md-6 col-12 mb-4" key={post.id}>
+                            <div className="blog-item custom-blog-card">
+                                
+                                {/* Image & Blue Date Card */}
+                                <div className="img-container">
+                                    <div className="date-badge">
+                                        <div className="date-day">{post.day}</div>
+                                        <div className="date-month">{post.month}</div>
                                     </div>
-
-                                    {/* Content Section */}
-                                    <div style={{ padding: '25px' }}>
-                                        {/* Author & Read Time */}
-                                        <div 
-                                            style={{ 
-                                                fontSize: '13px',
-                                                color: '#666',
-                                                marginBottom: '15px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '15px',
-                                                flexWrap: 'wrap'
-                                            }}
-                                        >
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                                <i className="fi flaticon-user" style={{ color: '#4a9fda' }}></i>
-                                                <span>By <strong>{post.author}</strong></span>
-                                            </span>
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                                <i className="fi flaticon-clock" style={{ color: '#4a9fda' }}></i>
-                                                <span>3 Min Read</span>
-                                            </span>
-                                        </div>
-
-                                        {/* Title */}
-                                        <h5 
-                                            style={{ 
-                                                minHeight: '60px',
-                                                fontSize: '20px',
-                                                lineHeight: '1.4',
-                                                marginBottom: '15px'
-                                            }}
-                                        >
-                                            <Link 
-                                                href={`/blog-single/${post.slug}`}
-                                                style={{ 
-                                                    color: '#222', 
-                                                    fontWeight: '700',
-                                                    textDecoration: 'none',
-                                                    transition: 'color 0.3s ease'
-                                                }}
-                                                onMouseOver={(e) => e.currentTarget.style.color = '#4a9fda'}
-                                                onMouseOut={(e) => e.currentTarget.style.color = '#222'}
-                                            >
-                                                {post.title}
-                                            </Link>
-                                        </h5>
-
-                                        {/* Description */}
-                                        {post.description && (
-                                            <p style={{ 
-                                                color: '#666',
-                                                fontSize: '14px',
-                                                lineHeight: '1.6',
-                                                marginBottom: '20px'
-                                            }}>
-                                                {post.description.length > 100 
-                                                    ? `${post.description.substring(0, 100)}...` 
-                                                    : post.description
-                                                }
-                                            </p>
-                                        )}
-
-                                        {/* Read More Link */}
-                                        <Link 
-                                            href={`/blog-single/${post.slug}`}
-                                            style={{ 
-                                                color: '#4a9fda', 
-                                                fontWeight: '700', 
-                                                fontSize: '14px',
-                                                textDecoration: 'none',
-                                                transition: 'color 0.3s ease',
-                                                display: 'inline-flex',
-                                                alignItems: 'center',
-                                                gap: '5px'
-                                            }}
-                                            onMouseOver={(e) => e.currentTarget.style.color = '#357ab8'}
-                                            onMouseOut={(e) => e.currentTarget.style.color = '#4a9fda'}
-                                        >
-                                            READ MORE <i className="fa fa-long-arrow-right"></i>
-                                        </Link>
+                                    
+                                    <div className="blog-img">
+                                        <img 
+                                            src={post.Image.url} 
+                                            alt={post.Title} 
+                                        />
                                     </div>
                                 </div>
+
+                                {/* Content Container */}
+                                <div className="text-content">
+                                    <div className="post-meta">
+                                        <span><i className="ti-user"></i> By {post.Author}</span>
+                                        <span><i className="ti-timer"></i> 3 Min Read</span>
+                                    </div>
+
+                                    <h3 className="post-title">
+                                        <Link href={`/blog-single/${post.Slug}`}>
+                                            {post.Title}
+                                        </Link>
+                                    </h3>
+
+                                    <Link href={`/blog-single/${post.Slug}`} className="read-more">
+                                        READ MORE →
+                                    </Link>
+                                </div>
                             </div>
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
             </div>
+
+            {/* HOVER STYLES & TRANSITIONS */}
+            <style jsx>{`
+                .custom-blog-card {
+                    background: #fff;
+                    border: 1px solid #ebebeb;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+                }
+
+                .img-container {
+                    position: relative;
+                    height: 240px;
+                    width: 100%;
+                    overflow: hidden;
+                }
+
+                .blog-img img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                /* Image Zoom on Card Hover */
+                .custom-blog-card:hover .blog-img img {
+                    transform: scale(1.1);
+                }
+
+                .date-badge {
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                    background-color: #4a9fda;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    text-align: center;
+                    z-index: 10;
+                    font-weight: 700;
+                }
+
+                .date-day { font-size: 20px; line-height: 1; }
+                .date-month { font-size: 11px; text-transform: uppercase; }
+
+                .text-content {
+                    padding: 25px;
+                    text-align: left;
+                }
+
+                .post-meta {
+                    display: flex;
+                    gap: 15px;
+                    font-size: 13px;
+                    color: #888;
+                    margin-bottom: 15px;
+                }
+
+                .post-meta i { color: #4a9fda; margin-right: 5px; }
+
+                .post-title {
+                    font-size: 19px;
+                    font-weight: 700;
+                    line-height: 1.4;
+                    margin-bottom: 25px;
+                    min-height: 54px;
+                }
+
+                /* TITLE HOVER EFFECT */
+                .post-title :global(a) {
+                    color: #222;
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+                }
+
+                .custom-blog-card:hover .post-title :global(a) {
+                    color: #4a9fda;
+                }
+
+                .read-more {
+                    color: #4a9fda;
+                    font-weight: 700;
+                    text-decoration: none;
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    transition: letter-spacing 0.3s ease;
+                }
+
+                .read-more:hover {
+                    letter-spacing: 1.5px;
+                }
+            `}</style>
         </section>
     );
 };

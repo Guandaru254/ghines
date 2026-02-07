@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/react-modal-video/scss/modal-video.scss';
+import 'react-modal-video/scss/modal-video.scss';
 import '../styles/animate.css'
 import '../styles/flaticon_aidus.css'
 import "../styles/font-awesome.min.css";

@@ -1,6 +1,5 @@
 // pages/blog/index.js
 import React, { Fragment } from 'react';
-import fetch from 'node-fetch';
 import extractImageUrl from '../utils/extractImageUrl';
 import BlogList from '../components/BlogList/BlogList';
 

@@ -1,48 +1,39 @@
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
-/**
- * Sanity Client Configuration
- * This connects your Next.js frontend to the 'm2kkfzho' project.
- */
 export const client = createClient({
-  projectId: "m2kkfzho", 
-  dataset: "production",
-  apiVersion: "2024-01-01",
-  useCdn: true, // Enable CDN for faster performance
+  projectId: 'm2kkfzho', //
+  dataset: 'production', //
+  apiVersion: '2024-01-01', //
+  useCdn: true, //
 });
 
-const builder = imageUrlBuilder(client);
+const builder = imageUrlBuilder(client); //
 
 /**
- * Robust Image URL Builder
- * Safely handles missing images by returning a placeholder string
+ * Sanity image URL helper - returns URL string directly.
+ * NOTE: Since this ends in .url(), do not call .url() again in your components.
  */
 export function urlFor(source) {
+  // Check if source exists and has a valid asset reference
   if (!source || !source.asset) {
-    console.warn('⚠️ urlFor called with invalid source:', source);
-    return { 
-      url: () => '/images/blog/placeholder.jpg',
-      width: () => ({ url: () => '/images/blog/placeholder.jpg' }),
-      height: () => ({ url: () => '/images/blog/placeholder.jpg' }),
-    };
+    return '/images/blog/placeholder.jpg'; 
   }
-  
+
   try {
-    return builder.image(source);
-  } catch (error) {
-    console.error('❌ Error building image URL:', error);
-    return { 
-      url: () => '/images/blog/placeholder.jpg',
-      width: () => ({ url: () => '/images/blog/placeholder.jpg' }),
-      height: () => ({ url: () => '/images/blog/placeholder.jpg' }),
-    };
+    return builder
+      .image(source)
+      .auto('format')
+      .fit('max')
+      .url(); //
+  } catch (err) {
+    console.error('Sanity image error:', err);
+    return '/images/blog/placeholder.jpg'; //
   }
 }
 
 /**
  * FETCH ALL NEWS
- * Refined GROQ query with proper error handling
  */
 export async function getAllNews() {
   const query = `*[_type == "newsStory"] | order(coalesce(publishedDate, _createdAt) desc) {
@@ -51,37 +42,24 @@ export async function getAllNews() {
     title,
     "slug": slug.current,
     "publishedDate": coalesce(publishedDate, _createdAt),
-    "description": coalesce(description, ""),
-    "author": coalesce(author, "The Ghines Foundation"),
-    image {
-      asset -> {
-        _id,
-        url
-      }
-    },
+    description,
+    author,
+    image,
     content
-  }`;
-  
+  }`; //
+
   try {
     const data = await client.fetch(query);
-    
-    if (!data || !Array.isArray(data)) {
-      console.warn('⚠️ Sanity returned invalid data structure');
-      return [];
-    }
-    
-    console.log(`✅ Fetched ${data.length} posts from Sanity`);
-    
-    // Deep clone to ensure the object is plain JSON for Next.js serialization
-    return JSON.parse(JSON.stringify(data || []));
+    console.log(`✅ Fetched ${data.length} posts from Sanity`); //
+    return data || [];
   } catch (error) {
-    console.error("❌ Sanity Fetch Error:", error);
+    console.error('❌ Sanity fetch error:', error);
     return [];
   }
 }
 
 /**
- * FETCH SINGLE NEWS POST BY SLUG
+ * FETCH SINGLE NEWS POST
  */
 export async function getNewsBySlug(slug) {
   const query = `*[_type == "newsStory" && slug.current == $slug][0] {
@@ -92,27 +70,18 @@ export async function getNewsBySlug(slug) {
     "publishedDate": coalesce(publishedDate, _createdAt),
     description,
     author,
-    image {
-      asset -> {
-        _id,
-        url
-      }
-    },
+    image,
     content
-  }`;
-  
+  }`; //
+
   try {
-    const data = await client.fetch(query, { slug });
-    
-    if (!data) {
-      console.warn(`⚠️ No post found for slug: ${slug}`);
-      return null;
+    const post = await client.fetch(query, { slug });
+    if (post) {
+      console.log(`✅ Fetched post: ${post.title}`); //
     }
-    
-    console.log(`✅ Fetched post: "${data.title}"`);
-    return JSON.parse(JSON.stringify(data));
+    return post;
   } catch (error) {
-    console.error(`❌ Error fetching post with slug "${slug}":`, error);
+    console.error('❌ Sanity slug fetch error:', error);
     return null;
   }
 }

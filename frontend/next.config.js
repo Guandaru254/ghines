@@ -1,31 +1,35 @@
-{import('next').NextConfig} 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  
-  // Image optimization configuration for Sanity CDN
+
   images: {
-    domains: [
-      'cdn.sanity.io',
-      'm2kkfzho.api.sanity.io',
-      // Add any other image domains you use
-      'light-light-5ba7f2d7f7.media.strapiapp.com', // Legacy Strapi (can remove later)
+    // remotePatterns is the modern, more secure way to handle external images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'light-light-5ba7f2d7f7.media.strapiapp.com',
+      }
     ],
-    // Allow unoptimized images as fallback
+    // If you are still using <img> tags instead of <Image /> components, 
+    // unoptimized: true can sometimes help during debugging, but false is better for performance.
     unoptimized: false,
   },
 
-  // Webpack configuration (if needed for custom loaders)
-  webpack: (config, { isServer }) => {
-    // Add any custom webpack config here
+  webpack: (config, { dev, isServer }) => {
+    // This snippet helps silence the 'outdated direction syntax' warnings 
+    // from Autoprefixer that are flooding your terminal.
+    if (dev && !isServer) {
+      config.infrastructureLogging = {
+        level: 'error',
+      };
+    }
     return config;
   },
 }
 
 module.exports = nextConfig;
-
-
-
-
-
-
