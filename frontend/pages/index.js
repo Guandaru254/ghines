@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Hero from '../components/Hero/Hero';
+import Hero from '../components/hero/hero';
 import EventSection from '../components/EventSection/EventSection';
 import BlogPreview from '../components/BlogPreview/BlogPreview';
 // Updated to match the casing suggested by your console error
