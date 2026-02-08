@@ -3,7 +3,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import TeamSection from "../../components/TeamSection/TeamSection";
 import Scrollbar from "../../components/scrollbar/scrollbar";
 
-const AboutPage = () => {
+export default function BoardPage() {
   return (
     <Fragment>
       {/* Page Header */}
@@ -19,6 +19,4 @@ const AboutPage = () => {
       <Scrollbar />
     </Fragment>
   );
-};
-
-export default AboutPage;
+}
