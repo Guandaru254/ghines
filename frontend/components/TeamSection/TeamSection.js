@@ -162,7 +162,7 @@ const TeamSection = ({ hclass }) => {
                 >
                     <div className="col-lg-12">
                         <div className="section-title section-title-mobile-center">
-                            <span>Our Team</span>
+                            <span>Our Partners</span>
                         </div>
                     </div>
                 </motion.div>

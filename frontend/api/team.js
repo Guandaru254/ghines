@@ -45,6 +45,16 @@ Respected for his calm leadership and sharp understanding of global affairs, Mr 
 
 Between 2013 and 2023, she sat on the Executive Board of the University of Reading's Henley Business School and continues to write and speak on Somalia's peace process and governance. Fluent in English, Arabic, and Somali, Jawahir brings to the Ghines Foundation a wealth of international experience and a strong voice for justice and inclusion.`,
   },
+  {
+    id: "4",
+    title: "Save Africa Now (SAN)",
+    subtitle: "",
+    slug: "save-africa-now-san",
+    timg: "/images/logo.png",
+    snippet:
+      "Save Africa Now (SAN) is a non-profit organisation based in the United States and Greece, working to support vulnerable children and communities in East Africa.",
+    bio: `Save Africa Now (SAN) is a non-profit organisation based in the United States and Greece, working to support vulnerable children and communities in East Africa. Founded by Vasiliki Kouka, SAN is grounded in long-term engagement, community relationships, and a commitment to dignity-driven development. SAN works across nutrition, health, education, protection, and child wellbeing, integrating essential services with psychosocial, cultural, and community-based approaches. Its work prioritises sustainable, locally grounded solutions that strengthen families and community structures rather than short-term interventions.`,
+  },
 ];
 
 export default Team;
