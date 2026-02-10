@@ -45,46 +45,6 @@ Respected for his calm leadership and sharp understanding of global affairs, Mr 
 
 Between 2013 and 2023, she sat on the Executive Board of the University of Reading's Henley Business School and continues to write and speak on Somalia's peace process and governance. Fluent in English, Arabic, and Somali, Jawahir brings to the Ghines Foundation a wealth of international experience and a strong voice for justice and inclusion.`,
   },
-  {
-    id: "4",
-    title: "Asma-Lucy Ilado",
-    subtitle: "Co-founder and Executive Director",
-    slug: "asma-lucy-ilado",
-    timg: "/images/volunteer/4.jpg",
-    bio: `Asma-Lucy Ilado is the Co-founder and Executive Director of the Ghines Foundation, leading its mission and strategic vision.`,
-  },
-  {
-    id: "5",
-    title: "William Amoko",
-    subtitle: "Co-founder and Director of Operations",
-    slug: "william-amoko",
-    timg: "/images/volunteer/5.jpeg",
-    bio: `William Amoko is the Co-founder and Director of Operations, overseeing day-to-day execution and organisational growth.`,
-  },
-  {
-    id: "6",
-    title: "Sarah Osman Ghandi",
-    subtitle: "Project Coordinator",
-    slug: "sarah-osman-ghandi",
-    timg: "/images/volunteer/6.JPG",
-    bio: "",
-  },
-  {
-    id: "7",
-    title: "Zakia Khemis",
-    subtitle: "People and Culture Officer",
-    slug: "zakia-khenis",
-    timg: "/images/volunteer/7.jpeg",
-    bio: "",
-  },
-  {
-    id: "8",
-    title: "Tihl Abdallah",
-    subtitle: "Digital & ICT Officer",
-    slug: "tihl-abdallah",
-    timg: "/images/volunteer/8.jpeg",
-    bio: "",
-  },
 ];
 
 export default Team;
