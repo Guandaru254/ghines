@@ -2191,6 +2191,21 @@
     display: flex;
     flex-direction: column;
 }
+// Target only the Partners section logos to ensure they don't crop
+.team-board.justify-content-center {
+    .vol-card {
+        .image {
+            background-color: #fff; // Ensures logos on white look clean
+            
+            img {
+                // This overrides the !important 'cover' only for this specific row
+                object-fit: contain !important; 
+                object-position: center !important;
+                padding: 10% !important; // Gives the circles space so they don't touch the edges
+            }
+        }
+    }
+}
 
 
 /* 5.9 project-section */

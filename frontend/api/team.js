@@ -45,6 +45,7 @@ Respected for his calm leadership and sharp understanding of global affairs, Mr 
 
 Between 2013 and 2023, she sat on the Executive Board of the University of Reading's Henley Business School and continues to write and speak on Somalia's peace process and governance. Fluent in English, Arabic, and Somali, Jawahir brings to the Ghines Foundation a wealth of international experience and a strong voice for justice and inclusion.`,
   },
+  
   {
     id: "4",
     title: "Save Africa Now (SAN)",
@@ -54,6 +55,39 @@ Between 2013 and 2023, she sat on the Executive Board of the University of Readi
     snippet:
       "Save Africa Now (SAN) is a non-profit organisation based in the United States and Greece, working to support vulnerable children and communities in East Africa.",
     bio: `Save Africa Now (SAN) is a non-profit organisation based in the United States and Greece, working to support vulnerable children and communities in East Africa. Founded by Vasiliki Kouka, SAN is grounded in long-term engagement, community relationships, and a commitment to dignity-driven development. SAN works across nutrition, health, education, protection, and child wellbeing, integrating essential services with psychosocial, cultural, and community-based approaches. Its work prioritises sustainable, locally grounded solutions that strengthen families and community structures rather than short-term interventions.`,
+  },
+  
+  {
+    id: "5",
+    title: "South Sudan Football Association (SSFA)",
+    subtitle: "",
+    slug: "south-sudan-football-association-ssfa",
+    timg: "/images/partners/sifa.jpg",
+    snippet:
+      "The South Sudan Football Association (SSFA) is the governing body for football in South Sudan. Established in April 2011, shortly after the country’s independence, the Association is responsible for regulating, developing, and promoting football across the nation.",
+
+    bio: `The South Sudan Football Association (SSFA) is the official governing body of football in South Sudan. Established in April 2011, shortly after the country’s independence, the Association is responsible for regulating, developing, and promoting football across the nation.
+
+The SSFA is affiliated with the Council for East and Central Africa Football Associations (CECAFA), the Confederation of African Football (CAF), and the Fédération Internationale de Football Association (FIFA), integrating South Sudan into regional, continental, and global football systems.
+
+At the national level, the Association oversees the South Sudan Football Championship, the South Sudan Premier League, the National Cup, and the Super Cup. Through its stewardship of both elite and grassroots football, the SSFA plays a vital role in strengthening youth development, fostering national unity, and advancing sport as a tool for social cohesion and opportunity.
+
+
+ country.`,
+  }, {
+      id: "6",
+    title: "Ministry of Culture, Museums and National Heritage (MCM&NH))",
+    subtitle: "",
+    slug: "ministry-of-culture-museums-and-national-heritage-mcmnh",
+    timg: "/images/partners/min.jpg",
+    snippet:
+      "The Ministry of Culture, Museums and National Heritage (MCM&NH) is the primary government institution in South Sudan responsible for cultural heritage preservation and development  .",
+
+    bio: `The Ministry of Culture, Museums and National Heritage (MCM&NH) is the primary government institution in South Sudan mandated to lead the development, promotion, and preservation of the country’s cultural heritage, historical resources, and museum sector. As a central pillar of national identity-building, the Ministry plays a strategic role in safeguarding tangible and intangible heritage while strengthening institutional frameworks for culture.
+
+The Ministry oversees the Directorates for Culture and Heritage, Museums, and National Archives and Records, ensuring coordinated management of cultural assets, documentation systems, and public heritage institutions. Its work is deeply rooted in the national context of post-conflict recovery, with a strong emphasis on rebuilding cultural identity, documenting memory, and restoring pride in South Sudan’s diverse traditions. Through policy development, heritage conservation, and cultural programming, the Ministry contributes to social cohesion, historical continuity, and long-term nation-building.
+
+`,
   },
 ];
 

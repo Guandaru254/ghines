@@ -45,7 +45,6 @@ const TeamSection = ({ hclass }) => {
 
     // Split the Board of Directors for the 3 + 2 layout
     const boardRow1 = boardOfDirectors; // Only 3 members remain for the Board
-    // const boardRow2 is now redundant and removed from logic
 
     // Function to render a group of team members
     const renderTeamGroup = (members, startIndex) => {
@@ -57,10 +56,11 @@ const TeamSection = ({ hclass }) => {
             const hasLink = member.slug && member.slug.trim() !== "";
             
             // 2. Snippet/View Profile Link: Active ONLY if member.snippet is non-empty (Cards 1-3 only).
-            // NOTE: The Snippet logic only applies to the original cards 1-3 since members 4+ have empty snippets in the data.
             const showSnippetAndLink = member.snippet && member.snippet.trim() !== "";
             const snippet = showSnippetAndLink ? member.snippet : "";
 
+            // 🎯 STYLING FIX: Check if the member is part of the first 3 (Board)
+            const isBoardMember = actualIndex < 3;
 
             return (
                 <motion.div
@@ -81,7 +81,8 @@ const TeamSection = ({ hclass }) => {
                                 height={500}
                                 priority
                                 style={{
-                                    objectFit: "cover",
+                                    // 🎯 STYLING FIX: Use 'contain' for the first 3 so they are viewed fully
+                                    objectFit: isBoardMember ? "contain" : "cover",
                                     objectPosition: "center top",
                                 }}
                             />
@@ -148,11 +149,7 @@ const TeamSection = ({ hclass }) => {
                     {renderTeamGroup(boardRow1, 0)}
                 </div>
 
-                {/* * Board Row 2 (the original 2 cards for Lucy and William) has been removed 
-                  * by deleting the original <div> block, as they are now in the section below. 
-                  */}
-
-                {/* SECTION 2 TITLE: OUR TEAM (Now 5 members: IDs 4, 5, 6, 7, 8) */}
+                {/* SECTION 2 TITLE: OUR PARTNERS (Now 5 members: IDs 4, 5, 6, 7, 8) */}
                 <motion.div
                     className="row mb-5 mt-5 pt-4"
                     initial="hidden"
@@ -167,7 +164,7 @@ const TeamSection = ({ hclass }) => {
                     </div>
                 </motion.div>
 
-                {/* Team Row: 5 Cards, Centered. This will automatically split into a 3-card row and a 2-card centered row based on col-lg-4. */}
+                {/* Team Row: 5 Cards, Centered. */}
                 <div className="row team-board justify-content-center"> 
                     {renderTeamGroup(operationalTeam, boardOfDirectors.length)} 
                 </div>
