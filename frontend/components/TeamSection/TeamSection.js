@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-// 🎯 FIX: Ensure 'motion' is destructured and imported correctly.
 import { motion } from "framer-motion";
 import RawTeam from "../../api/team";
 
@@ -37,30 +36,19 @@ const TeamSection = ({ hclass }) => {
         );
     }
 
-    // 🚩 ADJUSTMENT: Board now includes members IDs 1, 2, 3 (The first 3 members)
     const boardOfDirectors = Team.slice(0, 3);
-    
-    // 🚩 ADJUSTMENT: Operational Team now includes members IDs 4 (Lucy) through 8 (all remaining 5 members)
-    const operationalTeam = Team.slice(3); // Starts at index 3 (ID 4 is at index 3)
+    const operationalTeam = Team.slice(3);
+    const boardRow1 = boardOfDirectors;
 
-    // Split the Board of Directors for the 3 + 2 layout
-    const boardRow1 = boardOfDirectors; // Only 3 members remain for the Board
-
-    // Function to render a group of team members
     const renderTeamGroup = (members, startIndex) => {
         return members.map((member, i) => {
-            
             const actualIndex = startIndex + i;
-            
-            // 1. Name Link: Active if member.slug is present (all 8 members)
             const hasLink = member.slug && member.slug.trim() !== "";
-            
-            // 2. Snippet/View Profile Link: Active ONLY if member.snippet is non-empty (Cards 1-3 only).
             const showSnippetAndLink = member.snippet && member.snippet.trim() !== "";
             const snippet = showSnippetAndLink ? member.snippet : "";
 
-            // 🎯 STYLING FIX: Check if the member is part of the first 3 (Board)
-            const isBoardMember = actualIndex < 3;
+            // 🎯 THE LOGIC: If index is 0, 1, or 2 (The Board), we use "contain" to see the full image.
+            const isTopThree = actualIndex < 3;
 
             return (
                 <motion.div
@@ -81,20 +69,18 @@ const TeamSection = ({ hclass }) => {
                                 height={500}
                                 priority
                                 style={{
-                                    // 🎯 STYLING FIX: Use 'contain' for the first 3 so they are viewed fully
-                                    objectFit: isBoardMember ? "contain" : "cover",
+                                    // 🎯 THE FIX: "contain" ensures the full portrait is visible
+                                    objectFit: isTopThree ? "contain" : "cover",
                                     objectPosition: "center top",
+                                    width: "100%",
+                                    height: "100%"
                                 }}
                             />
                         </div>
-                        <div className="text">
+                        <div className="text" style={{ backgroundColor: "#fff", textAlign: "center", padding: "15px 10px" }}>
                             <h3 className="member-name">
-                                {/* All names are linked to ensure consistent styling */}
                                 {hasLink ? ( 
-                                    <Link
-                                        href={`/board-single/${member.slug}`}
-                                        onClick={ClickHandler}
-                                    >
+                                    <Link href={`/board-single/${member.slug}`} onClick={ClickHandler}>
                                         {member.title}
                                     </Link>
                                 ) : (
@@ -102,17 +88,9 @@ const TeamSection = ({ hclass }) => {
                                 )}
                             </h3>
                             <span className="member-role">{member.subtitle}</span>
-                            
-                            {/* Snippet display controlled by member.snippet (Cards 1-3 only) */}
                             {snippet && <div className="quote-text">{snippet}</div>}
-                            
-                            {/* "View Full Profile" link controlled by member.snippet (Cards 1-3 only) */}
                             {showSnippetAndLink && (
-                                <Link
-                                    href={`/board-single/${member.slug}`}
-                                    onClick={ClickHandler}
-                                    className="read-more-btn"
-                                >
+                                <Link href={`/board-single/${member.slug}`} onClick={ClickHandler} className="read-more-btn">
                                     View Full Profile <i className="fa fa-long-arrow-right"></i>
                                 </Link>
                             )}
@@ -122,53 +100,21 @@ const TeamSection = ({ hclass }) => {
             );
         });
     };
+// ... keep everything at the top the same ...
 
     return (
-        <section
-            className={hclass || "volunteer-section section-padding"}
-            style={{ overflow: "hidden" }}
-        >
+        <section className={hclass || "volunteer-section section-padding"} style={{ overflow: "hidden" }}>
             <div className="container">
-                {/* SECTION 1 TITLE: OUR BOARD OF DIRECTORS (Now only 3 members) */}
-                <motion.div
-                    className="row mb-5"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                >
-                    <div className="col-lg-12">
-                        <div className="section-title section-title-mobile-center">
-                            <span>Our Board</span>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Board Row 1: 3 Cards (IDs 1, 2, 3) - Centered */}
+                {/* SECTION 1: OUR BOARD */}
                 <div className="row team-board mb-5 pb-4 justify-content-center"> 
                     {renderTeamGroup(boardRow1, 0)}
                 </div>
 
-                {/* SECTION 2 TITLE: OUR PARTNERS (Now 5 members: IDs 4, 5, 6, 7, 8) */}
-                <motion.div
-                    className="row mb-5 mt-5 pt-4"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                >
-                    <div className="col-lg-12">
-                        <div className="section-title section-title-mobile-center">
-                            <span>Our Partners</span>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Team Row: 5 Cards, Centered. */}
-                <div className="row team-board justify-content-center"> 
+                {/* SECTION 2: OUR PARTNERS */}
+                {/* 🎯 Added 'partners-row' here to separate it from the board logic */}
+                <div className="row team-board justify-content-center partners-row"> 
                     {renderTeamGroup(operationalTeam, boardOfDirectors.length)} 
                 </div>
-
             </div>
         </section>
     );

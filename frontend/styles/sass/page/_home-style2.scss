@@ -2206,7 +2206,21 @@
         }
     }
 }
+/* TARGET ONLY THE BOARD TO VIEW FULLY */
+.team-board.mb-5.pb-4.justify-content-center {
+    .vol-card .image img {
+        object-fit: contain !important; /* This stops the cropping */
+        object-position: center top !important;
+        padding: 5%; /* Optional: adds a tiny bit of breathing room around the person */
+        background-color: #fff; /* Ensures no gray bars on the sides */
+    }
+}
 
+/* TARGET ONLY THE PARTNERS (Already in your code, but making sure it's strong enough) */
+.partners-row .vol-card .image img {
+    object-fit: contain !important;
+    padding: 15% !important;
+}
 
 /* 5.9 project-section */
 .project-section-s2,
