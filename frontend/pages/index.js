@@ -11,28 +11,17 @@ const HomePage = ({ posts }) => {
     return (
         <Fragment>
             <Head>
+                {/* Since _app.js now handles the OG tags, we only keep the 
+                  unique page title here to ensure it's specific to the home route.
+                */}
                 <title>Ghines Foundation | Every Action Counts</title>
-                <meta name="description" content="Every Action, Big or Small, Counts." />
-                
-                {/* Open Graph / Facebook / WhatsApp */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://ghinesfoundation.org/" />
-                <meta property="og:title" content="Ghines Foundation" />
-                <meta property="og:description" content="Every Action, Big or Small, Counts." />
-                <meta property="og:image" content="https://ghinesfoundation.org/og-image.jpg" />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:url" content="https://ghinesfoundation.org/" />
-                <meta name="twitter:title" content="Ghines Foundation" />
-                <meta name="twitter:description" content="Every Action, Big or Small, Counts." />
-                <meta name="twitter:image" content="https://ghinesfoundation.org/og-image.jpg" />
             </Head>
 
             <Hero />
             <EventSection />
             <BlogPreview posts={posts} /> 
             <Scrollbar />
+            <Footer />
         </Fragment>
     );
 };
