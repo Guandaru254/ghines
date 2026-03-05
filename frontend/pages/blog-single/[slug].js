@@ -14,13 +14,13 @@ const BlogDetails = ({ post }) => {
         <title>{post.title} | Ghines Foundation</title>
         <meta name="description" content={post.description} />
 
-        {/* Open Graph / WhatsApp */}
+        {/* Open Graph / WhatsApp - Using the pre-generated string */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={`https://ghinesfoundation.org/blog-single/${post.slug}`} />
-        <meta property="og:image" content={post.ogImageUrl} />
-        <meta property="og:image:secure_url" content={post.ogImageUrl} />
+        <meta property="og:image" content={post.imageUrl} />
+        <meta property="og:image:secure_url" content={post.imageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
@@ -28,7 +28,7 @@ const BlogDetails = ({ post }) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description} />
-        <meta name="twitter:image" content={post.ogImageUrl} />
+        <meta name="twitter:image" content={post.imageUrl} />
       </Head>
 
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
@@ -63,15 +63,14 @@ export async function getStaticProps({ params }) {
 
   if (!post) return { notFound: true };
 
-  // Bulletrpoof URL generation
+  // Generate the URL string once here. 
+  // We use .url() here so the component receives a plain string.
   let finalImageUrl = "https://ghinesfoundation.org/og-image.jpg";
-  
-  if (post.image && post.image.asset) {
+  if (post.image) {
     try {
-      // Simplest form to avoid the ".width is not a function" error
       finalImageUrl = urlFor(post.image).url();
     } catch (e) {
-      console.error("Sanity Image Error:", e);
+      console.error("Image transform error", e);
     }
   }
 
@@ -84,9 +83,7 @@ export async function getStaticProps({ params }) {
         author: post.author || 'The Ghines Foundation',
         publishedDate: post.publishedDate,
         description: post.description || "Every Action, Big or Small, Counts.",
-        ogImageUrl: finalImageUrl,
-        // Passing string directly to avoid component-side builder errors
-        image: post.image ? urlFor(post.image).url() : null, 
+        imageUrl: finalImageUrl, // This is now a simple string
         content: post.content || [],
       }
     },
