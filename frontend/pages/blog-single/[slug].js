@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Head from 'next/head'; // Added for dynamic metadata
+import Head from 'next/head'; 
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
@@ -15,29 +15,35 @@ const BlogDetails = ({ post }) => {
     );
   }
 
-  // Construct the image URL safely
+  /**
+   * FIX: We call .url() here to turn the Sanity object into a 
+   * string that WhatsApp and LinkedIn can actually read.
+   */
   const ogImage = post.image ? post.image.url() : "https://ghinesfoundation.org/og-image.jpg";
+  const pageUrl = `https://ghinesfoundation.org/blog-single/${post.slug}`;
+  const description = post.description || "Every Action, Big or Small, Counts.";
 
   return (
     <Fragment>
       <Head>
         {/* Dynamic Title and Description */}
         <title>{post.title} | Ghines Foundation</title>
-        <meta name="description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="description" content={description} />
 
         {/* Open Graph / Facebook / WhatsApp */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || "Every Action, Big or Small, Counts."} />
-        <meta property="og:url" content={`https://ghinesfoundation.org/blog-single/${post.slug}`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:image:secure_url" content={ogImage} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
       </Head>
 
@@ -53,9 +59,7 @@ export default BlogDetails;
 export async function getStaticPaths() {
   const query = `*[_type == "newsStory" && defined(slug.current)] { "slug": slug.current }`;
   const posts = await client.fetch(query);
-  
   const paths = posts.map(p => ({ params: { slug: p.slug } }));
-
   return { paths, fallback: 'blocking' };
 }
 
@@ -84,7 +88,8 @@ export async function getStaticProps({ params }) {
         author: post.author || 'The Ghines Foundation',
         publishedDate: post.publishedDate,
         description: post.description,
-        image: urlFor(post.image),
+        // Passing the image builder here to be used with .url() in the component
+        image: urlFor(post.image), 
         content: post.content || [],
       }
     },
