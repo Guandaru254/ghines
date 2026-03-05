@@ -5,11 +5,12 @@ import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
 import { client, urlFor } from '../../lib/sanity';
 
-const BlogDetails = ({ post, seoImage }) => {
+const BlogDetails = ({ post, seoImageUrl }) => {
   if (!post) return null;
 
-  // Use the pre-built string for SEO, but the post.image object for the UI
-  const ogImageUrl = seoImage || "https://ghinesfoundation.org/og-image.jpg";
+  const fallback = "https://ghinesfoundation.org/og-image.jpg";
+  const ogImage = seoImageUrl || fallback;
+  const pageUrl = `https://ghinesfoundation.org/blog-single/${post.slug}`;
 
   return (
     <Fragment>
@@ -17,29 +18,29 @@ const BlogDetails = ({ post, seoImage }) => {
         <title>{post.title} | Ghines Foundation</title>
         <meta name="description" content={post.description || "Every Action, Big or Small, Counts."} />
 
-        {/* Essential OG Tags for WhatsApp/LinkedIn */}
+        {/* OpenGraph - LinkedIn, WhatsApp, Facebook */}
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Ghines Foundation" />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={`https://ghinesfoundation.org/blog-single/${post.slug}`} />
-        <meta property="og:image" content={ogImageUrl} />
-        <meta property="og:image:secure_url" content={ogImageUrl} />
+        <meta property="og:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:secure_url" content={ogImage} />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        
-        {/* Twitter Tags */}
+        <meta property="og:image:alt" content={post.title} />
+
+        {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:image" content={ogImageUrl} />
+        <meta name="twitter:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={post.title} />
       </Head>
 
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
-      
-      {/* CRITICAL: Passing 'post' exactly as it comes from Sanity 
-          so BlogSingle can render the image correctly.
-      */}
       <BlogSingle post={post} />
-      
       <Scrollbar />
     </Fragment>
   );
@@ -71,22 +72,35 @@ export async function getStaticProps({ params }) {
 
   if (!post) return { notFound: true };
 
-  // Generate a separate string for the SEO tags to avoid build crashes
-  let seoImage = "https://ghinesfoundation.org/og-image.jpg";
-  
-  if (post.image && post.image.asset) {
+  // --- SEO Image: built as a plain string, isolated from the UI post object ---
+  let seoImageUrl = "https://ghinesfoundation.org/og-image.jpg";
+
+  if (post?.image?.asset?._ref) {
     try {
-      // Use .url() only. If this crashes, the catch block saves the build.
-      seoImage = urlFor(post.image).url();
+      // Step 1: Try the safest possible call — no .width(), no .height()
+      const rawUrl = urlFor(post.image).url();
+
+      // Step 2: Log it so you can verify it's the right image, not the logo
+      console.log(`[SEO] Resolved image for "${params.slug}":`, rawUrl);
+
+      if (rawUrl) {
+        // Step 3: Append Sanity's image transform params directly in the URL
+        // This avoids .width() method crashes entirely
+        seoImageUrl = `${rawUrl}?w=1200&h=630&fit=crop&auto=format`;
+      }
     } catch (error) {
-      console.error("SEO Image generation failed:", error);
+      console.error(`[SEO] urlFor failed for slug "${params.slug}":`, error.message);
+      // Falls back to the site logo — build will NOT crash
     }
+  } else {
+    // This log tells you if the post simply has no image in Sanity
+    console.warn(`[SEO] No image asset found for slug: "${params.slug}"`);
   }
 
   return {
     props: {
-      post, // Sent as a full object for the UI
-      seoImage // Sent as a string for the <Head>
+      post,        // Full object → BlogSingle renders correctly
+      seoImageUrl, // Plain string → <Head> og:image tags only
     },
     revalidate: 10,
   };
