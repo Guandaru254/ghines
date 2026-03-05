@@ -6,45 +6,29 @@ import BlogSingle from '../../components/BlogDetails/BlogSingle';
 import { client, urlFor } from '../../lib/sanity';
 
 const BlogDetails = ({ post }) => {
-  if (!post) {
-    return (
-      <Fragment>
-        <PageTitle pageTitle="Post Not Found" pagesub="News & Stories" />
-        <Scrollbar />
-      </Fragment>
-    );
-  }
-
-  /**
-   * FIX: We call .url() here to turn the Sanity object into a 
-   * string that WhatsApp and LinkedIn can actually read.
-   */
-  const ogImage = post.image ? post.image.url() : "https://ghinesfoundation.org/og-image.jpg";
-  const pageUrl = `https://ghinesfoundation.org/blog-single/${post.slug}`;
-  const description = post.description || "Every Action, Big or Small, Counts.";
+  if (!post) return null;
 
   return (
     <Fragment>
       <Head>
-        {/* Dynamic Title and Description */}
         <title>{post.title} | Ghines Foundation</title>
-        <meta name="description" content={description} />
+        <meta name="description" content={post.description} />
 
-        {/* Open Graph / Facebook / WhatsApp */}
+        {/* Open Graph - These MUST be absolute URL strings */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:secure_url" content={ogImage} />
+        <meta property="og:description" content={post.description} />
+        <meta property="og:url" content={`https://ghinesfoundation.org/blog-single/${post.slug}`} />
+        <meta property="og:image" content={post.ogImageUrl} />
+        <meta property="og:image:secure_url" content={post.ogImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:description" content={post.description} />
+        <meta name="twitter:image" content={post.ogImageUrl} />
       </Head>
 
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
@@ -79,6 +63,11 @@ export async function getStaticProps({ params }) {
 
   if (!post) return { notFound: true };
 
+  // Generate the clean string URL once, right here on the server.
+  const finalImageUrl = post.image 
+    ? urlFor(post.image).width(1200).height(630).url() 
+    : "https://ghinesfoundation.org/og-image.jpg";
+
   return {
     props: {
       post: {
@@ -87,12 +76,12 @@ export async function getStaticProps({ params }) {
         slug: post.slug,
         author: post.author || 'The Ghines Foundation',
         publishedDate: post.publishedDate,
-        description: post.description,
-        // Passing the image builder here to be used with .url() in the component
-        image: urlFor(post.image), 
+        description: post.description || "Every Action, Big or Small, Counts.",
+        ogImageUrl: finalImageUrl, // This is now a pure string
+        image: urlFor(post.image).url(), // For the component display
         content: post.content || [],
       }
     },
-    revalidate: 60,
+    revalidate: 10,
   };
 }
