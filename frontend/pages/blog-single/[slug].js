@@ -14,7 +14,7 @@ const BlogDetails = ({ post }) => {
         <title>{post.title} | Ghines Foundation</title>
         <meta name="description" content={post.description} />
 
-        {/* Open Graph - These MUST be absolute URL strings */}
+        {/* Open Graph / WhatsApp */}
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
@@ -63,10 +63,17 @@ export async function getStaticProps({ params }) {
 
   if (!post) return { notFound: true };
 
-  // Generate the clean string URL once, right here on the server.
-  const finalImageUrl = post.image 
-    ? urlFor(post.image).width(1200).height(630).url() 
-    : "https://ghinesfoundation.org/og-image.jpg";
+  // Bulletrpoof URL generation
+  let finalImageUrl = "https://ghinesfoundation.org/og-image.jpg";
+  
+  if (post.image && post.image.asset) {
+    try {
+      // Simplest form to avoid the ".width is not a function" error
+      finalImageUrl = urlFor(post.image).url();
+    } catch (e) {
+      console.error("Sanity Image Error:", e);
+    }
+  }
 
   return {
     props: {
@@ -77,8 +84,9 @@ export async function getStaticProps({ params }) {
         author: post.author || 'The Ghines Foundation',
         publishedDate: post.publishedDate,
         description: post.description || "Every Action, Big or Small, Counts.",
-        ogImageUrl: finalImageUrl, // This is now a pure string
-        image: urlFor(post.image).url(), // For the component display
+        ogImageUrl: finalImageUrl,
+        // Passing string directly to avoid component-side builder errors
+        image: post.image ? urlFor(post.image).url() : null, 
         content: post.content || [],
       }
     },
