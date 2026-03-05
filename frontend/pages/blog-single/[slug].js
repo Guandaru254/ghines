@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Head from 'next/head'; // Added for dynamic metadata
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
@@ -14,8 +15,32 @@ const BlogDetails = ({ post }) => {
     );
   }
 
+  // Construct the image URL safely
+  const ogImage = post.image ? post.image.url() : "https://ghinesfoundation.org/og-image.jpg";
+
   return (
     <Fragment>
+      <Head>
+        {/* Dynamic Title and Description */}
+        <title>{post.title} | Ghines Foundation</title>
+        <meta name="description" content={post.description || "Every Action, Big or Small, Counts."} />
+
+        {/* Open Graph / Facebook / WhatsApp */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta property="og:url" content={`https://ghinesfoundation.org/blog-single/${post.slug}`} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="twitter:image" content={ogImage} />
+      </Head>
+
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
       <BlogSingle post={post} />
       <Scrollbar />
