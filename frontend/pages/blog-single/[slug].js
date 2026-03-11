@@ -1,14 +1,18 @@
 import React, { Fragment } from 'react';
-import Head from 'next/head'; 
+import Head from 'next/head';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
-import { client, urlFor } from '../../lib/sanity';
+import { client } from '../../lib/sanity'; // ← NO urlFor import here
+import imageUrlBuilder from '@sanity/image-url'; // ← Raw builder, bypasses your wrapper
+
+// Build a FRESH builder instance just for SEO — no wrapper, no .url() confusion
+const builder = imageUrlBuilder(client);
 
 const BlogDetails = ({ post, seoImageUrl }) => {
   if (!post) return null;
 
-  const fallback = "https://ghinesfoundation.org/og-image.jpg";
+  const fallback = 'https://ghinesfoundation.org/og-image.jpg';
   const ogImage = seoImageUrl || fallback;
   const pageUrl = `https://ghinesfoundation.org/blog-single/${post.slug}`;
 
@@ -16,13 +20,12 @@ const BlogDetails = ({ post, seoImageUrl }) => {
     <Fragment>
       <Head>
         <title>{post.title} | Ghines Foundation</title>
-        <meta name="description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="description" content={post.description || 'Every Action, Big or Small, Counts.'} />
 
-        {/* OpenGraph - LinkedIn, WhatsApp, Facebook */}
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Ghines Foundation" />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta property="og:description" content={post.description || 'Every Action, Big or Small, Counts.'} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:secure_url" content={ogImage} />
@@ -31,12 +34,10 @@ const BlogDetails = ({ post, seoImageUrl }) => {
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={post.title} />
 
-        {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || "Every Action, Big or Small, Counts."} />
+        <meta name="twitter:description" content={post.description || 'Every Action, Big or Small, Counts.'} />
         <meta name="twitter:image" content={ogImage} />
-        <meta name="twitter:image:alt" content={post.title} />
       </Head>
 
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
@@ -69,39 +70,26 @@ export async function getStaticProps({ params }) {
   }`;
 
   const post = await client.fetch(query, { slug: params.slug });
-
   if (!post) return { notFound: true };
 
-  // --- SEO Image: built as a plain string, isolated from the UI post object ---
-  let seoImageUrl = "https://ghinesfoundation.org/og-image.jpg";
+  // ── SEO Image: built raw, never touches your urlFor wrapper ──
+  let seoImageUrl = 'https://ghinesfoundation.org/og-image.jpg';
 
   if (post?.image?.asset?._ref) {
     try {
-      // Step 1: Try the safest possible call — no .width(), no .height()
-      const rawUrl = urlFor(post.image).url();
-
-      // Step 2: Log it so you can verify it's the right image, not the logo
-      console.log(`[SEO] Resolved image for "${params.slug}":`, rawUrl);
-
-      if (rawUrl) {
-        // Step 3: Append Sanity's image transform params directly in the URL
-        // This avoids .width() method crashes entirely
-        seoImageUrl = `${rawUrl}?w=1200&h=630&fit=crop&auto=format`;
-      }
-    } catch (error) {
-      console.error(`[SEO] urlFor failed for slug "${params.slug}":`, error.message);
-      // Falls back to the site logo — build will NOT crash
+      // builder.image() returns a builder object — .url() is called HERE, once
+      const url = builder.image(post.image).width(1200).height(630).fit('crop').url();
+      console.log('[SEO] Image URL:', url);
+      if (url) seoImageUrl = url;
+    } catch (e) {
+      console.error('[SEO] Builder failed:', e.message);
     }
   } else {
-    // This log tells you if the post simply has no image in Sanity
-    console.warn(`[SEO] No image asset found for slug: "${params.slug}"`);
+    console.warn('[SEO] No image asset ref for slug:', params.slug);
   }
 
   return {
-    props: {
-      post,        // Full object → BlogSingle renders correctly
-      seoImageUrl, // Plain string → <Head> og:image tags only
-    },
+    props: { post, seoImageUrl },
     revalidate: 10,
   };
 }
