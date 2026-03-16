@@ -3,11 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  // Forces Vercel to do a completely fresh rebuild of all static pages every deployment
-  generateBuildId: async () => {
-    return `build-${Date.now()}`;
-  },
-
   images: {
     remotePatterns: [
       {
@@ -33,7 +28,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig;
-```
-
-Push this, wait for Vercel to finish, then open:
-```
