@@ -20,25 +20,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <div>
       <Head>
-        {/* Basic Meta Tags */}
+        {/* Global tags only - NO og:url, og:image or og:title here */}
+        {/* Each page manages its own og tags to prevent homepage overriding blog pages */}
         <title>Ghines Foundation | Every Action Counts</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Every Action, Big or Small, Counts." />
-        
-        {/* Open Graph / Facebook / WhatsApp */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ghinesfoundation.org/" />
-        <meta property="og:title" content="Ghines Foundation" />
-        <meta property="og:description" content="Every Action, Big or Small, Counts." />
-        <meta property="og:image" content="https://ghinesfoundation.org/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ghines Foundation" />
-        <meta name="twitter:description" content="Every Action, Big or Small, Counts." />
-        <meta name="twitter:image" content="https://ghinesfoundation.org/og-image.jpg" />
       </Head>
 
       <Provider store={store}>
