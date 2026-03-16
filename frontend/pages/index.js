@@ -21,7 +21,6 @@ const HomePage = ({ posts }) => {
             <EventSection />
             <BlogPreview posts={posts} /> 
             <Scrollbar />
-            <Footer />
         </Fragment>
     );
 };
