@@ -14,27 +14,37 @@ const BlogDetails = ({ post, seoImageUrl }) => {
   const fallback = 'https://ghinesfoundation.org/og-image.jpg';
   const ogImage = seoImageUrl || fallback;
   const pageUrl = `https://ghinesfoundation.org/blog-single/${post.slug}`;
+  
+  // Use full description or generate one long enough for LinkedIn (100+ chars)
+  const metaDescription = post.description && post.description.length >= 100
+    ? post.description
+    : `${post.title} — Read the latest news and stories from the Ghines Foundation. Every Action, Big or Small, Counts.`;
 
   return (
     <Fragment>
       <Head>
         <title>{post.title} | Ghines Foundation</title>
-        <meta name="description" content={post.description || 'Every Action, Big or Small, Counts.'} />
+        <meta name="description" content={metaDescription} />
+
+        {/* OpenGraph */}
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Ghines Foundation" />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description || 'Every Action, Big or Small, Counts.'} />
+        <meta property="og:title" content={`${post.title} | Ghines Foundation`} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:secure_url" content={ogImage} />
-        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={post.title} />
+
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.description || 'Every Action, Big or Small, Counts.'} />
+        <meta name="twitter:title" content={`${post.title} | Ghines Foundation`} />
+        <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={post.title} />
       </Head>
 
       <PageTitle pageTitle={post.title} pagesub="News & Stories" />
