@@ -3,10 +3,9 @@ import Head from 'next/head';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import BlogSingle from '../../components/BlogDetails/BlogSingle';
-import { client } from '../../lib/sanity'; // ← NO urlFor import here
-import imageUrlBuilder from '@sanity/image-url'; // ← Raw builder, bypasses your wrapper
+import { client } from '../../lib/sanity';
+import imageUrlBuilder from '@sanity/image-url';
 
-// Build a FRESH builder instance just for SEO — no wrapper, no .url() confusion
 const builder = imageUrlBuilder(client);
 
 const BlogDetails = ({ post, seoImageUrl }) => {
@@ -21,7 +20,6 @@ const BlogDetails = ({ post, seoImageUrl }) => {
       <Head>
         <title>{post.title} | Ghines Foundation</title>
         <meta name="description" content={post.description || 'Every Action, Big or Small, Counts.'} />
-
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Ghines Foundation" />
         <meta property="og:title" content={post.title} />
@@ -33,7 +31,6 @@ const BlogDetails = ({ post, seoImageUrl }) => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={post.title} />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description || 'Every Action, Big or Small, Counts.'} />
@@ -72,14 +69,12 @@ export async function getStaticProps({ params }) {
   const post = await client.fetch(query, { slug: params.slug });
   if (!post) return { notFound: true };
 
-  // ── SEO Image: built raw, never touches your urlFor wrapper ──
   let seoImageUrl = 'https://ghinesfoundation.org/og-image.jpg';
 
   if (post?.image?.asset?._ref) {
     try {
-      // builder.image() returns a builder object — .url() is called HERE, once
       const url = builder.image(post.image).width(1200).height(630).fit('crop').url();
-      console.log('[SEO] Image URL:', url);
+      console.log('[SEO] Resolved image:', url);
       if (url) seoImageUrl = url;
     } catch (e) {
       console.error('[SEO] Builder failed:', e.message);

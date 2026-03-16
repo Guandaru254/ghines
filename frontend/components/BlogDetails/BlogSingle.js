@@ -4,16 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
 import logo2 from '/public/images/logo-2.svg';
+import { urlFor } from '../../lib/sanity'; // ← THIS is the fix for the page image
 
 const BlogSingle = ({ post, ...props }) => {
   const ClickHandler = () => window.scrollTo(10, 0);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    comment: '',
-  });
-
+  const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [validator] = useState(new SimpleReactValidator());
 
   const handleChange = (e) => {
@@ -36,19 +32,21 @@ const BlogSingle = ({ post, ...props }) => {
     return <div style={{ padding: '100px', textAlign: 'center' }}>No post found</div>;
   }
 
+  // Convert Sanity image object → URL string for the <img> tag
+  const imageUrl = post.image?.asset ? urlFor(post.image) : null;
+
   return (
     <section className={`blog-single-section section-padding ${props.blSclass || ''}`}>
       <div className="container">
         <div className="row">
-
           <div className={`col col-lg-8 col-12 ${props.blRight || ''}`}>
             <div className="blog-content">
 
-              {/* Featured Image */}
+              {/* Featured Image — now uses resolved URL string */}
               <div className="entry-media">
-                {post.image && (
-                  <img 
-                    src={post.image}
+                {imageUrl && (
+                  <img
+                    src={imageUrl}
                     alt={post.title}
                     style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover', borderRadius: '8px' }}
                   />
@@ -78,13 +76,13 @@ const BlogSingle = ({ post, ...props }) => {
 
               {/* Description */}
               {post.description && (
-                <div style={{ 
-                  fontSize: '18px', 
-                  fontStyle: 'italic', 
-                  borderLeft: '4px solid #4a9fda', 
-                  paddingLeft: '20px', 
+                <div style={{
+                  fontSize: '18px',
+                  fontStyle: 'italic',
+                  borderLeft: '4px solid #4a9fda',
+                  paddingLeft: '20px',
                   marginBottom: '30px',
-                  color: '#555' 
+                  color: '#555'
                 }}>
                   {post.description}
                 </div>
@@ -104,10 +102,8 @@ const BlogSingle = ({ post, ...props }) => {
               {/* Comments */}
               <div id="comments" className="comments-area">
                 <h3 className="comments-title">0 Comments so far</h3>
-
                 <div className="comment-respond">
                   <h3 className="comment-reply-title">Leave a Comment</h3>
-
                   <form className="comment-form" onSubmit={handleSubmit}>
                     <input
                       name="name"
@@ -116,7 +112,6 @@ const BlogSingle = ({ post, ...props }) => {
                       onChange={handleChange}
                     />
                     {validator.message('name', formData.name, 'required|alpha')}
-
                     <input
                       name="email"
                       placeholder="Your email*"
@@ -124,7 +119,6 @@ const BlogSingle = ({ post, ...props }) => {
                       onChange={handleChange}
                     />
                     {validator.message('email', formData.email, 'required|email')}
-
                     <textarea
                       name="comment"
                       placeholder="Your comment*"
@@ -132,7 +126,6 @@ const BlogSingle = ({ post, ...props }) => {
                       onChange={handleChange}
                     />
                     {validator.message('comment', formData.comment, 'required')}
-
                     <button className="theme-btn" type="submit">
                       Send Message
                     </button>
