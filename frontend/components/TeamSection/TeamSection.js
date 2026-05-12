@@ -12,7 +12,7 @@ const ClickHandler = () => {
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
-    visible: (i = 1) => ({
+    visible: (i = 0) => ({
         opacity: 1,
         y: 0,
         transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
@@ -20,100 +20,160 @@ const fadeUp = {
 };
 
 const TeamSection = ({ hclass }) => {
-    const Team = Array.isArray(RawTeam)
-        ? RawTeam
-        : Array.isArray(RawTeam?.default)
-        ? RawTeam.default
-        : [];
+    const Team = Array.isArray(RawTeam) ? RawTeam : RawTeam?.default || [];
 
-    if (!Array.isArray(Team) || Team.length === 0) {
+    if (Team.length === 0) return null;
+
+    const boardMembers = Team.slice(0, 4); 
+    const partners = Team.slice(4);
+
+    const renderCard = (member, index) => {
+        const isPartner = index >= 4; 
+        const hasLink = member.slug && member.slug.trim() !== "";
+        
         return (
-            <section className={hclass || "volunteer-section section-padding"}>
-                <div className="container text-center py-5">
-                    <h3 className="text-danger mb-2">No Team Members Found</h3>
-                </div>
-            </section>
-        );
-    }
-
-    const boardOfDirectors = Team.slice(0, 3);
-    const operationalTeam = Team.slice(3);
-    const boardRow1 = boardOfDirectors;
-
-    const renderTeamGroup = (members, startIndex) => {
-        return members.map((member, i) => {
-            const actualIndex = startIndex + i;
-            const hasLink = member.slug && member.slug.trim() !== "";
-            const showSnippetAndLink = member.snippet && member.snippet.trim() !== "";
-            const snippet = showSnippetAndLink ? member.snippet : "";
-
-            // 🎯 THE LOGIC: If index is 0, 1, or 2 (The Board), we use "contain" to see the full image.
-            const isTopThree = actualIndex < 3;
-
-            return (
-                <motion.div
-                    className="col-lg-4 col-md-6 col-12"
-                    key={member.id}
-                    custom={actualIndex}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeUp}
-                >
-                    <div className="vol-card team-board-card">
-                        <div className="image">
-                            <Image
-                                src={member.timg}
-                                alt={member.title}
-                                width={400}
-                                height={500}
-                                priority
-                                style={{
-                                    // 🎯 THE FIX: "contain" ensures the full portrait is visible
-                                    objectFit: isTopThree ? "contain" : "cover",
-                                    objectPosition: "center top",
-                                    width: "100%",
-                                    height: "100%"
-                                }}
-                            />
-                        </div>
-                        <div className="text" style={{ backgroundColor: "#fff", textAlign: "center", padding: "15px 10px" }}>
-                            <h3 className="member-name">
-                                {hasLink ? ( 
-                                    <Link href={`/board-single/${member.slug}`} onClick={ClickHandler}>
-                                        {member.title}
-                                    </Link>
-                                ) : (
-                                    <span>{member.title}</span>
+            <motion.div
+                className="col-lg-4 col-md-6 col-sm-12 mb-5 d-flex" 
+                key={member.id}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={fadeUp}
+            >
+                <div className="vol-card shadow-sm w-100" style={{ 
+                    border: "none", 
+                    borderRadius: "12px", 
+                    overflow: "hidden", 
+                    display: "flex", 
+                    flexDirection: "column",
+                    background: "#fff" 
+                }}>
+                    <div className="image-container" style={{ 
+                        height: "400px", 
+                        width: "100%",
+                        overflow: 'hidden', 
+                        backgroundColor: '#f4f4f4',
+                        position: 'relative' 
+                    }}>
+                        <Image
+                            src={member.timg}
+                            alt={member.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            priority={index < 3}
+                            style={{
+                                objectFit: isPartner ? "contain" : "cover",
+                                objectPosition: "top center", 
+                                padding: isPartner ? "50px" : "0", 
+                            }}
+                        />
+                    </div>
+                    
+                    <div className="text-content" style={{ 
+                        padding: "35px 30px", 
+                        textAlign: "center",
+                        flexGrow: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "space-between" // 🎯 Ensures footer stays at the bottom
+                    }}>
+                        <div style={{ width: "100%" }}>
+                            {/* 🎯 TITLES: Fixed height ensures roles start at the same line */}
+                            <div style={{ minHeight: "60px", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <h3 style={{ margin: 0, fontSize: "1.35rem", lineHeight: "1.2", textAlign: "center" }}>
+                                    {hasLink ? (
+                                        <Link href={`/board-single/${member.slug}`} onClick={ClickHandler} style={{ color: "#222", textDecoration: "none", fontWeight: "700" }}>
+                                            {member.title}
+                                        </Link>
+                                    ) : (
+                                        <span style={{ fontWeight: "700", color: "#222" }}>{member.title}</span>
+                                    )}
+                                </h3>
+                            </div>
+                            
+                            {/* 🎯 ROLES: Fixed height ensures paragraphs start at the same line */}
+                            <div style={{ minHeight: "40px", marginBottom: "15px", display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <p style={{ 
+                                    color: "#5dade2", 
+                                    fontSize: "0.85rem", 
+                                    fontWeight: "700",
+                                    textTransform: "uppercase", 
+                                    letterSpacing: "1.2px",
+                                    margin: 0,
+                                    textAlign: "center"
+                                }}>
+                                    {member.subtitle || "Strategic Partner"}
+                                </p>
+                            </div>
+                            
+                            {/* 🎯 PARAGRAPHS: Justified alignment to fix "rugged" edges */}
+                            <div style={{ flexGrow: 1, width: "100%" }}>
+                                {member.snippet && (
+                                    <p style={{ 
+                                        fontSize: "0.95rem", 
+                                        color: "#555", 
+                                        lineHeight: "1.7", 
+                                        textAlign: "justify", // 🎯 FIX: Removes rugged right edges
+                                        textJustify: "inter-word",
+                                        margin: "0 auto",
+                                        maxWidth: "100%",
+                                        hyphens: "auto"
+                                    }}>
+                                        {member.snippet}
+                                    </p>
                                 )}
-                            </h3>
-                            <span className="member-role">{member.subtitle}</span>
-                            {snippet && <div className="quote-text">{snippet}</div>}
-                            {showSnippetAndLink && (
-                                <Link href={`/board-single/${member.slug}`} onClick={ClickHandler} className="read-more-btn">
+                            </div>
+                        </div>
+
+                        {hasLink && (
+                            <div style={{ marginTop: "25px", borderTop: "1px solid #eee", paddingTop: "20px", width: "100%" }}>
+                                <Link 
+                                    href={`/board-single/${member.slug}`} 
+                                    onClick={ClickHandler} 
+                                    style={{ 
+                                        color: "#5dade2", 
+                                        textDecoration: "none", 
+                                        fontWeight: "700",
+                                        fontSize: "0.9rem",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "8px"
+                                    }}
+                                >
                                     View Full Profile <i className="fa fa-long-arrow-right"></i>
                                 </Link>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
-                </motion.div>
-            );
-        });
+                </div>
+            </motion.div>
+        );
     };
-// ... keep everything at the top the same ...
 
     return (
-        <section className={hclass || "volunteer-section section-padding"} style={{ overflow: "hidden" }}>
+        <section className={hclass || "section-padding"} style={{ backgroundColor: "#fafafa" }}>
             <div className="container">
-                {/* SECTION 1: OUR BOARD */}
-                <div className="row team-board mb-5 pb-4 justify-content-center"> 
-                    {renderTeamGroup(boardRow1, 0)}
+                <div className="row justify-content-center mb-5">
+                    <div className="col-12 text-center mb-5">
+                        <h2 style={{ fontWeight: "900", fontSize: "2.8rem", color: "#1a1a1a", letterSpacing: "-1px" }}>Our Board</h2>
+                        <div style={{ width: "60px", height: "4px", background: "#5dade2", margin: "15px auto" }}></div>
+                    </div>
+                    <div className="row g-4 justify-content-center">
+                        {boardMembers.map((m, i) => renderCard(m, i))}
+                    </div>
                 </div>
 
-                {/* SECTION 2: OUR PARTNERS */}
-                {/* 🎯 Added 'partners-row' here to separate it from the board logic */}
-                <div className="row team-board justify-content-center partners-row"> 
-                    {renderTeamGroup(operationalTeam, boardOfDirectors.length)} 
+                <div className="row justify-content-center mt-5">
+                    <div className="col-12 text-center mb-5">
+                        <h2 style={{ fontWeight: "900", fontSize: "2.8rem", color: "#1a1a1a", letterSpacing: "-1px" }}>Our Partners</h2>
+                        <div style={{ width: "60px", height: "4px", background: "#5dade2", margin: "15px auto" }}></div>
+                    </div>
+                    <div className="row g-4 justify-content-center">
+                        {partners.map((m, i) => renderCard(m, i + 4))}
+                    </div>
                 </div>
             </div>
         </section>

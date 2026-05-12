@@ -6,16 +6,15 @@ import Scrollbar from "../../components/scrollbar/scrollbar";
 export default function BoardPage() {
   return (
     <Fragment>
-      {/* Page Header */}
-      <PageTitle
-        pageTitle="Our Leadership"
-        pagesub="About"
+      <PageTitle 
+        pageTitle="Leadership" 
+        pagesub="About Us" 
       />
 
-      {/* Board Members Section */}
-      <TeamSection hclass="volunteer-section section-padding" />
+      <main style={{ backgroundColor: "#fff" }}>
+        <TeamSection hclass="volunteer-section section-padding" />
+      </main>
 
-      {/* Scroll To Top */}
       <Scrollbar />
     </Fragment>
   );
