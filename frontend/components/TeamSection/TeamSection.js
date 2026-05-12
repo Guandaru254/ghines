@@ -158,8 +158,6 @@ const TeamSection = ({ hclass }) => {
             <div className="container">
                 <div className="row justify-content-center mb-5">
                     <div className="col-12 text-center mb-5">
-                        <h2 style={{ fontWeight: "900", fontSize: "2.8rem", color: "#1a1a1a", letterSpacing: "-1px" }}>Our Board</h2>
-                        <div style={{ width: "60px", height: "4px", background: "#5dade2", margin: "15px auto" }}></div>
                     </div>
                     <div className="row g-4 justify-content-center">
                         {boardMembers.map((m, i) => renderCard(m, i))}

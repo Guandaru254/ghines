@@ -7,7 +7,7 @@ export default function BoardPage() {
   return (
     <Fragment>
       <PageTitle 
-        pageTitle="Leadership" 
+        pageTitle="Our Leadership" 
         pagesub="About Us" 
       />
 
